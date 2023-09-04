@@ -1,5 +1,5 @@
 import Cliente from '../Models/Cliente.js'
-import conectar from './Conexao.Js'
+import conectar from '../Conexao.js'
 export default class ClienteBase {
 
     async incluir(cliente) {

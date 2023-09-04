@@ -1,4 +1,4 @@
-import ClienteBase from "../Repository/ClienteBase";
+import ClienteBase from "../Repository/ClienteBase.js";
 export default class Cliente {
 
     #cpf;
