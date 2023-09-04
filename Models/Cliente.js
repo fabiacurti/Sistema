@@ -22,70 +22,69 @@ export default class Cliente {
     }
 
     get cpf() {
-        this.#cpf;
+        return this.#cpf;
     }
-
+    
     set cpf(novoCpf) {
-
         this.#cpf = novoCpf;
     }
-
+    
     get nome() {
         return this.#nome;
     }
-
+    
     set nome(novoNome) {
         this.#nome = novoNome;
     }
-
+    
     get endereco() {
-        this.#endereco;
+        return this.#endereco;
     }
-
+    
     set endereco(novoEndereco) {
         this.#endereco = novoEndereco;
     }
-
+    
     get bairro() {
-
-        this.#bairro;
+        return this.#bairro;
     }
-
+    
     set bairro(novoBairro) {
         this.#bairro = novoBairro;
     }
-
+    
     get cidade() {
-        this.#cidade;
+        return this.#cidade;
     }
-
+    
     set cidade(novaCidade) {
         this.#cidade = novaCidade;
     }
-
+    
     get uf() {
-        this.#uf;
+        return this.#uf;
     }
-
+    
     set uf(novoUF) {
         this.#uf = novoUF;
     }
-
+    
     get telefone() {
-        this.#telefone;
+        return this.#telefone;
     }
-
+    
     set telefone(novoTelefone) {
         this.#telefone = novoTelefone;
     }
-
+    
     get email() {
-        this.#email;
+        return this.#email;
     }
-
+    
     set email(novoEmail) {
         this.#email = novoEmail;
     }
+    
 
     toJSON() {
         return {

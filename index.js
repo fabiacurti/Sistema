@@ -1,7 +1,7 @@
 import Cliente from "./Models/Cliente.js";
 
 let objcliente = new Cliente(
-    '48791345899',
+    '111111111',
     'Fábia',
     'rua 6',
     'Barvelly  Hills',
