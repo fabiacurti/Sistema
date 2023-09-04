@@ -7,11 +7,10 @@ export default class Produto {
         this.#codigo = codigo;
         this.#descricao = descricao;
         this.#qtdEstoque = qtdEstoque;
-
     }
 
     get codigo() {
-        this.#codigo;
+        return this.#codigo;
     }
 
     set codigo(novoCodigo) {
@@ -19,29 +18,26 @@ export default class Produto {
     }
 
     get descricao() {
-        this.#descricao;
+        return this.#descricao;
     }
 
     set descricao(novaDescricao) {
         this.#descricao = novaDescricao;
+    }
 
-    }
     get qtdEstoque() {
-        this.#qtdEstoque
+        return this.#qtdEstoque;
     }
+
     set qtdEstoque(novaQtdEstoque) {
         this.#qtdEstoque = novaQtdEstoque;
-
     }
 
     toJSON() {
         return {
-            "codigo":this.#codigo,
-            "descricao":this.#descricao,
-            "quantidade_estoque":this.#qtdEstoque
-
-
-        }
+            "codigo": this.#codigo,
+            "descricao": this.#descricao,
+            "quantidade_estoque": this.#qtdEstoque
+        };
     }
-
 }
