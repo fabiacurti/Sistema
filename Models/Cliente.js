@@ -1,3 +1,4 @@
+import ClienteBase from "../Repository/ClienteBase";
 export default class Cliente {
 
     #cpf;
@@ -100,5 +101,32 @@ export default class Cliente {
         }
     }
 
+
+    async gravar() {
+        const clienteDB = new ClienteBase();
+
+        await clienteDB.incluir(this);
+    }
+
+    async atualizar() {
+        const clienteDB = new ClienteBase();
+        await clienteDB.atualizar(this);
+    }
+    async removerDado(){
+        const clienteDB = new ClienteBase();
+        await clienteDB.excluir(this);
+
+    }
+    async consultar(termo){
+        const clienteDB = new ClienteBase();
+        const clientes = await clienteDB.consultar(termo);
+        return clientes;
+    }
+
+    async consultarCPF(cpf){
+        const clienteDB = new ClienteBase();
+        const clientes = await clienteDB.consultarCPF(cpf);
+        return clientes;
+    }
 
 }

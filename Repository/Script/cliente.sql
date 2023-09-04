@@ -9,3 +9,4 @@ CREATE TABLE Cliente (
     Email VARCHAR(255),
     PRIMARY KEY (CPF)
 );
+

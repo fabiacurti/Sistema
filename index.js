@@ -10,4 +10,8 @@ let objcliente = new Cliente(
     '19 32463625',
     'fcurti1998@gmail.com')
 
-    console.log(objcliente.toJSON());
+objcliente.nome = 'Joana da Silva ';
+
+objcliente.gravar().then(()=>{
+    console.log("O cliente foi gravado com sucesso!");
+})
