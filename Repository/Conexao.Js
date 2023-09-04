@@ -1,19 +1,23 @@
 import mysql from 'mysql2/promise';
 
+let conexao = null;
 
 export default async function conectar() {
-    if (global.conexao && global.conexao.status != "disconnected") {
-        return global.conexao;
+    if (conexao && conexao.state !== 'disconnected') {
+        return conexao;
     }
-    const conexao = await mysql.createConnection({
 
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "backend"   
-     });
-
-     global.conexao=conexao;
-
-     return conexao;
+    try {
+        conexao = await mysql.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "backend"
+        });
+        console.log('Conexão com o banco de dados estabelecida com sucesso.');
+        return conexao;
+    } catch (error) {
+        console.error('Erro ao conectar ao banco de dados:', error);
+        throw error; 
+    }
 }
