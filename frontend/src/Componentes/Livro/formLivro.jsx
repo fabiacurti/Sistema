@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from "react";
 import LivroService from "../services/livroService";
+import GeneroService from '../services/GeneroService';
+import EditoraService from '../services/EditoraService.js';
+
 const livroService = new LivroService();
+const editoraService = new EditoraService();
 
 function FormLivro({ selectedLivro, onUpdate }) {
+  const [generos, setGeneros] = useState([{
+    codigo: 0,
+    descricao: " Nenhum genero encontrado"
+  }])
+  const [editoras, setEditora] = useState([{
+    codigo: 0,
+    Nome: " Nenhuma editora encontrada"
+  }]);
   const [livroData, setLivroData] = useState({
     NomeLivro: "",
     codigoLivro: "",
@@ -12,13 +24,43 @@ function FormLivro({ selectedLivro, onUpdate }) {
     dataPublicacao: "",
   });
 
-  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    const fetchGeneros = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/genero');
+        const data = await response.json();
+        setGeneros(data);
+      } catch (error) {
+        console.error('Erro ao obter gêneros:', error);
+      }
+    };
+
+    fetchGeneros();
+  }, []);
+  const carregaEditoras = async () => {
+    try {
+      const dados = await editoraService.getAllEditora();
+      setEditora(dados)
+    } catch (error) {
+      console.error('erro ao carregar livros', error)
+    }
+  }
+  useEffect(() => {
+    carregaEditoras()
+
+  }, []);
+
+
 
   useEffect(() => {
     if (selectedLivro != null) {
       setLivroData(selectedLivro);
     }
-  }, [selectedLivro]);
+  }, [selectedLivro])
+    ;
+
+  const [errors, setErrors] = useState({});
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -43,11 +85,6 @@ function FormLivro({ selectedLivro, onUpdate }) {
       valid = false;
     }
 
-
-    if (livroData.editora.trim().length < 3) {
-      newErrors.editora = 'A Editora deve ter no mínimo 3 caracteres';
-      valid = false;
-    }
 
 
     if (!livroData.genero) {
@@ -109,17 +146,6 @@ function FormLivro({ selectedLivro, onUpdate }) {
       </div>
       <div className="formulario fundo">
         <form onSubmit={handleSubmit} className="row g-3 needs-validation">
-          <div className="form-group col-md-5">
-            <label>Nome do Livro:</label>
-            <input
-              type="text"
-              name="NomeLivro"
-              className="form-control"
-              value={livroData.NomeLivro}
-              onChange={handleInputChange}
-            />
-            {errors.NomeLivro && <p style={{ color: "red" }}>{errors.NomeLivro}</p>}
-          </div>
 
           <div className="form-group col-md-5">
             <label>Código do Livro:</label>
@@ -132,6 +158,19 @@ function FormLivro({ selectedLivro, onUpdate }) {
             />
             {errors.codigoLivro && <p style={{ color: "red" }}>{errors.codigoLivro}</p>}
           </div>
+
+          <div className="form-group col-md-5">
+            <label>Nome do Livro:</label>
+            <input
+              type="text"
+              name="NomeLivro"
+              className="form-control"
+              value={livroData.NomeLivro}
+              onChange={handleInputChange}
+            />
+            {errors.NomeLivro && <p style={{ color: "red" }}>{errors.NomeLivro}</p>}
+          </div>
+
 
           <div className="form-group col-md-5">
             <label>Número de Páginas:</label>
@@ -147,14 +186,18 @@ function FormLivro({ selectedLivro, onUpdate }) {
 
           <div className="form-group col-md-5">
             <label>Editora:</label>
-            <input
-              type="text"
+            <select
+              id="editora"
               name="editora"
-              className="form-control"
+              className="form-select"
               value={livroData.editora}
               onChange={handleInputChange}
-            />
-            {errors.editora && <p style={{ color: "red" }}>{errors.editora}</p>}
+            >
+              <option value="">Selecione uma Editora</option>
+              {editoras.map(editora => (
+                <option key={editora.codigo} value={editora.codigo}>{editora.Nome}</option>
+              ))}
+            </select>
           </div>
 
           <div className="form-group col-md-5">
@@ -162,17 +205,14 @@ function FormLivro({ selectedLivro, onUpdate }) {
             <select
               id="genero"
               name="genero"
-              value={livroData.genero}
-              onChange={handleInputChange}
               className="form-select"
+              value={livroData.generos}
+              onChange={handleInputChange}
             >
-              <option selected disabled value="">
-                Selecione o Gênero
-              </option>
-              <option value="Infantil">Infantil</option>
-              <option value="Ficcao">Ficção</option>
-              <option value="Terror">Terror</option>
-              <option value="Fantasia">Fantasia</option>
+              <option value="">Selecione um Genero</option>
+              {generos.map(genero => (
+                <option key={genero.codigo} value={genero.descricao}>{genero.descricao}</option>
+              ))}
             </select>
             {errors.genero && <p style={{ color: "red" }}>{errors.genero}</p>}
           </div>
