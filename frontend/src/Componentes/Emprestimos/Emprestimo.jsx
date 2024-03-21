@@ -11,9 +11,9 @@ function Emprestimo() {
     const [mensagemErro, setMensagemErro] = useState('');
     const [editingId, setEditingId] = useState(null);
     const [editedName, setEditedName] = useState('');
-    const [idUsuario, setIdUsuario] = useState(''); 
+    const [idUsuario, setIdUsuario] = useState('');
     const [dataEmprestimo, setDataEmprestimo] = useState('');
-    const [dataDevolucao, setDataDevolucao] = useState(''); 
+    const [dataDevolucao, setDataDevolucao] = useState('');
     const emprestimoService = new EmprestimoService();
 
     useEffect(() => {
@@ -22,8 +22,8 @@ function Emprestimo() {
                 const response = await emprestimoService.obterListaEmprestimo(); // Usando o serviço para obter os gêneros
                 setEmprestimos(response);
             } catch (error) {
-                console.error('Erro ao obter gêneros:', error);
-                setMensagemErro('Erro ao obter gêneros do servidor.');
+                console.error('Erro ao obter o empréstimo:', error);
+                setMensagemErro('Erro ao obter a lista de empréstimos do servidor.');
             }
         };
 
@@ -124,7 +124,7 @@ function Emprestimo() {
                             type="button"
                             onClick={handleCadastrar}
                         >
-                           Pesquisar
+                            Pesquisar
                         </button>
                         <button
                             className="btn btn-secondary"
@@ -155,15 +155,14 @@ function Emprestimo() {
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID do Empréstimo</th>
-                                        <th scope="col">ID do Livro</th>
-                                        <th scope="col">ID do Usuário</th>
+                                        <th scope="col">Empréstimo</th>
+                                        <th scope="col">IdLivro</th>
+                                        <th scope="col">IdUsuario</th>
                                         <th scope="col">Data do Empréstimo</th>
                                         <th scope="col">Data de Devolução</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">Nome do Livro</th>
-                                        <th scope="col">Nome do Usuário</th>
-                                        <th scope="col">Ações</th>
+                                        <th scope="col">Livro</th>
+                                        <th scope="col">Usuário</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -172,11 +171,11 @@ function Emprestimo() {
                                             <td>{emprestimo.id}</td>
                                             <td>{emprestimo.idLivro}</td>
                                             <td>{emprestimo.idUsuario}</td>
-                                            <td>{emprestimo.dataEmprestimo}</td>
-                                            <td>{emprestimo.dataDevolucao}</td>
-                                            <td>{emprestimo.isAtivo ? 'Ativo' : 'Inativo'}</td>
+                                            <td>{new Date(emprestimo.dataEmprestimo).toLocaleDateString()}</td>
+                                            <td>{new Date(emprestimo.dataDevolucao).toLocaleDateString()}</td>
                                             <td>{emprestimo.NomeLivro}</td>
                                             <td>{emprestimo.NomeUsuario}</td>
+                                            <td>{emprestimo.isAtivo ? 'Ativo' : 'Inativo'}</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -186,13 +185,7 @@ function Emprestimo() {
                         )}
                     </div>
                 </div>
-
-
-
-
             </div>
-
-
         </>
     );
 }
