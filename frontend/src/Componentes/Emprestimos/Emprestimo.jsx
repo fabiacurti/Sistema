@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CabecalhoEmprestimo from './Cabecalho_Emprestimo';
 import './Cabecalho_Emprestimo.css';
-import EmprestimoService from '../services/emprestimoService.js'; // Importando o serviço de empréstimo
+import EmprestimoService from '../services/emprestimoService.js';
 
 function Emprestimo() {
     const [emprestimos, setEmprestimos] = useState([]);
@@ -19,7 +19,7 @@ function Emprestimo() {
     useEffect(() => {
         const fetchEmprestimos = async () => {
             try {
-                const response = await emprestimoService.obterLista(); // Usando o serviço para obter os gêneros
+                const response = await emprestimoService.obterListaEmprestimo(); // Usando o serviço para obter os gêneros
                 setEmprestimos(response);
             } catch (error) {
                 console.error('Erro ao obter gêneros:', error);
