@@ -155,9 +155,6 @@ function Emprestimo() {
                             <table className="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Empréstimo</th>
-                                        <th scope="col">IdLivro</th>
-                                        <th scope="col">IdUsuario</th>
                                         <th scope="col">Data do Empréstimo</th>
                                         <th scope="col">Data de Devolução</th>
                                         <th scope="col">Status</th>
@@ -168,14 +165,11 @@ function Emprestimo() {
                                 <tbody>
                                     {emprestimos.map((emprestimo) => (
                                         <tr key={emprestimo.id}>
-                                            <td>{emprestimo.id}</td>
-                                            <td>{emprestimo.idLivro}</td>
-                                            <td>{emprestimo.idUsuario}</td>
                                             <td>{new Date(emprestimo.dataEmprestimo).toLocaleDateString()}</td>
                                             <td>{new Date(emprestimo.dataDevolucao).toLocaleDateString()}</td>
+                                            <td>{emprestimo.isAtivo ? 'Ativo' : 'Inativo'}</td>
                                             <td>{emprestimo.NomeLivro}</td>
                                             <td>{emprestimo.NomeUsuario}</td>
-                                            <td>{emprestimo.isAtivo ? 'Ativo' : 'Inativo'}</td>
                                         </tr>
                                     ))}
                                 </tbody>
