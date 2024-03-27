@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import CabecalhoEmprestimo from './Cabecalho_Emprestimo';
 import './Cabecalho_Emprestimo.css';
 import EmprestimoService from '../services/emprestimoService.js';
+import LivroService from '../services/livroService.js';
+import AlunoProfessorService from '../services/alunoprofessorService.js';
 
 function Emprestimo() {
     const [emprestimos, setEmprestimos] = useState([]);
-    const [generos, setGeneros] = useState([]);
-    const [codigo, setCodigo] = useState('');
-    const [genero, setGenero] = useState('');
+    const [livros, setLivros] = useState([]);
+    const [alunos, setAlunos] = useState([]);
+    const [codigoLivro, setCodigoLivro] = useState('');
+    const [cpfAluno, setCpfAluno] = useState({});
     const [mensagemErro, setMensagemErro] = useState('');
     const [editingId, setEditingId] = useState(null);
     const [editedName, setEditedName] = useState('');
@@ -15,11 +18,13 @@ function Emprestimo() {
     const [dataEmprestimo, setDataEmprestimo] = useState('');
     const [dataDevolucao, setDataDevolucao] = useState('');
     const emprestimoService = new EmprestimoService();
+    const livroService = new LivroService();
+    const alunoService = new AlunoProfessorService()
 
     useEffect(() => {
         const fetchEmprestimos = async () => {
             try {
-                const response = await emprestimoService.obterListaEmprestimo(); // Usando o serviço para obter os gêneros
+                const response = await emprestimoService.obterListaEmprestimo();
                 setEmprestimos(response);
             } catch (error) {
                 console.error('Erro ao obter o empréstimo:', error);
@@ -27,33 +32,53 @@ function Emprestimo() {
             }
         };
 
+        const fetchLivros = async () => {
+            try {
+                const response = await livroService.getAllLivros();
+                setLivros(response);
+            } catch (error) {
+                console.error('Erro ao obter lista de livros:', error);
+                setMensagemErro('Erro ao obter a lista de livros do servidor.');
+            }
+        };
+
+        const fetchAlunos = async () => {
+            try {
+                const response = await alunoService.getAllAlunoProfessor();
+                if (response.length > 0) {
+                    setCpfAluno(response[0]);
+                }
+                setAlunos(response);
+                setCpfAluno(response);
+            } catch (error) {
+                console.error('Erro ao obter lista de alunos:', error);
+                setMensagemErro('Erro ao obter a lista de alunos do servidor.');
+            }
+        };
+
+        fetchLivros();
+        fetchAlunos();
         fetchEmprestimos();
     }, []);
 
-    // Função para realizar empréstimo
-    const handleEmprestimo = async () => {
+    const handleDelete = async (codigo) => {
         try {
-            // Lógica para realizar o empréstimo
-            // Você pode chamar uma função do serviço relacionada ao empréstimo
-            // Certifique-se de lidar com erros e atualizar o estado conforme necessário
+            await emprestimoService.deletarEmprestimo(codigo);
+            const updatedEmprestimos = emprestimos.filter(emprestimo => emprestimo.codigo !== codigo);
+            setEmprestimos(updatedEmprestimos);
         } catch (error) {
-            console.error('Erro ao realizar empréstimo:', error.message);
-            setMensagemErro('Erro ao realizar empréstimo.');
+            console.error('Erro ao excluir o empréstimo:', error.message);
+            setMensagemErro('Erro ao excluir o empréstimo.');
         }
     };
 
-    const handleExcluir = async (id) => {
-        // Função para excluir o gênero
-        // Adicione a lógica de exclusão aqui, similar ao método handleCadastrar
-    };
-
-    const handleCadastrar = async (id) => {
-        // Função para excluir o gênero
-        // Adicione a lógica de exclusão aqui, similar ao método handleCadastrar
-    };
-    const handleEditar = async () => {
-        // Função para editar o gênero
-        // Adicione a lógica de edição aqui, similar ao método handleCadastrar
+    const handleCadastrar = async () => {
+        try {
+            // Lógica para cadastrar um novo empréstimo
+        } catch (error) {
+            console.error('Erro ao cadastrar empréstimo:', error.message);
+            setMensagemErro('Erro ao cadastrar empréstimo.');
+        }
     };
 
     const handleIniciarEdicao = (id, descricao) => {
@@ -67,31 +92,42 @@ function Emprestimo() {
             <div className="container fundoss">
                 <div className="formulario fundo">
                     <div className="mb-3">
-                        <label htmlFor="codigo" className="form-label">
-                            Código do Livro
+                        <label htmlFor="livro" className="form-label">
+                            Livro
                         </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="codigo"
-                            value={codigo}
-                            onChange={(e) => setCodigo(e.target.value)}
-                        />
+                        <select
+                            className="form-select"
+                            id="livro"
+                            value={codigoLivro}
+                            onChange={(e) => setCodigoLivro(e.target.value)}
+                        >
+                            <option value="">Selecione um livro</option>
+                            {livros.map((livro) => (
+                                <option key={livro.id} value={livro.codigo}>
+                                    {livro.NomeLivro}
+                                </option>
+                            ))}
+                        </select>
                     </div>
-
                     <div className="mb-3">
-                        <label htmlFor="idUsuario" className="form-label">
-                            ID do Usuário
+                        <label htmlFor="aluno" className="form-label">
+                            Aluno
                         </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="idUsuario"
-                            value={idUsuario}
-                            onChange={(e) => setIdUsuario(e.target.value)}
-                        />
+                        <select
+                            className="form-select"
+                            id="aluno"
+                            value={cpfAluno || ''}
+                            onChange={(e) => setCpfAluno(e.target.value)}
+                        >
+                            <option value="">Selecione um aluno</option>
+                            {alunos.map((aluno) => (
+                                <option key={aluno.cpf} value={aluno.cpf}>
+                                    {aluno.Nome}
+                                </option>
+                            ))}
+                        </select>
                     </div>
-
+                    
                     <div className="mb-3">
                         <label htmlFor="dataEmprestimo" className="form-label">
                             Data do Empréstimo
@@ -130,7 +166,7 @@ function Emprestimo() {
                             className="btn btn-secondary"
                             type="button"
                             onClick={() => {
-                                setCodigo('');
+                                setCodigoLivro('');
                                 setIdUsuario('');
                                 setDataEmprestimo('');
                                 setDataDevolucao('');
@@ -140,12 +176,22 @@ function Emprestimo() {
                             Limpar
                         </button>
                     </div>
+                    <div className="mt-3">
+                        <button
+                            className="btn btn-success"
+                            type="button"
+                            onClick={handleCadastrar}
+                        >
+                            Cadastrar Novo Empréstimo
+                        </button>
+                    </div>
 
                     {mensagemErro && (
                         <div className="alert alert-danger mt-3" role="alert">
                             {mensagemErro}
                         </div>
                     )}
+
                 </div>
 
                 <div className="conteudo-extra">
@@ -160,6 +206,7 @@ function Emprestimo() {
                                         <th scope="col">Status</th>
                                         <th scope="col">Livro</th>
                                         <th scope="col">Usuário</th>
+                                        <th scope="col">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -170,6 +217,22 @@ function Emprestimo() {
                                             <td>{emprestimo.isAtivo ? 'Ativo' : 'Inativo'}</td>
                                             <td>{emprestimo.NomeLivro}</td>
                                             <td>{emprestimo.NomeUsuario}</td>
+                                            <td>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleDelete(emprestimo.id)}
+                                                    className="btn btn-danger"
+                                                >
+                                                    Excluir
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleIniciarEdicao(emprestimo)}
+                                                    className="btn btn-primary"
+                                                >
+                                                    Editar
+                                                </button>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>

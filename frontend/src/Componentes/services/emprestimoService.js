@@ -85,6 +85,25 @@ class EmprestimoService {
             throw new Error(`Erro na requisição: ${error.message}`);
         }
     }
+    async filtrar(filtroData) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/registroEmprestimo/filtrar`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(filtroData)
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Erro ao filtrar empréstimo! Status: ${response.status}, Mensagem: ${response.statusText}`);
+            }
+    
+            return response.json();
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 export default EmprestimoService;

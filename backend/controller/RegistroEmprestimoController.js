@@ -43,15 +43,25 @@ class RegistroEmprestimoController {
         }
     }
 
-    async darBaixaEmprestimo(req, res){
-        try{
-            const {id} =req.params;
+    async darBaixaEmprestimo(req, res) {
+        try {
+            const { id } = req.params;
             const dadosRegistroEmprestimo = req.body;
-            await registroEmprestimoModel.darbaixa(id,dadosRegistroEmprestimo);
+            await registroEmprestimoModel.darbaixa(id, dadosRegistroEmprestimo);
             res.status(202).send();
         }
-        catch(error){
+        catch (error) {
             res.status(500).json({ error: error.message });
+        }
+    }
+    async filtrar(req, res) {
+        const filtro = req.body;
+        try {
+            const result = await registroEmprestimoModel.filtrar(filtro);
+            return res.status(200).json(result);
+        } catch (error) {
+            console.error("Erro ao filtrar empréstimos:", error);
+            return res.status(500).json({ error: "Erro interno no servidor" });
         }
     }
 }

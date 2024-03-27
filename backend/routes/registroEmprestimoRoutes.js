@@ -8,5 +8,7 @@ router.post('/',registroEmprestimoController.criarEmprestimo);
 router.delete('/:ID',registroEmprestimoController.deletarEmprestimo);
 router.put('/:ID',registroEmprestimoController.atualizarEmprestimo);
 router.put('/',registroEmprestimoController.darBaixaEmprestimo);
+router.post('/filtrar',registroEmprestimoController.filtrar);
+
 
 module.exports= router;
