@@ -61,30 +61,62 @@ function Emprestimo() {
         fetchEmprestimos();
     }, []);
 
-    const handleDelete = async (codigo) => {
-        try {
-            await emprestimoService.deletarEmprestimo(codigo);
-            const updatedEmprestimos = emprestimos.filter(emprestimo => emprestimo.codigo !== codigo);
-            setEmprestimos(updatedEmprestimos);
-        } catch (error) {
-            console.error('Erro ao excluir o empréstimo:', error.message);
-            setMensagemErro('Erro ao excluir o empréstimo.');
-        }
-    };
-
     const handleCadastrar = async () => {
         try {
-            // Lógica para cadastrar um novo empréstimo
+            const novoEmprestimo = {
+                idLivro: codigoLivro,
+                idUsuario: cpfAluno,
+                dataEmprestimo,
+                dataDevolucao,
+                isAtivo: 1,
+            };
+
+            await emprestimoService.criarEmprestimo(novoEmprestimo);
+
+            setCodigoLivro('');
+            setCpfAluno('');
+            setDataEmprestimo('');
+            setDataDevolucao('');
+            setMensagemErro('');
+
+            const response = await emprestimoService.obterListaEmprestimo();
+            setEmprestimos(response);
         } catch (error) {
             console.error('Erro ao cadastrar empréstimo:', error.message);
             setMensagemErro('Erro ao cadastrar empréstimo.');
         }
     };
 
-    const handleIniciarEdicao = (id, descricao) => {
-        setEditingId(id);
-        setEditedName(descricao);
+
+    const handleEditar = async (id) => {
+        try {
+            const emprestimoParaEditar = emprestimos.find(emprestimo => emprestimo.id === id);
+            if (!emprestimoParaEditar) {
+                console.error('Empréstimo não encontrado para edição.');
+                return;
+            }
+            setEditingId(id);
+            setEditedName(emprestimoParaEditar.NomeLivro); 
+            setCodigoLivro(emprestimoParaEditar.idLivro);
+            setCpfAluno(emprestimoParaEditar.idUsuario);
+            setDataEmprestimo(emprestimoParaEditar.dataEmprestimo);
+            setDataDevolucao(emprestimoParaEditar.dataDevolucao);
+        } catch (error) {
+            console.error('Erro ao iniciar edição:', error.message);
+            setMensagemErro('Erro ao iniciar edição.');
+        }
     };
+    const handleDelete = async (id) => {
+        try {
+            await emprestimoService.deletarEmprestimo(id); 
+            const updatedEmprestimos = emprestimos.filter(emprestimo => emprestimo.id !== id); // Correção: "emprestimo.codigo" para "emprestimo.id"
+            setEmprestimos(updatedEmprestimos);
+        } catch (error) {
+            console.error('Erro ao excluir o empréstimo:', error.message);
+            setMensagemErro('Erro ao excluir o empréstimo.');
+        }
+    };
+    
 
     return (
         <>
@@ -103,11 +135,12 @@ function Emprestimo() {
                         >
                             <option value="">Selecione um livro</option>
                             {livros.map((livro) => (
-                                <option key={livro.id} value={livro.codigo}>
+                                <option key={livro.codigoLivro} value={livro.codigoLivro}>
                                     {livro.NomeLivro}
                                 </option>
                             ))}
                         </select>
+
                     </div>
                     <div className="mb-3">
                         <label htmlFor="aluno" className="form-label">
@@ -127,7 +160,7 @@ function Emprestimo() {
                             ))}
                         </select>
                     </div>
-                    
+
                     <div className="mb-3">
                         <label htmlFor="dataEmprestimo" className="form-label">
                             Data do Empréstimo
@@ -203,7 +236,6 @@ function Emprestimo() {
                                     <tr>
                                         <th scope="col">Data do Empréstimo</th>
                                         <th scope="col">Data de Devolução</th>
-                                        <th scope="col">Status</th>
                                         <th scope="col">Livro</th>
                                         <th scope="col">Usuário</th>
                                         <th scope="col">Ações</th>
@@ -214,7 +246,6 @@ function Emprestimo() {
                                         <tr key={emprestimo.id}>
                                             <td>{new Date(emprestimo.dataEmprestimo).toLocaleDateString()}</td>
                                             <td>{new Date(emprestimo.dataDevolucao).toLocaleDateString()}</td>
-                                            <td>{emprestimo.isAtivo ? 'Ativo' : 'Inativo'}</td>
                                             <td>{emprestimo.NomeLivro}</td>
                                             <td>{emprestimo.NomeUsuario}</td>
                                             <td>
@@ -227,7 +258,7 @@ function Emprestimo() {
                                                 </button>
                                                 <button
                                                     type="button"
-                                                    onClick={() => handleIniciarEdicao(emprestimo)}
+                                                    onClick={() => handleEditar(emprestimo.id)}
                                                     className="btn btn-primary"
                                                 >
                                                     Editar
