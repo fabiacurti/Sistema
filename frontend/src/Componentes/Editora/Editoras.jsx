@@ -13,13 +13,13 @@ const editoraService = new EditoraService();
 
 
 function Editoras() {
-  const [CNPJValido, setCNPJValido] = useState(true);
+  const [cnpjValido, setcnpjValido] = useState(true);
   const [FundacaoValida] = useState(true);
-  const [EmailValido] = useState(true);
+  const [emailValido] = useState(true);
   const [NomeValido] = useState(true);
   const [editora, setEditora] = useState([]);
   const [selectedEditora,setSelectedEditora]=useState(null)
-  const [editoraData,setEditoraData] =useState({Nome:"",Fundacao:"",CNPJ:"",Contato:"",Email:""})
+  const [editoraData,setEditoraData] =useState({Nome:"",fundacao:"",cnpj:"",contato:"",email:""})
 
   
   const handleUpdateFiltro = async (editorasFiltradas) => {
@@ -62,36 +62,36 @@ const handleDelete = async (id) => {
     };
 
 
-  const calcularDigitoVerificador = (CNPJ) => {
+  const calcularDigitoVerificador = (cnpj) => {
     const multiplicadores1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
     const multiplicadores2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
 
-    const calcularDigito = (CNPJ, multiplicadores) => {
+    const calcularDigito = (cnpj, multiplicadores) => {
       let soma = 0;
       for (let i = 0; i < multiplicadores.length; i++) {
-        soma += parseInt(CNPJ[i]) * multiplicadores[i];
+        soma += parseInt(cnpj[i]) * multiplicadores[i];
       }
       const resto = soma % 11;
       return resto < 2 ? 0 : 11 - resto;
     };
 
-    const digito1 = calcularDigito(CNPJ, multiplicadores1);
-    const digito2 = calcularDigito(CNPJ + digito1, multiplicadores2);
+    const digito1 = calcularDigito(cnpj, multiplicadores1);
+    const digito2 = calcularDigito(cnpj + digito1, multiplicadores2);
 
     return `${digito1}${digito2}`;
   };
 
-  const handleCNPJChange = (event) => {
-    const CNPJValue = event.target.value.replace(/\D/g, '');
+  const handlecnpjChange = (event) => {
+    const cnpjValue = event.target.value.replace(/\D/g, '');
 
-    if (CNPJValue.length === 14) {
-      const digitoVerificador = calcularDigitoVerificador(CNPJValue.substr(0, 12));
-      const isCNPJValid = CNPJValue.substr(12, 2) === digitoVerificador;
-      setCNPJValido(isCNPJValid);
-      event.target.setCustomValidity(isCNPJValid ? '' : 'Por favor, digite um CNPJ válido!');
+    if (cnpjValue.length === 14) {
+      const digitoVerificador = calcularDigitoVerificador(cnpjValue.substr(0, 12));
+      const iscnpjValid = cnpjValue.substr(12, 2) === digitoVerificador;
+      setcnpjValido(iscnpjValid);
+      event.target.setCustomValidity(iscnpjValid ? '' : 'Por favor, digite um cnpj válido!');
     } else {
-      setCNPJValido(false);
-      event.target.setCustomValidity('Por favor, digite um CNPJ válido!');
+      setcnpjValido(false);
+      event.target.setCustomValidity('Por favor, digite um cnpj válido!');
     }
   };
 
@@ -117,7 +117,7 @@ const handleDelete = async (id) => {
 
     } 
     handleUpdate()
-    setEditoraData({Nome:"",Fundacao:"",CNPJ:"",Contato:"",Email:""})
+    setEditoraData({Nome:"",fundacao:"",cnpj:"",contato:"",email:""})
 
     
   }  catch (error) {
@@ -162,13 +162,13 @@ const handleUpdate = async ()=> {
       </div>
             
         <div className="form-group col-md-5">
-        <label htmlFor="Fundacao" className="form-label">Data de Fundação:</label>
+        <label htmlFor="fundacao" className="form-label">Data de Fundação:</label>
         <input
           type="date"
           className={`form-control ${FundacaoValida ? '' : 'is-invalid'}`}
-          id="Fundacao"
-          name="Fundacao"
-          value={editoraData.Fundacao}
+          id="fundacao"
+          name="fundacao"
+          value={editoraData.fundacao}
           max={`${new Date().getFullYear() - 10}-${new Date().getMonth().toString().padStart(2, "0")}-${new Date().getDate().toString().padStart(2, "0")}`}
           required
           
@@ -182,18 +182,18 @@ const handleUpdate = async ()=> {
             
             
       <div className="form-group col-md-5">
-        <label htmlFor="CNPJ" className="form-label">
-          CNPJ:
+        <label htmlFor="cnpj" className="form-label">
+          cnpj:
         </label>
         <InputMask
           mask="99.999.999/9999-99"
           maskChar=""
-          className={`form-control ${CNPJValido ? '' : 'is-invalid'}`}
-          id="CNPJ"
-          name="CNPJ"
-          value={editoraData.CNPJ}
-          placeholder="Digite o CNPJ"
-          onBlur={handleCNPJChange}
+          className={`form-control ${cnpjValido ? '' : 'is-invalid'}`}
+          id="cnpj"
+          name="cnpj"
+          value={editoraData.cnpj}
+          placeholder="Digite o cnpj"
+          onBlur={handlecnpjChange}
           maxLength="18"
           required
           onChange={handleInputChange}
@@ -203,32 +203,32 @@ const handleUpdate = async ()=> {
             
             
             <div className="form-group col-md-5">
-              <label htmlFor="Contato" className="form-label">Contato:</label>
+              <label htmlFor="contato" className="form-label">Contato:</label>
               <input
                 type="text"
                 className="form-control"
-                id="Contato"
-                name="Contato"
-                value={editoraData.Contato}
-                placeholder="Digite o Contato"
+                id="contato"
+                name="contato"
+                value={editoraData.contato}
+                placeholder="Digite o contato"
                 
                 onChange={handleInputChange}
                 maxLength="15"
                 required
               />
               <div className="invalid-feedback">
-                Por favor, digite um número de Contato válido!
+                Por favor, digite um número de contato válido!
               </div>
             </div>
             
             <div className="form-group col-md-5">
-              <label htmlFor="Email" className="form-label">E-mail:</label>
+              <label htmlFor="email" className="form-label">E-mail:</label>
               <input
-                type="Email"
-                className={`form-control ${EmailValido ? '' : 'is-invalid'}`}
-                id="Email"
-                name="Email"
-                value={editoraData.Email}
+                type="email"
+                className={`form-control ${emailValido ? '' : 'is-invalid'}`}
+                id="email"
+                name="email"
+                value={editoraData.email}
                 placeholder="name@example.com"
                 required
                 
@@ -293,10 +293,10 @@ const handleUpdate = async ()=> {
                             <tr>
                                 <th>{Edit.id}</th>
                                 <td>{Edit.Nome}</td>
-                                <td>{Edit.Fundacao}</td>
-                                <td>{Edit.CNPJ}</td>
-                                <td>{Edit.Contato}</td>
-                                <td>{Edit.Email}</td>
+                                <td>{Edit.fundacao}</td>
+                                <td>{Edit.cnpj}</td>
+                                <td>{Edit.contato}</td>
+                                <td>{Edit.email}</td>
                                 <td>
                                     <button
                                                 type="button"

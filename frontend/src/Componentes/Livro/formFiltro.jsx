@@ -4,7 +4,7 @@ const livroService = new LivroService();
 
 function FormFiltro({ onUpdate }) {
   const [filtroData, setFiltroData] = useState({
-    NomeLivro: "",
+    nomeLivro: "",
     genero: "Todos",
   });
 
@@ -29,8 +29,8 @@ function FormFiltro({ onUpdate }) {
           
           <input
             type="text"
-            name="NomeLivro"
-            value={filtroData.NomeLivro}
+            name="nomeLivro"
+            value={filtroData.nomeLivro}
             onChange={handleInputChange}
           />&nbsp;&nbsp;&nbsp;&nbsp;
           <select 

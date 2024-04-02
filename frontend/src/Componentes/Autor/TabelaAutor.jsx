@@ -91,13 +91,13 @@ function TabelaAutor({ atualizar }) {
                                 <tr>
                                     <th scope="row ">{autor.ID}</th>
                                     <td >{autor.Nome}</td>
-                                    <td>{autor.Sobrenome}</td>
-                                    <td>{`${new Date(autor.DNascimento).getDate().toString().padStart(2, "0")}/${new Date(autor.DNascimento).getMonth().toString().padStart(2, "0")}/${new Date(autor.DNascimento).getFullYear()}`}
+                                    <td>{autor.sobrenome}</td>
+                                    <td>{`${new Date(autor.dNascimento).getDate().toString().padStart(2, "0")}/${new Date(autor.dNascimento).getMonth().toString().padStart(2, "0")}/${new Date(autor.dNascimento).getFullYear()}`}
                                     </td>
-                                    <td>{autor.CidadeNascimento}</td>
-                                    <td>{autor.Genero}</td>
-                                    <td>{autor.Email}</td>
-                                    <td>{autor.QntObras}</td>
+                                    <td>{autor.cidadeNascimento}</td>
+                                    <td>{autor.genero}</td>
+                                    <td>{autor.email}</td>
+                                    <td>{autor.qntObras}</td>
                                     <td>
                                         <button type='button' onClick={() => handleDelete(autor.ID)} className="btn btn-danger">EXCLUIR</button>
                                         <button type='button' onClick={() => handleEdit(autor)} className="btn btn-primary">EDITAR</button>

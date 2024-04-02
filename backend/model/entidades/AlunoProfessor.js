@@ -4,28 +4,26 @@ const banco= new Database()
 class AlunoProfessor {
     Nome;
     cpf;
-    DataNascimento;
-    Turma;
-    Email;
-    Cidade;
-    Rua;
-    Telefone;
-    Numero;
+    dNascimento;
+    email;
+    cidade;
+    rua;
+    telefone;
     cep;
-    TipoPessoa;
+    tipoPessoa;
 
-    constructor(Nome, cpf, DataNascimento, Turma, Email, Cidade, Rua, Telefone, Numero, cep, TipoPessoa) {
+    constructor(Nome, cpf, dNascimento, Turma, email, cidade, rua, Telefone, Numero, cep, tipoPessoa) {
         this.Nome = Nome,
         this.cpf = cpf,
-        this.DataNascimento = DataNascimento,
+        this.dNascimento = dNascimento,
         this.Turma = Turma
-        this.Email = Email,
-        this.Cidade = Cidade,
-        this.Rua = Rua,
+        this.email = email,
+        this.cidade = cidade,
+        this.rua = rua,
         this.Telefone = Telefone,
         this.Numero = Numero,
         this.cep = cep,
-        this.TipoPessoa = TipoPessoa
+        this.tipoPessoa = tipoPessoa
     }
 
     
@@ -34,12 +32,12 @@ class AlunoProfessor {
         return alunoprofessors;
     }
 
-    async filtrar ({Nome, TipoPessoa}){
-        var sql=`select * from alunoprofessor where Nome like '%${Nome}%' and TipoPessoa=?`
-            if(TipoPessoa=="Todos"){
+    async filtrar ({Nome, tipoPessoa}){
+        var sql=`select * from alunoprofessor where Nome like '%${Nome}%' and tipoPessoa=?`
+            if(tipoPessoa=="Todos"){
                 sql=`select * from alunoprofessor where Nome like '%${Nome}%'`
             }
-            const alunoprofessors =await banco.ExecutaComando(sql,TipoPessoa);
+            const alunoprofessors =await banco.ExecutaComando(sql,tipoPessoa);
             return alunoprofessors
     }
 

@@ -1,58 +1,117 @@
 const Database = require("../database");
 
 const banco = new Database()
-class cadLivro{
-     NomeLivro;
-     codigoLivro;
-     numeroPagina;
-     editora;
-     genero;
-     dataPublicacao;
-     constructor(NomeLivro, codigoLivro, numeroPagina,editora, genero, dataPublicacao){
-        this.NomeLivro=NomeLivro,
-        this.codigoLivro=codigoLivro,
-        this.numeroPagina=numeroPagina,
-        this.editora=editora,
-        this.genero=genero,
-        this.dataPublicacao=dataPublicacao
-     }
+class cadLivro {
+   nomeLivro;
+   cod;
+   id;
+   numeroPagina;
+   editora;
+   genero;
+   dataPublicacao;
+   constructor(nomeLivro, cod, id,numeroPagina, editora, genero, dataPublicacao) {
+      this.nomeLivro = nomeLivro,
+         this.cod = cod,
+         this.id = id,
+         this.numeroPagina = numeroPagina,
+         this.editora = editora,
+         this.genero = genero,
+         this.dataPublicacao = dataPublicacao
+   }
 
-     async getALL(){
-        const livro = await banco.ExecutaComando('select * from cadlivro');
-        return livro;
+   async getALL() {
+      const query = `
+         SELECT
+            cadlivro.nomeLivro,
+            cadlivro.cod,
+            cadlivro.numeroPagina,
+            editoras.id as editora_id,
+            editoras.nome as editora,
+            generos.id AS genero_id,
+            generos.descricao AS genero,
+            cadlivro.dataPublicacao
+         FROM
+            cadlivro
+         INNER JOIN
+            generos ON cadlivro.genero = generos.descricao
+         INNER JOIN
+            editoras ON cadlivro.editora = editoras.nome;
+      `;
+   
+      const livros = await banco.ExecutaComando(query);
+   
+      const livrosFormatados = livros.map(livro => ({
+         nomeLivro: livro.nomeLivro,
+         cod: livro.cod,
+         numeroPagina: livro.numeroPagina,
+         editora: {
+            cod: livro.editora_cod,
+            nome: livro.editora 
+         },
+         genero: {
+            cod: livro.genero_cod,
+            descricao: livro.genero
+         },
+         dataPublicacao: livro.dataPublicacao
+      }));
+   
+      return livrosFormatados;
+   }
 
-     }
+   async create(dadosLivro) {
+      await banco.ExecutaComandoNonQuery('insert into cadlivro set ?', dadosLivro)
+   }
 
-     async buscar({NomeLivro,genero}){
-      var sql= `select * from cadLivro where NomeLivro like '%${NomeLivro}%' and genero=?`
-      if(genero=="Todos"){
+   async update(cod, dadosLivro) {
+      await banco.ExecutaComando('update cadlivro set ? where cod=?', [dadosLivro, cod])
+   }
 
-         sql= `select * from cadLivro where NomeLivro like '%${NomeLivro}%'`
+   async getById(cod) {
+      const query = `
+          SELECT
+              cadlivro.nomeLivro,
+              cadlivro.cod,
+              cadlivro.numeroPagina,
+              editoras.id as editora_id,
+              editoras.nome AS editora,
+              generos.id AS genero_id,
+              generos.descricao AS genero,
+              cadlivro.dataPublicacao
+          FROM
+              cadlivro
+          INNER JOIN
+              generos ON cadlivro.genero = generos.descricao
+          INNER JOIN
+              editoras ON cadlivro.editora = editoras.nome
+          WHERE
+              cadlivro.cod
+      `;
+      const result = await banco.ExecutaComando(query, [cod]);
+      const livro = result[0]
+      const livrosFormatados = {
+         nomeLivro: livro.nomeLivro,
+         cod: livro.cod,
+         numeroPagina: livro.numeroPagina,
+         editora: {
+            cod: livro.editora_cod,
+            nome: livro.editora 
+         }, 
+         genero: {
+            cod: livro.genero_cod,
+            descricao: livro.genero
+         },
+         dataPublicacao: livro.dataPublicacao
+      };
+   
+      return livrosFormatados;
+   }
 
-      }
 
-      const livro =await banco.ExecutaComando(sql,genero);
-      return livro
-     }
 
-     async create(dadosLivro){
-      await banco.ExecutaComandoNonQuery('insert into cadlivro set ?',dadosLivro)
-     }
+   async delete(cod) {
+      await banco.ExecutaComandoNonQuery('delete from cadlivro where cod=?', [cod])
 
-     async update(codigoLivro,dadosLivro){
-      await banco.ExecutaComando('update cadlivro set ? where codigolivro=?',[dadosLivro,codigoLivro])
-     }
-
-     async getById(codigoLivro){
-      const result = await banco.ExecutaComando('select * from cadlivro WHERE codigoLivro = ?',[codigoLivro])
-      const livro = result[0];
-      return livro;
-     }
-
-     async delete(codigoLivro){
-      await banco.ExecutaComandoNonQuery('delete from cadlivro where codigoLivro=?',[codigoLivro])
-
-     }
+   }
 }
 
-module.exports=cadLivro
+module.exports = cadLivro

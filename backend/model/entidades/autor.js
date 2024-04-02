@@ -47,12 +47,12 @@ class Autor {
         await banco.ExecutaComando('update autor set ? where id=?', [dadosAutor, ID])
     }
 
-    async filtrar({ Nome, Genero }) {
-        var sql = `select * FROM autor where Nome like '%${Nome}%' and Genero=?`
-        if (Genero == "Todos") {
-            sql = `select * FROM autor where Nome like '%${Nome}'`
+    async filtrar({ Nome, genero }) {
+        var sql = `select * FROM autor where Nome like '%${Nome}%' and genero=?`
+        if (genero == "Todos") {
+            sql = `select * FROM autor where Nome like '%${Nome}%'`
         }
-        const autores = await banco.ExecutaComando(sql, Genero)
+        const autores = await banco.ExecutaComando(sql, genero)
         return autores
 
     }

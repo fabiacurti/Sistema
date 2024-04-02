@@ -60,9 +60,9 @@ class LivroService{
         }
     }
 
-    async updateLivro(codigoLivro,livroData){
+    async updateLivro(id,livroData){
         try {
-            const response = await fetch(`${API_BASE_URL}/cadlivro/${codigoLivro}`,{
+            const response = await fetch(`${API_BASE_URL}/cadlivro/${id}`,{
                 method:"PUT",
                 headers:{
                     'content-type': 'application/json'
@@ -81,9 +81,9 @@ class LivroService{
     }
 
 
-    async getLivrosById(codigoLivro){
+    async getLivrosById(id){
         try {
-            const response = await fetch(`${API_BASE_URL}/cadlivro/${codigoLivro}`)
+            const response = await fetch(`${API_BASE_URL}/cadlivro/${id}`)
 
             if(!response.ok){
                 throw new Error('erro de busca')
@@ -98,9 +98,9 @@ class LivroService{
         }
     }
 
-    async deleteLivro(codigoLivro){
+    async deleteLivro(id){
         try {
-            const response = await fetch(`${API_BASE_URL}/cadlivro/${codigoLivro}`,{
+            const response = await fetch(`${API_BASE_URL}/cadlivro/${id}`,{
                 method:"delete"
             })
 

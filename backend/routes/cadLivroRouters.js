@@ -4,9 +4,9 @@ const router =express.Router();
 const cadLivroController = new CadLivroController();
 
 router.get('/', cadLivroController.getALL)
-router.get('/:codigoLivro', cadLivroController.getById)
-router.delete('/:codigoLivro', cadLivroController.delete)
+router.get('/:cod', cadLivroController.getById)
+router.delete('/:cod', cadLivroController.delete)
 router.post('/', cadLivroController.create);
-router.put('/:codigoLivro', cadLivroController.update);
-router.post('/buscar', cadLivroController.buscar)
+router.put('/:cod', cadLivroController.update);
+
 module.exports= router;

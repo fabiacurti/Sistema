@@ -42,12 +42,17 @@ class TipoLivro {
         await banco.ExecutaComando('update tipoLivro set ? where id=?', [dadosTipoLivro, ID])
     }
 
-    async filtrar({ Nome }) {
-        var sql = `select * FROM tipoLivro where Nome like '%${Nome}%'`
-        const tipoLivros = await banco.ExecutaComando(sql)
+    async filtrar({ Nome, faixaEtaria }) {
+        var sql = `SELECT * FROM tipoLivro WHERE Nome like '%${Nome}%' AND faixaEtaria = ?`
+        if (faixaEtaria == "Todos") {
+            sql = `select * FROM tipoLivro where Nome like '%${Nome}%'`
+        }
+        const tipoLivros = await banco.ExecutaComando(sql, faixaEtaria)
         return tipoLivros
 
     }
+
+
 
 }
 module.exports = TipoLivro

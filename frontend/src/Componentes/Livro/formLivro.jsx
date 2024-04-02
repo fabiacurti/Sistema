@@ -16,8 +16,8 @@ function FormLivro({ selectedLivro, onUpdate }) {
     Nome: " Nenhuma editora encontrada"
   }]);
   const [livroData, setLivroData] = useState({
-    NomeLivro: "",
-    codigoLivro: "",
+    nomeLivro: "",
+    cod: "",
     numeroPagina: "",
     editora: "",
     genero: "",
@@ -74,8 +74,8 @@ function FormLivro({ selectedLivro, onUpdate }) {
     const newErrors = {};
 
 
-    if (livroData.NomeLivro.trim().length < 3) {
-      newErrors.NomeLivro = 'O Nome do Livro deve ter no mínimo 3 caracteres';
+    if (livroData.nomeLivro.trim().length < 3) {
+      newErrors.nomeLivro = 'O Nome do Livro deve ter no mínimo 3 caracteres';
       valid = false;
     }
 
@@ -111,13 +111,13 @@ function FormLivro({ selectedLivro, onUpdate }) {
           await livroService.createLivro(livroData);
           alert("Livro cadastrado");
         } else {
-          await livroService.updateLivro(selectedLivro.codigoLivro, livroData);
+          await livroService.updateLivro(selectedLivro.id, livroData);
           alert("Atualizado");
         }
         onUpdate();
         setLivroData({
-          NomeLivro: "",
-          codigoLivro: "",
+          nomeLivro: "",
+          cod: "",
           numeroPagina: "",
           editora: "",
           genero: "",
@@ -151,24 +151,24 @@ function FormLivro({ selectedLivro, onUpdate }) {
             <label>Código do Livro:</label>
             <input
               type="text"
-              name="codigoLivro"
+              name="cod"
               className="form-control"
-              value={livroData.codigoLivro}
+              value={livroData.cod}
               onChange={handleInputChange}
             />
-            {errors.codigoLivro && <p style={{ color: "red" }}>{errors.codigoLivro}</p>}
+            {errors.cod && <p style={{ color: "red" }}>{errors.cod}</p>}
           </div>
 
           <div className="form-group col-md-5">
             <label>Nome do Livro:</label>
             <input
               type="text"
-              name="NomeLivro"
+              name="nomeLivro"
               className="form-control"
-              value={livroData.NomeLivro}
+              value={livroData.nomeLivro}
               onChange={handleInputChange}
             />
-            {errors.NomeLivro && <p style={{ color: "red" }}>{errors.NomeLivro}</p>}
+            {errors.nomeLivro && <p style={{ color: "red" }}>{errors.nomeLivro}</p>}
           </div>
 
 

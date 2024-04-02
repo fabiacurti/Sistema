@@ -5,7 +5,7 @@ import './TipoLivro.css';
 const tipoLivroService = new TipoLivroService();
 
 function FormFiltro({ onUpdate }) {
-    const [filtroData, setFiltroData] = useState({ Genero: 'Todos', Nome: '' });
+    const [filtroData, setFiltroData] = useState({ faixaEtaria: 'Todos', Nome: '' });
 
     const handleInputChange = async (event) => {
         const { name, value } = event.target;
@@ -43,12 +43,13 @@ function FormFiltro({ onUpdate }) {
                         <div className="input-group">
                             <label className="input-group-text">Faixa Etária:</label>
                             <select
-                                name="Genero"
-                                value={filtroData.Genero}
+                                name="faixaEtaria"
+                                value={filtroData.faixaEtaria}
                                 onChange={handleInputChange}
                                 className="form-select"
                                 id="inputGroupSelect01"
                             >
+                                <option value="Todos">Todos</option>
                                 <option value="Livre">Livre</option>
                                 <option value="10 Anos">10 anos</option>
                                 <option value="12 Anos">12 anos</option>

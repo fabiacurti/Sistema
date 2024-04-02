@@ -6,7 +6,7 @@ import InputMask from 'react-input-mask';
 
 const alunoprofessorService = new AlunoProfessorService();
 function FormFiltro({ onUpdate }) {
-    const [filtroData,setFiltroData]=useState({Nome:"",TipoPessoa:"Todos"})
+    const [filtroData,setFiltroData]=useState({Nome:"",tipoPessoa:"Todos"})
 
     const handleInputChange = async (event)=>{
         const {name,value} = event.target;
@@ -36,10 +36,10 @@ function FormFiltro({ onUpdate }) {
                         </div>
             </div>
             <div className="Posicao col-md-4 ">
-                        <label htmlFor="TipoPessoa" className="form-label">
+                        <label htmlFor="tipoPessoa" className="form-label">
                             Pessoa:
                         </label>
-                        <select className="form-select" id="TipoPessoa" name="TipoPessoa" value={filtroData.TipoPessoa} onChange={handleInputChange} >
+                        <select className="form-select" id="tipoPessoa" name="tipoPessoa" value={filtroData.tipoPessoa} onChange={handleInputChange} >
                             <option selected disabled value="">
                                 Tipo de pessoa...
                             </option>

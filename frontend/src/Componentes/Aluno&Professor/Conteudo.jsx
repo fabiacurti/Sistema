@@ -10,16 +10,16 @@ const alunoprofessorService = new AlunoProfessorService();
 function Conteudo() {
     const [Nome, setNome] = useState("");
     const [cpf, setCPF] = useState("");
-    const [DataNascimento, setDataNascimento] = useState("");
-    const [Email, setEmail] = useState("");
-    const [Cidade, setCidade] = useState("");
-    const [Rua, setRua] = useState("");
-    const [Telefone, setTelefone] = useState("");
+    const [dNascimento, setDataNascimento] = useState("");
+    const [email, setemail] = useState("");
+    const [cidade, setCidade] = useState("");
+    const [rua, setRua] = useState("");
+    const [telefone, setTelefone] = useState("");
     const [cep, setCEP] = useState("");
     const [nomeValido, setNomeValido] = useState(true);
     const [cpfValido, setCPFValido] = useState(true);
     const [dataNascimentoValida, setDataNascimentoValida] = useState(true);
-    const [emailValido, setEmailValido] = useState(true);
+    const [emailValido, setemailValido] = useState(true);
     const [cidadeValida, setCidadeValida] = useState(true);
     const [ruaValida, setRuaValida] = useState(true);
     const [telefoneValido, setTelefoneValido] = useState(true);
@@ -28,13 +28,13 @@ function Conteudo() {
     const [alunoprofessorData, setAlunoProfessorData] = useState({
         Nome: "",
         cpf: "",
-        DataNascimento: "",
-        Email: "",
-        Cidade: "",
-        Telefone: "",
-        Rua: "",
+        dNascimento: "",
+        email: "",
+        cidade: "",
+        telefone: "",
+        rua: "",
         cep: "",
-        TipoPessoa: "Professor",
+        tipoPessoa: "Professor",
     });
     const [selecteAluPro, setSelecteAluPro] = useState(null);
     const [isEditMode, setIsEditMode] = useState(false);
@@ -51,7 +51,7 @@ function Conteudo() {
         if (selecteAluPro != null) {
             setAlunoProfessorData({
                 ...selecteAluPro,
-                 DataNascimento: formatDate(selecteAluPro.DataNascimento)
+                 dNascimento: formatDate(selecteAluPro.dNascimento)
             });
             setIsEditMode(true);
         } else {
@@ -118,13 +118,13 @@ function Conteudo() {
             setAlunoProfessorData({
                 Nome: "",
                 cpf: "",
-                DataNascimento: "",
-                Email: "",
-                Cidade: "",
-                Telefone: "",
-                Rua: "",
+                dNascimento: "",
+                email: "",
+                cidade: "",
+                telefone: "",
+                rua: "",
                 cep: "",
-                TipoPessoa: "",
+                tipoPessoa: "",
             });
             setSelecteAluPro(null);
         } catch (error) {
@@ -202,36 +202,36 @@ function Conteudo() {
 
     const validarDataNascimento = () => {
         const novaDataNascimentoValida = isValid(
-            parse(DataNascimento, "dd/MM/yyyy", new Date())
+            parse(dNascimento, "dd/MM/yyyy", new Date())
         );
 
         console.log(novaDataNascimentoValida);
         setDataNascimentoValida(novaDataNascimentoValida);
     };
 
-    const validarEmail = () => {
-        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const novoEmailValido = regexEmail.test(Email);
-        setEmailValido(novoEmailValido);
+    const validaremail = () => {
+        const regexemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const novoemailValido = regexemail.test(email);
+        setemailValido(novoemailValido);
     };
 
     const validarCidade = () => {
         const regexCidade =
             /^[a-zA-Z\sáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛäÄëËïÏöÖüÜçÇ]+$/;
-        const novaCidadeValida = Cidade.length >= 3 && regexCidade.test(Cidade);
+        const novaCidadeValida = cidade.length >= 3 && regexCidade.test(cidade);
         setCidadeValida(novaCidadeValida);
     };
 
     const validarRua = () => {
         const regexRua = /^[a-zA-Z0-9 ]+$/;
-        const novaRuaValida = Rua.length >= 3 && regexRua.test(Rua);
+        const novaRuaValida = rua.length >= 3 && regexRua.test(rua);
         setRuaValida(novaRuaValida);
     };
 
     const validarTelefone = () => {
         
         const regexTelefone = /^\(\d{2}\) \d{4,5}-\d{4}$/;
-        const novoTelefoneValido = regexTelefone.test(Telefone);
+        const novoTelefoneValido = regexTelefone.test(telefone);
         setTelefoneValido(novoTelefoneValido);
     };
 
@@ -245,12 +245,12 @@ function Conteudo() {
     const isFormValid =
         (Nome.length >= 3 &&
         cpf.length >= 14 &&
-        Email.length >= 5 &&
-        Cidade.length >= 3 &&
-        Rua.length >= 1 &&
-        Telefone.length >= 1 &&
+        email.length >= 5 &&
+        cidade.length >= 3 &&
+        rua.length >= 1 &&
+        telefone.length >= 1 &&
         cep.length >= 1 &&
-        DataNascimento.length >= 0) || isEditMode
+        dNascimento.length >= 0) || isEditMode
 
     const handleNomeChange = (e) => {
         const nomeSemNumeros = e.target.value.replace(/[0-9]/g, "");
@@ -278,8 +278,8 @@ function Conteudo() {
                 setDataNascimento(dataFormatada);
                 validarDataNascimento();
     };
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
+    const handleemailChange = (e) => {
+        setemail(e.target.value);
     };
     const handleCidadeChange = (e) => {
         const cidadeSemNumeros = e.target.value.replace(/[0-9]/g, "");
@@ -333,9 +333,9 @@ function Conteudo() {
         handleInputChange(event);
         handleDataNascimentoChange(event);
     };
-    const handleMultipleEmailChanges = (event) => {
+    const handleMultipleemailChanges = (event) => {
         handleInputChange(event);
-        handleEmailChange(event);
+        handleemailChange(event);
     };
     const handleMultipleCidadeChanges = (event) => {
         handleInputChange(event);
@@ -424,7 +424,7 @@ function Conteudo() {
                         className={`form-group col-md-5 ${dataNascimentoValida ? "" : "has-error"
                             }`}
                     >
-                        <label htmlFor="DataNascimento" className="form-label">
+                        <label htmlFor="dNascimento" className="form-label">
                             Data de Nascimento:
                         </label>
                         <InputMask
@@ -432,10 +432,10 @@ function Conteudo() {
                             
                             className={`form-control ${dataNascimentoValida ? "" : "is-invalid"
                                 }`}
-                            id="DataNascimento"
-                            name="DataNascimento"
+                            id="dNascimento"
+                            name="dNascimento"
                             placeholder="DD/MM/YYYY"
-                            value={alunoprofessorData.DataNascimento}
+                            value={alunoprofessorData.dNascimento}
                             onChange={handleMultipleDataNacimentoChanges}
                             max={`${new Date().getFullYear() - 10}-${new Date().getMonth().toString().padStart(2, "0")}-${new Date().getDate().toString().padStart(2, "0")}`}
                             min={`${new Date().getFullYear() - 70}-${new Date().getMonth().toString().padStart(2, "0")}-${new Date().getDate().toString().padStart(2, "0")}`}
@@ -450,17 +450,17 @@ function Conteudo() {
                     <div
                         className={`form-group col-md-5 ${emailValido ? "" : "has-error"}`}
                     >
-                        <label htmlFor="Email" className="form-label">
+                        <label htmlFor="email" className="form-label">
                             Email:
                         </label>
                         <input
                             type="email"
                             className={`form-control ${emailValido ? "" : "is-invalid"}`}
-                            id="Email"
-                            name="Email"
-                            value={alunoprofessorData.Email}
-                            onBlur={validarEmail}
-                            onChange={handleMultipleEmailChanges}
+                            id="email"
+                            name="email"
+                            value={alunoprofessorData.email}
+                            onBlur={validaremail}
+                            onChange={handleMultipleemailChanges}
                             placeholder="name@example.com"
                             required
                         />
@@ -471,15 +471,15 @@ function Conteudo() {
                     <div
                         className={`form-group col-md-5 ${cidadeValida ? "" : "has-error"}`}
                     >
-                        <label htmlFor="Cidade" className="form-label">
+                        <label htmlFor="cidade" className="form-label">
                             Cidade:
                         </label>
                         <InputMask
                             mask=""
                             className={`form-control ${cidadeValida ? "" : "is-invalid"}`}
-                            id="Cidade"
-                            name="Cidade"
-                            value={alunoprofessorData.Cidade}
+                            id="cidade"
+                            name="cidade"
+                            value={alunoprofessorData.cidade}
                             placeholder="Digite a cidade"
                             onBlur={validarCidade}
                             onChange={handleMultipleCidadeChanges}
@@ -488,15 +488,15 @@ function Conteudo() {
                         <div className="invalid-feedback">Por favor, informe a cidade!</div>
                     </div>
                     <div className="form-group col-md-5  ">
-                        <label htmlFor="Rua" className="form-label">
+                        <label htmlFor="rua" className="form-label">
                             Rua:
                         </label>
                         <input
                             type="text"
                             className={`form-control ${ruaValida ? "" : "is-invalid"}`}
-                            id="Rua"
-                            name="Rua"
-                            value={alunoprofessorData.Rua}
+                            id="rua"
+                            name="rua"
+                            value={alunoprofessorData.rua}
                             placeholder="Digite a rua"
                             onBlur={validarRua}
                             onChange={handleMultipleRuaChanges}
@@ -505,17 +505,17 @@ function Conteudo() {
                         <div className="invalid-feedback">Por favor, informe a rua!</div>
                     </div>
                     <div className="form-group1 col-md-4 ">
-                        <label htmlFor="Telefone" className="form-label">
+                        <label htmlFor="telefone" className="form-label">
                             Telefone:
                         </label>
                         <InputMask
                             mask="(99) 99999-9999"
                             maskPlaceholder={null}
                             className={`form-control ${telefoneValido ? "" : "is-invalid"}`}
-                            id="Telefone"
-                            name="Telefone"
+                            id="telefone"
+                            name="telefone"
                             placeholder="(99) 99999-9999"
-                            value={alunoprofessorData.Telefone}
+                            value={alunoprofessorData.telefone}
                             onBlur={validarTelefone}
                             onChange={handleMultipleTelefoneChanges}
                             required
@@ -541,14 +541,14 @@ function Conteudo() {
                         <div className="invalid-feedback">Por favor, informe o CEP!</div>
                     </div>
                     <div className="form-group3 col-md-4 ">
-                        <label htmlFor="TipoPessoa" className="form-label">
+                        <label htmlFor="tipoPessoa" className="form-label">
                             Pessoa:
                         </label>
                         <select
                             className="form-select"
-                            id="TipoPessoa"
-                            name="TipoPessoa"
-                            value={alunoprofessorData.TipoPessoa}
+                            id="tipoPessoa"
+                            name="tipoPessoa"
+                            value={alunoprofessorData.tipoPessoa}
                             onChange={handleInputChange}
                             required
                         >
@@ -578,7 +578,7 @@ function Conteudo() {
                                 <th scope="col">Nome</th>
                                 <th scope="col">CPF</th>
                                 <th scope="col">Dt.Nacimento</th>
-                                <th scope="col">Email</th>
+                                <th scope="col">email</th>
                                 <th scope="col">Cidade</th>
                                 <th scope="col">Rua</th>
                                 <th scope="col">Telefone</th>
@@ -593,14 +593,14 @@ function Conteudo() {
                                     <th scope="row">{alunop.Nome}</th>
                                     <td>{alunop.cpf}</td>
                                     <td>
-                                    {`${new Date(alunop.DataNascimento).getDate().toString().padStart(2, "0")}/${new Date(alunop.DataNascimento).getMonth().toString().padStart(2, "0")}/${new Date(alunop.DataNascimento).getFullYear()}`}
+                                    {`${new Date(alunop.dNascimento).getDate().toString().padStart(2, "0")}/${new Date(alunop.dNascimento).getMonth().toString().padStart(2, "0")}/${new Date(alunop.dNascimento).getFullYear()}`}
                                     </td>
-                                    <td>{alunop.Email}</td>
-                                    <td>{alunop.Cidade}</td>
-                                    <td>{alunop.Rua}</td>
-                                    <td>{alunop.Telefone}</td>
+                                    <td>{alunop.email}</td>
+                                    <td>{alunop.cidade}</td>
+                                    <td>{alunop.rua}</td>
+                                    <td>{alunop.telefone}</td>
                                     <td>{alunop.cep}</td>
-                                    <td>{alunop.TipoPessoa}</td>
+                                    <td>{alunop.tipoPessoa}</td>
                                     <td>
                                         <button
                                             type="button"

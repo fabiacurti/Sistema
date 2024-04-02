@@ -15,22 +15,13 @@ class cadLivroController{
         return cadLivro.getALL()
 
     }
-    async buscar(req,res){
+    
 
-        const filtro =req.body;
-
-        try{
-            const result =await cadLivro.buscar(filtro)
-            return res.status(200).json(result);
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     async getById(req,res){
-        const codigoLivro =req.params.codigoLivro;
+        const cod =req.params.cod;
         try{
-            const result = await cadLivro.getById(codigoLivro)
+            const result = await cadLivro.getById(cod)
             if(result){
                 return res.status(200).json(result)
             }else{
@@ -59,11 +50,11 @@ class cadLivroController{
 
 
     async update(req,res){
-        const codigoLivro =req.params.codigoLivro;
+        const cod =req.params.cod;
         const livroData =req.body;
 
         try{
-            await cadLivro.update(codigoLivro,livroData);
+            await cadLivro.update(cod,livroData);
             res.status(201).json({message:'registro com successo'})
         } catch (error) {
             console.log('erro ao atualizar:'+error);
@@ -73,9 +64,9 @@ class cadLivroController{
     }
 
     async delete (req,res){
-        const codigoLivro = req.params.codigoLivro;
+        const cod = req.params.cod;
         try {
-            await cadLivro.delete(codigoLivro)
+            await cadLivro.delete(cod)
             res.status(200).json({message:'registro deletado'})
         } catch (error) {
             console.log('erro ao deletar', error)

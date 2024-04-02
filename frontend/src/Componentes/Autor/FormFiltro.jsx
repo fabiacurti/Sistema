@@ -5,7 +5,7 @@ import './Autor.css';
 const autorService = new AutorService();
 
 function FormFiltro({ onUpdate }) {
-    const [filtroData, setFiltroData] = useState({ Genero: 'Todos', Nome: '' });
+    const [filtroData, setFiltroData] = useState({ genero: 'Todos', Nome: '' });
 
     const handleInputChange = async (event) => {
         const { name, value } = event.target;
@@ -43,8 +43,8 @@ function FormFiltro({ onUpdate }) {
                         <div className="input-group">
                             <label className="input-group-text">Gênero:</label>
                             <select
-                                name="Genero"
-                                value={filtroData.Genero}
+                                name="genero"
+                                value={filtroData.genero}
                                 onChange={handleInputChange}
                                 className="form-select"
                                 id="inputGroupSelect01"

@@ -21,7 +21,7 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
         if (selectedAutor != null) {
             setAutorData({
                 ...selectedAutor,
-                DNascimento: formatDate(selectedAutor.DNascimento)
+                dNascimento: formatDate(selectedAutor.dNascimento)
             });
             setIsEditMode(true);
         } else {
@@ -34,12 +34,12 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
     const [alerta, setAlerta] = useState('')
     const [autorData, setAutorData] = useState({
         Nome: "",
-        Sobrenome: "",
-        DNascimento: "",
-        CidadeNascimento: "",
-        Genero: "",
-        Email: "",
-        QntObras: ""
+        sobrenome: "",
+        dNascimento: "",
+        cidadeNascimento: "",
+        genero: "",
+        email: "",
+        qntObras: ""
     });
 
     const handleInputChange = (event) => {
@@ -59,7 +59,7 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
                 setDNascimento('');
                 setCidadeNascimento('');
                 setGenero('');
-                setEmail('');
+                setemail('');
                 setQntObras('');
             } else {
                 await autorService.updateAutor(selectedAutor.ID, autorData);
@@ -69,12 +69,12 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
                 onUpdate();
                 setAutorData({
                     Nome: "",
-                    Sobrenome: "",
-                    DNascimento: "",
-                    CidadeNascimento: "",
-                    Genero: "",
-                    Email: "",
-                    QntObras: ""
+                    sobrenome: "",
+                    dNascimento: "",
+                    cidadeNascimento: "",
+                    genero: "",
+                    email: "",
+                    qntObras: ""
                 });
 
             }
@@ -90,20 +90,20 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
 
 
     const [Nome, setNome] = useState('');
-    const [Sobrenome, setSobrenome] = useState('');
-    const [DNascimento, setDNascimento] = useState('');
-    const [CidadeNascimento, setCidadeNascimento] = useState('');
-    const [Genero, setGenero] = useState('');
-    const [Email, setEmail] = useState('');
-    const [QntObras, setQntObras] = useState('');
+    const [sobrenome, setSobrenome] = useState('');
+    const [dNascimento, setDNascimento] = useState('');
+    const [cidadeNascimento, setCidadeNascimento] = useState('');
+    const [genero, setGenero] = useState('');
+    const [email, setemail] = useState('');
+    const [qntObras, setQntObras] = useState('');
     const isFormValid =
         (Nome.length >= 3 &&
-            Sobrenome.length >= 3 &&
-            DNascimento != null &&
-            CidadeNascimento.length >= 3 &&
-            Genero.length !== 0 &&
-            Email.length >= 7 && Email.length <= 1100 &&
-            QntObras.length > 0) || isEditMode
+            sobrenome.length >= 3 &&
+            dNascimento != null &&
+            cidadeNascimento.length >= 3 &&
+            genero.length !== 0 &&
+            email.length >= 7 && email.length <= 1100 &&
+            qntObras.length > 0) || isEditMode
 
     const receberSoLetra = (valor) => {
         const regexSomenteLetras = /^[a-zA-Z\sáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛäÄëËïÏöÖüÜçÇ]*$/;
@@ -152,7 +152,7 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
                                 Sobrenome:
                             </label>
                             <input
-                                value={Sobrenome || autorData.Sobrenome}
+                                value={sobrenome || autorData.sobrenome}
                                 type="text"
                                 className={`form-control`}
                                 name="Sobrenome"
@@ -164,7 +164,7 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
                                 required
                             />
                             <div className="invalid-feedback">
-                                Por Favor, digite o Sobrenome!
+                                Por Favor, digite o sobrenome!
                             </div>
                         </div>
 
@@ -173,10 +173,10 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
                                 Data de Nascimento:
                             </label>
                             <input
-                                value={autorData.DNascimento}
+                                value={autorData.dNascimento}
                                 type="date"
                                 className={`form-control`}
-                                name="DNascimento"
+                                name="dNascimento"
                                 onChange={(e) => {
                                     setDNascimento(e.target.value);
                                     handleInputChange(e);
@@ -195,10 +195,10 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
                                 Cidade de nascimento:
                             </label>
                             <input
-                                value={CidadeNascimento || autorData.CidadeNascimento}
+                                value={cidadeNascimento || autorData.cidadeNascimento}
                                 type="text"
                                 className={`form-control`}
-                                name="CidadeNascimento"
+                                name="cidadeNascimento"
                                 placeholder="Digite a cidade"
                                 onChange={(e) => {
                                     setCidadeNascimento(prev => receberSoLetra(e.target.value) ? e.target.value : prev);
@@ -216,9 +216,9 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
                                 Gênero:
                             </label>
                             <select
-                                value={autorData.Genero}
+                                value={autorData.genero}
                                 className={`form-select`}
-                                name="Genero"
+                                name="genero"
 
                                 onChange={(e) => {
                                     setGenero(e.target.value);
@@ -240,13 +240,13 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
                                 Email:
                             </label>
                             <input
-                                value={autorData.Email}
+                                value={autorData.email}
                                 type="email"
                                 className={`form-control`}
-                                name="Email"
+                                name="email"
                                 placeholder="name@example.com"
                                 onChange={(e) => {
-                                    setEmail(e.target.value);
+                                    setemail(e.target.value);
                                     handleInputChange(e);
                                 }}
                                 required
@@ -261,10 +261,10 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
                                 Obras Publicadas:
                             </label>
                             <input
-                                value={QntObras || autorData.QntObras}
+                                value={qntObras || autorData.qntObras}
                                 type="text"
                                 className={`form-control`}
-                                name="QntObras"
+                                name="qntObras"
                                 placeholder="Número de obras publicadas"
                                 onChange={(e) => {
                                     setQntObras(prev => relebeSoNumero(e.target.value) ? e.target.value : prev);
