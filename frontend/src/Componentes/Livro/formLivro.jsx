@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import LivroService from "../services/livroService";
-import GeneroService from '../services/GeneroService';
 import EditoraService from '../services/EditoraService.js';
 
 const livroService = new LivroService();

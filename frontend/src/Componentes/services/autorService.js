@@ -88,7 +88,9 @@ class AutorService{
             })
             if(!response.ok){
                 throw new Error('Erro ao cadastrar autor!')
+                
             }
+            console.log(await response.json())
 
         }catch(error){
             throw error;

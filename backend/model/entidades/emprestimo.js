@@ -55,6 +55,8 @@ class Emprestimo {
         
             
             ID: emprestimo.ID,
+            dEmprestimo: emprestimo.dEmprestimo,
+            dDevolucao:emprestimo.dDevolucao,
             livro: {
                 codigoLivro: emprestimo.codigoLivro,
                 NomeLivro: emprestimo.NomeLivro,
@@ -132,6 +134,8 @@ class Emprestimo {
     
         const emprestimosFormatados = emprestimos.map(emprestimo => ({
             ID: emprestimo.ID,
+            dEmprestimo: emprestimo.dEmprestimo,
+            dDevolucao:emprestimo.dDevolucao,
             livro: {
                 id: emprestimo.codigoLivro,
                 NomeLivro: emprestimo.NomeLivro,
@@ -145,7 +149,7 @@ class Emprestimo {
                     descricao: emprestimo.genero
                 },
                 dataPublicacao: emprestimo.dataPublicacao,
-            alunoprofessor: {
+            alunoProfessor: {
                 id: emprestimo.IDUsuario,
                 nome: emprestimo.nome
             }

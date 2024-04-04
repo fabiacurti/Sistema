@@ -315,12 +315,7 @@ function Conteudo() {
         validarCEP();
     };
 
-    /*const handleGravarClick = () =>{
-          if (isFormValid){
-              const dados = {nome, cpf, dataNascimento, sala, email, cidade, rua, telefone, cep, nomeValido}
-  
-          }
-      }*/
+    
     const handleMultipleNomeChanges = (event) => {
         handleInputChange(event);
         handleNomeChange(event);

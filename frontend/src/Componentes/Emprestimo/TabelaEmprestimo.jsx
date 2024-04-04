@@ -63,6 +63,7 @@ function TabelaEmprestimo({ atualizar }) {
     const handleUpDateFiltro = async (emprestimosFiltrados) => {
         setEmprestimos(emprestimosFiltrados)
     }
+    
 
     return (
         <>
@@ -87,10 +88,10 @@ function TabelaEmprestimo({ atualizar }) {
                             emprestimos.map((emprestimo => (
                                 <tr>
                                     <th scope="row ">{emprestimo.ID}</th>
-                                    <td >{emprestimo.IDLivro}</td>
-                                    <td>{emprestimo.IDUsuario}</td>
-                                    <td>{`${new Date(emprestimo.dEmprestimo).getDate().toString().padStart(2, "0")}/${new Date(emprestimo.dEmprestimo).getMonth().toString().padStart(2, "0")}/${new Date(emprestimo.dEmprestimo).getFullYear()}`}</td>
-                                    <td>{`${new Date(emprestimo.dDevolucao).getDate().toString().padStart(2, "0")}/${new Date(emprestimo.dDevolucao).getMonth().toString().padStart(2, "0")}/${new Date(emprestimo.dDevolucao).getFullYear()}`}</td>
+                                    <td >{emprestimo.livro.editora.id}</td>
+                                    <td>{emprestimo.alunoProfessor.id}</td>
+                                    <td>{(emprestimo.dEmprestimo.slice(8,10).concat(emprestimo.dEmprestimo.slice(4,8)).concat(emprestimo.dEmprestimo.slice(0,4))).replaceAll('-', '/')}</td>
+                                    <td>{(emprestimo.dDevolucao.slice(8,10).concat(emprestimo.dDevolucao.slice(4,8)).concat(emprestimo.dDevolucao.slice(0,4))).replaceAll('-', '/')}</td>
                                     <td>
                                         <button type='button' onClick={() => handleDelete(emprestimo.ID)} className="btn btn-danger">EXCLUIR</button>
                                         <button type='button' onClick={() => handleEdit(emprestimo)} className="btn btn-primary">EDITAR</button>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Cabecalho_Generos from './Cabecalho_Generos';
+import CabecalhoGeneros from './CabecalhoGeneros';
 import './Generos.css';
 import GeneroService from '../services/GeneroService';
+
 
 function Generos() {
   const [generos, setGeneros] = useState([]);
@@ -79,7 +80,7 @@ function Generos() {
 
   return (
     <>
-      <Cabecalho_Generos />
+      <CabecalhoGeneros/>
       <div className="container fundoss">
         <div className="formulario fundo">
           <div className="mb-3">

@@ -1,6 +1,6 @@
-import './Cabecalho_Generos.css';
+import './CabecalhoGeneros.css';
 
-function Cabecalho_Generos() {
+function CabecalhoGeneros() {
   return (
     <div className="container centralizacao fundoss">
       <div className="row">
@@ -15,4 +15,4 @@ function Cabecalho_Generos() {
   );
 }
 
-export default Cabecalho_Generos;
+export default CabecalhoGeneros;

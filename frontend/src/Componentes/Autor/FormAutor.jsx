@@ -29,8 +29,6 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
         }
     }, [selectedAutor]);
 
-
-
     const [alerta, setAlerta] = useState('')
     const [autorData, setAutorData] = useState({
         Nome: "",
@@ -109,7 +107,6 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
         const regexSomenteLetras = /^[a-zA-Z\sáÁéÉíÍóÓúÚàÀèÈìÌòÒùÙãÃõÕâÂêÊîÎôÔûÛäÄëËïÏöÖüÜçÇ]*$/;
         return regexSomenteLetras.test(valor) || valor === ""
     }
-
     const relebeSoNumero = (valor) => {
         const regexSomenteNumero = /^[0-9]+$/;
         return regexSomenteNumero.test(valor) || valor === ""
