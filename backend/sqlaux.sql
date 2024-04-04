@@ -236,5 +236,6 @@ CREATE TABLE Emprestimo (
     IDLivro INT,
     IDUsuario INT,
     dEmprestimo DATE,
-    dDevolucao DATE
+    dDevolucao DATE,
+    isReservado bool 
 );
