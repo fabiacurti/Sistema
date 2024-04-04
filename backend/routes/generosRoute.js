@@ -1,7 +1,8 @@
 const express = require('express');
 const GeneroController = require('../controller/GeneroController');
-const router = express.Router();
 const generoController = new GeneroController();
+const router = express.Router();
+
 
 router.get('/', generoController.obterTodos);
 router.post('/', generoController.create);

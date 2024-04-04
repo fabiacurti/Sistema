@@ -8,5 +8,5 @@ router.get('/:codigoLivro', cadLivroController.getById)
 router.delete('/:codigoLivro', cadLivroController.delete)
 router.post('/', cadLivroController.create);
 router.put('/:codigoLivro', cadLivroController.update);
-router.post('/buscar', cadLivroController.buscar)
+
 module.exports= router;

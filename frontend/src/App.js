@@ -2,6 +2,7 @@ import AluEPro from "./Componentes/Aluno&Professor/AluEPro";
 import Editoras from "./Componentes/Editora/Editoras";
 import Generos from "./Componentes/Genero/Generos";
 import Autor from "./Componentes/Autor/Autor";
+import Emprestimo from "./Componentes/Emprestimo/Emprestimo";
 import TipoLivro from "./Componentes/TipoLivro/TipoLivro";
 import ListaLivros from './Componentes/Livro/listaLivros';
 
@@ -33,6 +34,9 @@ function App() {
         </Route>
         <Route path="/TipoLivro">
           <Route path="" element={<TipoLivro></TipoLivro>}/> 
+        </Route>
+        <Route path="/Emprestimo">
+          <Route path="" element={<Emprestimo></Emprestimo>}/> 
         </Route>
       </Routes>     
     </BrowserRouter>

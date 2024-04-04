@@ -16,7 +16,7 @@ function ListaLivros() {
       const dados = await livroservice.getAllLivros();
       setLivros(dados);
     } catch (error) {
-      console.error('erro ao carregar:', error);
+      console.error('Erro ao carregar:', error);
     }
   };
 
@@ -32,8 +32,7 @@ function ListaLivros() {
   const confirmDelete = async () => {
     if (codigoLivroToDelete) {
       await livroservice.deleteLivro(codigoLivroToDelete);
-      const dados = await livroservice.getAllLivros();
-      setLivros(dados);
+      await carregaLivros(); // Update the list of books after deletion
       setCodigoLivroToDelete(null);
     }
     setShowConfirmation(false);
@@ -63,7 +62,7 @@ function ListaLivros() {
         <FormFiltro onUpdate={handleUpdateFiltro} />
         {showConfirmation && (
           <div className="confirmation">
-            <p>Deseja realmente excluir este arquivo?</p>
+            <p>Deseja realmente excluir este livro?</p>
             <button className="btn btn-danger" onClick={confirmDelete}>
               Sim
             </button>
@@ -75,12 +74,12 @@ function ListaLivros() {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">Codigo</th>
+              <th scope="col">Código</th>
               <th scope="col">Nome Livro</th>
-              <th scope="col">Paginas</th>
+              <th scope="col">Páginas</th>
               <th scope="col">Editora</th>
-              <th scope="col">Genero</th>
-              <th scope="col">Data Publicacao</th>
+              <th scope="col">Gênero</th>
+              <th scope="col">Data de Publicação</th>
               <th scope="col">Ações</th>
             </tr>
           </thead>
@@ -90,9 +89,9 @@ function ListaLivros() {
                 <th scope="row">{cadlivro.codigoLivro}</th>
                 <td>{cadlivro.NomeLivro}</td>
                 <td>{cadlivro.numeroPagina}</td>
-                <td>{cadlivro.editora}</td>
-                <td>{cadlivro.genero}</td>
-                <td>{cadlivro.dataPublicacao}</td>
+                <td>{cadlivro.editora.nome}</td>
+                <td>{cadlivro.genero.descricao}</td>
+                <td>{new Date(cadlivro.dataPublicacao).toLocaleDateString()}</td>
                 <td>
                   <button
                     type="button"
@@ -113,7 +112,6 @@ function ListaLivros() {
             ))}
           </tbody>
         </table>
-
       </div>
     </div>
   );

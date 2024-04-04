@@ -43,7 +43,7 @@ class Genero {
         const campos = Object.keys(dadosGenero).map((campo) => `${campo} = ?`).join(', ');
         const valores = Object.values(dadosGenero);
     
-        // Adicionar o ID no final dos valores
+        
         valores.push(ID);
     
         const query = `UPDATE generos SET ${campos} WHERE id=?`;

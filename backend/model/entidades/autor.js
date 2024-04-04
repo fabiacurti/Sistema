@@ -50,7 +50,7 @@ class Autor {
     async filtrar({ Nome, Genero }) {
         var sql = `select * FROM autor where Nome like '%${Nome}%' and Genero=?`
         if (Genero == "Todos") {
-            sql = `select * FROM autor where Nome like '%${Nome}'`
+            sql = `select * FROM autor where Nome like '%${Nome}%'`
         }
         const autores = await banco.ExecutaComando(sql, Genero)
         return autores

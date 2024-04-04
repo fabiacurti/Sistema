@@ -15,17 +15,8 @@ class cadLivroController{
         return cadLivro.getALL()
 
     }
-    async buscar(req,res){
+    
 
-        const filtro =req.body;
-
-        try{
-            const result =await cadLivro.buscar(filtro)
-            return res.status(200).json(result);
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
     async getById(req,res){
         const codigoLivro =req.params.codigoLivro;
