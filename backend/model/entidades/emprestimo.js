@@ -12,10 +12,10 @@ class Emprestimo {
 
     constructor(ID, IDLivro, IDUsuario, dEmprestimo, dDevolucao) {
         this.ID = ID,
-        this.IDLivro = IDLivro
+            this.IDLivro = IDLivro
         this.IDUsuario = IDUsuario
         this.dEmprestimo = dEmprestimo
-        this.dDevolucao = dDevolucao    
+        this.dDevolucao = dDevolucao
     }
 
 
@@ -48,22 +48,22 @@ class Emprestimo {
             INNER JOIN 
                 alunoprofessor ON emprestimo.IDUsuario = alunoprofessor.cpf;
         `;
-        
+
         const emprestimos = await banco.ExecutaComando(query);
-     
+
         const emprestimosFormatados = emprestimos.map(emprestimo => ({
-        
-            
+
+
             ID: emprestimo.ID,
             dEmprestimo: emprestimo.dEmprestimo,
-            dDevolucao:emprestimo.dDevolucao,
+            dDevolucao: emprestimo.dDevolucao,
             livro: {
                 codigoLivro: emprestimo.codigoLivro,
                 NomeLivro: emprestimo.NomeLivro,
                 numeroPagina: emprestimo.numeroPagina,
                 editora: {
                     id: emprestimo.editora_id,
-                    nome: emprestimo.editora 
+                    nome: emprestimo.editora
                 },
                 genero: {
                     id: emprestimo.genero_id,
@@ -76,9 +76,9 @@ class Emprestimo {
                 nome: emprestimo.nomeUsuario
             },
         }));
-     
+
         return emprestimosFormatados;
-     }
+    }
 
     async getById(ID) {
         const result = await banco.ExecutaComando('select * from emprestimo WHERE ID = ?', [ID])
@@ -129,36 +129,39 @@ class Emprestimo {
             WHERE
                 emprestimo.IDLivro LIKE '%${IDLivro}%';
         `;
-        
+
         const emprestimos = await banco.ExecutaComando(query);
-    
+
         const emprestimosFormatados = emprestimos.map(emprestimo => ({
             ID: emprestimo.ID,
             dEmprestimo: emprestimo.dEmprestimo,
-            dDevolucao:emprestimo.dDevolucao,
+            dDevolucao: emprestimo.dDevolucao,
             livro: {
                 id: emprestimo.codigoLivro,
                 NomeLivro: emprestimo.NomeLivro,
                 numeroPagina: emprestimo.numeroPagina,
                 editora: {
                     id: emprestimo.editora_id,
-                    nome: emprestimo.editora 
+                    nome: emprestimo.editora
                 },
                 genero: {
                     id: emprestimo.genero_id,
                     descricao: emprestimo.genero
                 },
                 dataPublicacao: emprestimo.dataPublicacao,
-            alunoProfessor: {
-                id: emprestimo.IDUsuario,
-                nome: emprestimo.nome
-            }
+                alunoProfessor: {
+                    id: emprestimo.IDUsuario,
+                    nome: emprestimo.nome
+                }
             },
         }));
-     
+
         return emprestimosFormatados;
     }
-    
+
+
+
+
 
 
 }

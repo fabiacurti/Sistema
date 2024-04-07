@@ -14,6 +14,8 @@ const generosRoute = require("./routes/generosRoute");
 const cadLivroRouters = require('./routes/cadLivroRouters.js')
 const EditorasRoutes = require('./routes/EditorasRoutes')
 const tipoLivroRoutes = require('./routes/tipoLivroRoutes')
+const reservaRoutes = require('./routes/reservaLivroRoutes')
+
 
 app.use(express.json())
 app.use(cors({origin:'http://localhost:3000',credentials:true}))
@@ -28,6 +30,7 @@ app.use('/genero',generosRoute)
 app.use('/cadLivro', cadLivroRouters)
 app.use('/editoras',EditorasRoutes)
 app.use('/tipoLivro',tipoLivroRoutes)
+app.use('/reserva',reservaRoutes)
 
 
 
