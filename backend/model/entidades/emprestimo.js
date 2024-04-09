@@ -92,8 +92,14 @@ class Emprestimo {
 
 
     async create(dadosEmprestimo) {
-        await banco.ExecutaComandoNonQuery('insert into emprestimo set ?', dadosEmprestimo)
+        const { IDLivro, IDUsuario, dEmprestimo, dDevolucao } = dadosEmprestimo;
+        const query = `
+            INSERT INTO emprestimo (IDLivro, IDUsuario, dEmprestimo, dDevolucao)
+            VALUES (?, ?, ?, ?);
+        `;
+        await banco.ExecutaComandoNonQuery(query, [IDLivro, IDUsuario, dEmprestimo, dDevolucao]);
     }
+    
 
     async update(ID, dadosEmprestimo) {
         await banco.ExecutaComando('update emprestimo set ? where id=?', [dadosEmprestimo, ID])

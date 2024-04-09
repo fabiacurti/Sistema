@@ -45,7 +45,12 @@ function NavBar() {
                     </li>
                     <li>
                     <Link href="/" className="nav-link text-white">
-                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Emprestimo"><i class="bi bi-book"></i>Regristar Emprestimo</NavLink>
+                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Emprestimo"><i class="bi bi-book"></i> Regristar Emprestimo</NavLink>
+                    </Link>
+                    </li>
+                    <li>
+                    <Link href="/" className="nav-link text-white">
+                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Reserva"><i class="bi bi-journal"></i> Reservar Livro</NavLink>
                     </Link>
                     </li>
                 </ul>

@@ -47,18 +47,17 @@ class EmprestimoController{
     }
 
 
-    async create(req,res){
-        const emprestimoData = req.body;
-        try{
-            await emprestimo.create(emprestimoData);
-            res.status(201).json({messege:'Emprestimo regristrado com sucesso!'})
-
-        }catch{
-            console.log('Erro ao inserir o emprestimo', error)
-            res.status(500).json({error:'Erro ao inserir o emprestimo'})
+    async create(req, res) {
+        try {
+            const dadosEmprestimo = req.body;
+            await emprestimo.create(dadosEmprestimo);
+            res.status(201).send('Empréstimo criado com sucesso.');
+        } catch (error) {
+            console.error('Erro ao inserir o empréstimo:', error);
+            res.status(500).send('Erro ao inserir o empréstimo. Verifique o console para mais detalhes.');
         }
     }
-
+    
     async update(req,res){
         const emprestimoData = req.body;
         const ID = req.params.ID
