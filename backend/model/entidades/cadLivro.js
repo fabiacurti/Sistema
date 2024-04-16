@@ -1,4 +1,5 @@
 const Database = require("../database");
+const jsPDF = require('jspdf');
 
 const banco = new Database()
 class cadLivro {
@@ -110,6 +111,25 @@ class cadLivro {
       await banco.ExecutaComandoNonQuery('delete from cadlivro where codigoLivro=?', [codigoLivro])
 
    }
+
+   async generatePDF() {
+      const livros = await this.getALL();
+      const doc = new jsPDF();
+      let y = 10;
+
+      livros.forEach(livro => {
+          doc.text(`Nome do Livro: ${livro.NomeLivro}`, 10, y);
+          doc.text(`Código do Livro: ${livro.codigoLivro}`, 10, y + 10);
+          doc.text(`Número de Páginas: ${livro.numeroPagina}`, 10, y + 20);
+          doc.text(`Editora: ${livro.editora.nome}`, 10, y + 30);
+          doc.text(`Gênero: ${livro.genero.descricao}`, 10, y + 40);
+          doc.text(`Data de Publicação: ${livro.dataPublicacao}`, 10, y + 50);
+          doc.text('-------------------------------------', 10, y + 60);
+          y += 70;
+      });
+      
+      doc.save('livros_cadastrados.pdf');
+  }
 }
 
 module.exports = cadLivro
