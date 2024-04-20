@@ -15,7 +15,7 @@ function TabelaReserva(){
         fetch('http://localhost:3001/reservas',{ method: "GET" })
         .then((resposta)=>{
             return resposta.json()
-        }).then(data=>setReserva(data)).catch(error=>console.log('Erro ao encontrar aluno ou professor' + error))
+        }).then(data=>setReserva(data)).catch(error=>console.log('Erro ao encontrar as reservas' + error))
     },[]);
 
     
@@ -25,20 +25,21 @@ function TabelaReserva(){
 
     const handleDelete = async (id_Res) => {
         try {
-          const response = await reserva.delete(id_Res);
-          if (response.status === 200) {
-            // Remover a reserva excluída da lista
-            setReserva(reserva.filter(item => item.id_Res !== id_Res));
-            alert("Reserva cancelada com sucesso!");
-          } else {
-            alert("Erro ao cancelar a reserva.");
-          }
+            const response = await fetch(`http://localhost:3001/reservas/${id_Res}`, {
+                method: 'DELETE'
+            });
+            if (response.status === 200) {
+                // Remover a reserva excluída da lista
+                setReserva(reserva.filter(item => item.id_Res !== id_Res));
+                alert("Reserva cancelada com sucesso!");
+            } else {
+                alert("Erro ao cancelar a reserva.");
+            }
         } catch (error) {
-          console.error("Erro ao cancelar a reserva:", error);
-          alert("Erro ao cancelar a reserva. Verifique o console para mais detalhes.");
+            console.error("Erro ao cancelar a reserva:", error);
+            alert("Erro ao cancelar a reserva. Verifique o console para mais detalhes.");
         }
-      };
-
+    };
 
     return(
         <div className="janela">
