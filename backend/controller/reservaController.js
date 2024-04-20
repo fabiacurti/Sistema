@@ -62,8 +62,8 @@ class ReservaController{
             await reserva.delete(id_Res);
             res.status(200).json({message:'Registro deletado com sucesso'})
         } catch (error) {
-            console.log('Erro ao deletar aluno e professor', error)
-            res.status(500).json({error:'Erro ao deletar aluno e professor'})
+            console.log('Erro ao deletar reservar', error)
+            res.status(500).json({error:'Erro ao tentar cancelar a reserva'})
         }
     }
 }

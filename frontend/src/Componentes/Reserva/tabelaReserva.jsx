@@ -23,6 +23,22 @@ function TabelaReserva(){
         setReserva(resevasFiltradas)
     };
 
+    const handleDelete = async (id_Res) => {
+        try {
+          const response = await reserva.delete(id_Res);
+          if (response.status === 200) {
+            // Remover a reserva excluída da lista
+            setReserva(reserva.filter(item => item.id_Res !== id_Res));
+            alert("Reserva cancelada com sucesso!");
+          } else {
+            alert("Erro ao cancelar a reserva.");
+          }
+        } catch (error) {
+          console.error("Erro ao cancelar a reserva:", error);
+          alert("Erro ao cancelar a reserva. Verifique o console para mais detalhes.");
+        }
+      };
+
 
     return(
         <div className="janela">
@@ -59,8 +75,7 @@ function TabelaReserva(){
                                         className="btn btn-danger "
                                         id="excluir"
                                         type="button"
-                                       /*onClick={() => handleDelete(reserv.id_Res)}*/
-                                    >
+                                        onClick={() => handleDelete(reserv.id_Res)}                                    >
                                         <i className="bi bi-trash3"></i> Cancelar Reserva
                                     </button>
                                 </td>

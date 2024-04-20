@@ -25,7 +25,7 @@ class Reserva {
             SELECT 
                 reserva.*, 
                 alunoprofessor.*,  
-                cadlivro.*
+                cadLivro.*
             FROM 
                 reserva
             JOIN 
@@ -43,7 +43,7 @@ class Reserva {
     async filtrar ({nomeLivro, tipoPessoa}){
         var sql=`SELECT *
         FROM reserva r 
-        JOIN cadlivro cl ON r.id_Livro = cl.id
+        JOIN cadLivro cl ON r.id_Livro = cl.id
         JOIN alunoprofessor ap on r.id_AlunoProf = ap.cpf
         WHERE cl.nomeLivro LIKE '%${nomeLivro}%';`
             /*if(tipoPessoa=="Todos"){
@@ -68,7 +68,7 @@ class Reserva {
     }
 
     async delete (id_Res){
-        await banco.ExecutaComandoNonQuery('delete from reserva where cpf=?',[id_Res])
+        await banco.ExecutaComandoNonQuery('delete from reserva where id_Res=?',[id_Res])
     }
 
 }
