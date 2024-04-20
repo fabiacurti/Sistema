@@ -21,5 +21,19 @@ class ReservaService{
             throw error;
         }
     }
+
+    async deleteReserva(id_Reserva) {
+        try {
+            const response = await fetch(`http://localhost:3001/reservas/${id_Reserva}`, {
+                method: "DELETE",
+            });
+            if (!response.ok) {
+                throw new Error('Erro ao cancelar reserva');
+            }
+            return true; 
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 export default ReservaService;
