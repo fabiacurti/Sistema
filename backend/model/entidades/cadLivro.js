@@ -22,6 +22,7 @@ class cadLivro {
    async getALL() {
       const query = `
          SELECT
+            cadlivro.id,
             cadlivro.nomeLivro,
             cadlivro.cod,
             cadlivro.numeroPagina,
@@ -41,6 +42,7 @@ class cadLivro {
       const livros = await banco.ExecutaComando(query);
    
       const livrosFormatados = livros.map(livro => ({
+         id:livro.id,
          nomeLivro: livro.nomeLivro,
          cod: livro.cod,
          numeroPagina: livro.numeroPagina,

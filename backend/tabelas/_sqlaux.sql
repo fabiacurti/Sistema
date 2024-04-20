@@ -1,33 +1,28 @@
+----------- TBL.alunoProfessor
 CREATE TABLE alunoProfessor (
   Nome VARCHAR(255) NOT NULL,
-  cpf VARCHAR(14) NOT NULL PRIMARY KEY,
-  dNascimento DATE NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  cidade VARCHAR(100) NOT NULL,
-  rua VARCHAR(100) NOT NULL,
-  telefone VARCHAR(15) NOT NULL,
+  cpf VARCHAR(14) NOT NULL primary key,
+  DataNascimento DATE NOT NULL,
+  Email VARCHAR(255) NOT NULL,
+  Cidade VARCHAR(100) NOT NULL,
+  Telefone VARCHAR (15) NOT NULL,
+  Rua VARCHAR(100) NOT NULL,
+  Numero VARCHAR(10) NOT NULL,
   cep VARCHAR(9) NOT NULL,
-  tipoPessoa VARCHAR(50) NOT NULL
+  TipoPessoa VARCHAR(50) NOT NULL
 );
 
-
-INSERT INTO alunoProfessor (Nome, cpf, dNascimento, email, cidade, rua, telefone, cep, tipoPessoa) VALUES
-('João Silva', '123.456.789-01', '1990-05-15', 'joao@example.com', 'São Paulo', 'Rua A', '(11) 1234-5678', '12345-678', 'Aluno');
-
-INSERT INTO alunoProfessor (Nome, cpf, dNascimento, email, cidade, rua, telefone, cep, tipoPessoa) VALUES
-('Maria Souza', '987.654.321-02', '1988-08-20', 'maria@example.com', 'Rio de Janeiro', 'Rua B', '(21) 9876-5432', '54321-876', 'Aluno');
-
-INSERT INTO alunoProfessor (Nome, cpf, dNascimento, email, cidade, rua, telefone, cep, tipoPessoa) VALUES
-('Carlos Oliveira', '111.222.333-45', '1975-12-10', 'carlos@example.com', 'Belo Horizonte', 'Rua C', '(31) 1111-2222', '98765-432', 'Professor');
-
-INSERT INTO alunoProfessor (Nome, cpf, dNascimento, email, cidade, rua, telefone, cep, tipoPessoa) VALUES
-('Ana Rodrigues', '444.555.666-78', '1995-03-25', 'ana@example.com', 'Porto Alegre', 'Rua D', '(51) 4444-5555', '67890-123', 'Aluno');
-
-INSERT INTO alunoProfessor (Nome, cpf, dNascimento, email, cidade, rua, telefone, cep, tipoPessoa) VALUES
-('Pedro Santos', '777.888.999-00', '1980-11-03', 'pedro@example.com', 'Salvador', 'Rua E', '(71) 7777-8888', '54321-098', 'Professor');
+INSERT INTO
+  alunoProfessor (Nome, CPF, DataNascimento, Email, Cidade, Telefone, Rua, Numero, CEP, TipoPessoa)
+VALUES
+  ('João Silva', '123.456.789-00', '1990-05-15', 'joao.silva@email.com', 'São Paulo', '(11) 9876-5432', 'Rua ABC', '123', '01234-567', 'Aluno'),
+  ('Maria Oliveira','987.654.321-00','1988-12-03','maria.oliveira@email.com','Rio de Janeiro','(21) 8765-4321','Avenida XYZ','456','89012-345','Professor'),
+  ('Pedro Santos','111.222.333-44','1995-08-22','pedro.santos@email.com','Brasília','(61) 7654-3210','Praça DEF','789','45678-901','Aluno'),
+  ('Ana Pereira','555.666.777-88','1987-04-11','ana.pereira@email.com','Belo Horizonte','(31) 6543-2109','Alameda GHI','101','23456-789','Aluno'),
+  ('Carlos Lima','999.888.777-66','1980-11-28','carlos.lima@email.com','Porto Alegre','(51) 5432-1098','Praia JKL','202','56789-012','Professor');
 
 
-
+-------------------------------------------------------------
 ----------- TBL.autor
 create TABLE `autor` (
   `ID` int not null AUTO_INCREMENT,
@@ -57,7 +52,8 @@ INSERT INTO autor (Nome, sobrenome, dNascimento, cidadeNascimento, genero, email
 ('Pedro', 'Santos', '1970-12-03', 'Salvador', 'Masculino', 'pedro.santos@example.com', '12');
 
 
------------ TBL.generos
+
+-------------------------------------------------------------
 CREATE TABLE generos (
   id INT NOT NULL AUTO_INCREMENT,
   codigo INT NOT NULL,
@@ -65,6 +61,8 @@ CREATE TABLE generos (
   isAtivo BOOLEAN,
   PRIMARY KEY (id)
 );
+
+
 
 INSERT INTO
   generos (codigo, descricao, isAtivo)
@@ -74,8 +72,6 @@ VALUES
   (3, 'Drama', false),
   (4, 'Ficção Científica', true);
 
-
-
 CREATE TABLE tipoLivro (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
@@ -84,8 +80,8 @@ CREATE TABLE tipoLivro (
     formato VARCHAR(50)
 );
 
-  
-CREATE TABLE `editoras` (
+
+  CREATE TABLE `editoras` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `Nome` VARCHAR(255) DEFAULT NULL,
     `fundacao` VARCHAR(255) NOT NULL,
@@ -106,7 +102,9 @@ INSERT INTO editoras (Nome, fundacao, cnpj, contato, email) VALUES
 INSERT INTO editoras (Nome, fundacao, cnpj, contato, email) VALUES
 ('Editora E', '12/12/2000', '777.888.999/0001-05', '(51) 7777-8888', 'contato@editoraE.com');
 
-create TABLE `cadLivro` (
+
+
+  create TABLE `cadLivro` (
   `nomeLivro` varchar(50) NULL,
   `id` int AUTO_INCREMENT,
   `cod` int not null,
@@ -127,13 +125,16 @@ INSERT INTO cadLivro (nomeLivro, cod, numeroPagina, editora, genero, dataPublica
 ('1984', 4, 328, 'Editora D', 'Ação', '1949-01-01');
 INSERT INTO cadLivro (nomeLivro, cod, numeroPagina, editora, genero, dataPublicacao) VALUES
 ('O Senhor dos Anéis', 5, 1000, 'Editora E', 'Drama', '1954-01-01');
-
+  
 
 
 CREATE TABLE Emprestimo (
     ID INT PRIMARY KEY AUTO_INCREMENT,
     IDLivro INT,
-    IDUsuario INT,
+    IDUsuario VARCHAR(14),
     dEmprestimo DATE,
-    dDevolucao DATE
+    dDevolucao DATE,
+    IsReservado BOOLEAN,
+    FOREIGN KEY (IDLivro) REFERENCES cadlivro(id), 
+    FOREIGN KEY (IDUsuario) REFERENCES alunoProfessor(cpf)
 );

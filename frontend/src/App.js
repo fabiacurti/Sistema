@@ -5,6 +5,7 @@ import Autor from "./Componentes/Autor/Autor";
 import Emprestimo from "./Componentes/Emprestimo/Emprestimo";
 import TipoLivro from "./Componentes/TipoLivro/TipoLivro";
 import ListaLivros from './Componentes/Livro/listaLivros';
+import Reserva from './Componentes/Reserva/reserva';
 
 import NavBar from "./Componentes/NavBar/NavBar";
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
@@ -37,6 +38,9 @@ function App() {
         </Route>
         <Route path="/Emprestimo">
           <Route path="" element={<Emprestimo></Emprestimo>}/> 
+        </Route>
+        <Route path="/Reserva">
+          <Route path="" element={<Reserva></Reserva>}/> 
         </Route>
       </Routes>     
     </BrowserRouter>

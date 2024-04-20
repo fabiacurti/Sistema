@@ -1,12 +1,14 @@
-import AlunoProfessorService from '../services/alunoprofessorService';
-import './Conteudo.css'
-import './Suport.css'
+import ReservaService from "../services/reservaService.js";
+import './reservaConteudo.css'
+import './reservaSuport.css'
 import { useState } from 'react';
 import InputMask from 'react-input-mask';
 
-const alunoprofessorService = new AlunoProfessorService();
+
+const reservaService = new  ReservaService()
 function FormFiltro({ onUpdate }) {
-    const [filtroData,setFiltroData]=useState({Nome:"",TipoPessoa:"Todos"})
+    
+    const [filtroData,setFiltroData]=useState({nomeLivro:""})
 
     const handleInputChange = async (event)=>{
         const {name,value} = event.target;
@@ -15,9 +17,9 @@ function FormFiltro({ onUpdate }) {
     const handleSubmit = async(event)=>{
         event.preventDefault();
         try {
-            const alunoprofessoresFiltradas = await alunoprofessorService.filtrar(filtroData);
+            const resevasFiltradas = await reservaService.filtrar(filtroData);
             console.log("Clicou em Filtrar");
-            onUpdate(alunoprofessoresFiltradas);
+            onUpdate(resevasFiltradas);
 
         } catch (error) {
             console.log("Erro ao filtrar aluno Professor:");
@@ -28,8 +30,8 @@ function FormFiltro({ onUpdate }) {
        <form onSubmit={handleSubmit}>
        
        <div className={`col-md-3`}>
-                    <label htmlFor="Nome" className="form-label">Nome:</label>
-                    <InputMask type="text" mask="" className={`form-control rounded `} id="Nome" name="Nome" placeholder="Nome do aluno ou professor" value={filtroData.Nome} onChange={handleInputChange} />
+                    <label htmlFor="nomeLivro" className="form-label">Nome do Livro:</label>
+                    <InputMask type="text" mask="" className={`form-control rounded `} id="nomeLivro" name="nomeLivro" placeholder="Nome do aluno ou professor" value={filtroData.nomeLivro} onChange={handleInputChange} />
                     
                         <div className="invalid-feedback">
                         {'Por Favor, digite o Nome! Digite pelo menos 4 letras, apenas letras são permitidas.'}

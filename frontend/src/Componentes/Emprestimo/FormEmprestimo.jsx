@@ -112,7 +112,7 @@ function FormEmprestimo({ selectedEmprestimo, onUpdate, setSelectedEmprestimo })
                                 ID do Livro:
                             </label>
                             <input
-                                value={IDLivro || emprestimoData.IDLivro}
+                                value={IDLivro}
                                 type="text"
                                 className={`form-control`}
                                 name="IDLivro"
@@ -134,7 +134,7 @@ function FormEmprestimo({ selectedEmprestimo, onUpdate, setSelectedEmprestimo })
                                 ID do Usuario:
                             </label>
                             <input
-                                value={IDUsuario || emprestimoData.genero.id}
+                                value={IDUsuario}
                                 type="text"
                                 className={`form-control`}
                                 name="IDUsuario"

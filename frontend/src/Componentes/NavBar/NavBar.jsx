@@ -14,38 +14,43 @@ function NavBar() {
                 <ul className="nav nav-pills flex-column mb-auto">
                     <li className="nav-item">
                     <Link href="/" className="nav-link" aria-current="page">
-                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Aluno&Professor"><i class="bi bi-person-vcard"></i>Aluno & Professor</NavLink>
+                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Aluno&Professor"><i class="bi bi-person-vcard"></i>    Aluno & Professor</NavLink>
                     </Link>
                     </li>
                     <li>
                     <Link href="/" className="nav-link text-white ">
-                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Autor"><i class="bi bi-pencil"></i>Autor</NavLink>
+                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Autor"><i class="bi bi-pencil"></i>   Autor</NavLink>
                     </Link>
                     </li>
                     <li>
                     <Link href="/" className="nav-link text-white">
-                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Generos"><i class="bi bi-repeat"></i>Generos</NavLink>
+                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Generos"><i class="bi bi-repeat"></i>    Generos</NavLink>
                         
                     </Link>
                     </li>
                     <li>
                     <Link href="/" className="nav-link text-white">
-                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Livros"><i class="bi bi-journal-text"></i>Livro</NavLink>
+                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Livros"><i class="bi bi-journal-text"></i>   Livro</NavLink>
                     </Link>
                     </li>
                     <li>
                     <Link href="/" className="nav-link text-white">
-                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Editoras"><i class="bi bi-book"></i>Editoras</NavLink>
+                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Editoras"><i class="bi bi-book"></i>   Editoras</NavLink>
                     </Link>
                     </li>
                     <li>
                     <Link href="/" className="nav-link text-white">
-                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/TipoLivro"><i class="bi bi-book"></i>Tipo de livro</NavLink>
+                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/TipoLivro"><i class="bi bi-search"></i>   Tipo de livro</NavLink>
                     </Link>
                     </li>
                     <li>
                     <Link href="/" className="nav-link text-white">
-                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Emprestimo"><i class="bi bi-book"></i>Regristar Emprestimo</NavLink>
+                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Emprestimo"><i class="bi bi-repeat"></i>   Regristar Emprestimo</NavLink>
+                    </Link>
+                    </li>
+                    <li>
+                    <Link href="/" className="nav-link text-white">
+                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Reserva"><i class="bi bi-calendar-week"></i>    Reservas</NavLink>
                     </Link>
                     </li>
                 </ul>

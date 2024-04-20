@@ -32,12 +32,14 @@ class AlunoProfessor {
         return alunoprofessors;
     }
 
-    async filtrar ({Nome, tipoPessoa}){
-        var sql=`select * from alunoprofessor where Nome like '%${Nome}%' and tipoPessoa=?`
-            if(tipoPessoa=="Todos"){
+    async filtrar ({Nome, TipoPessoa}){
+        
+        var sql=`select * from alunoprofessor where Nome like '%${Nome}%' and TipoPessoa =?`
+           if(TipoPessoa=="Todos"){
                 sql=`select * from alunoprofessor where Nome like '%${Nome}%'`
             }
-            const alunoprofessors =await banco.ExecutaComando(sql,tipoPessoa);
+            const alunoprofessors =await banco.ExecutaComando(sql,TipoPessoa);
+            
             return alunoprofessors
     }
 
