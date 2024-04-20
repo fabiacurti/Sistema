@@ -16,7 +16,7 @@ function TabelaReserva(){
         .then((resposta)=>{
             return resposta.json()
         }).then(data=>setReserva(data)).catch(error=>console.log('Erro ao encontrar as reservas' + error))
-    },[]);
+    },[reserva]);
 
     
     const handleUpdateFiltro = async (resevasFiltradas) => {

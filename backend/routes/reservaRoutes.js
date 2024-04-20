@@ -5,7 +5,7 @@ const ReservaController =require('../controller/reservaController.js')
  const router =express.Router();
 
  router.get('/', reservaController.getAllByIDProf);
- router.delete('/:cpf', reservaController.delete);
+ router.delete('/:id', reservaController.delete);
  router.post('/',reservaController.create);
  router.put('/:cpf', reservaController.update);
  router.post('/filtrar',reservaController.filtrar)

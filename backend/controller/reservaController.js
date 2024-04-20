@@ -57,9 +57,9 @@ class ReservaController{
     }
 
     async delete(req, res){
-        const id_Res = req.params.id_Res;
+        const id_Res = req.params;
         try {
-            await reserva.delete(id_Res);
+            await reserva.delete(id_Res.id);
             res.status(200).json({message:'Registro deletado com sucesso'})
         } catch (error) {
             console.log('Erro ao deletar reservar', error)
