@@ -1,5 +1,5 @@
 import "./reservaConteudo.css";
-import "./reservaSuport.css";
+/*import "./reservaSuport.css";*/
 import TabelaReserva from "./tabelaReserva.jsx";
 import React, { useEffect, useState } from "react";
 
@@ -7,6 +7,7 @@ function Conteudo() {
   const [validado, setValidado] = useState(false);
   const [alunoP, setAlunoPro] = useState([]);
   const [livros, setLivro] = useState([]);
+  const [reservas, setReservas] = useState([])
   const [reserva, setReserva] = useState({
     id_Res: 0,
     id_AlunoProf: "",
@@ -36,6 +37,18 @@ function Conteudo() {
       );
   }, []);
 
+  async function atualizarResevar(){
+    try{
+       const resultado = await fetch('http://localhost:3001/reservas',{ method: "GET" })
+       const data = await resultado.json()
+       setReservas(data)
+    }catch(error){
+
+       console.error('Erro a consultar a reserva ' + error)
+    }
+       
+   } 
+
   function gravarReserva() {
     fetch("http://localhost:3001/reservas", {
       method: "POST",
@@ -59,6 +72,7 @@ function Conteudo() {
         }
         alert("Resevardo com sucesso!");
         atualizacaoReserva()
+        atualizarResevar()
       })
       .catch((erro) => alert(erro.message));
   }
@@ -90,6 +104,7 @@ function Conteudo() {
   const manipulaSubmissao = (event) => {
     const form = event.currentTarget;
       gravarReserva();
+      
     if (form.checkValidity()) {
 
       setValidado(false);
@@ -164,14 +179,14 @@ function Conteudo() {
                 placeholder="DD/MM/YYYY"
                 value={reserva.Data_Reserva}
                 onChange={manipularMudanca}
-                max={`${new Date().getFullYear() - 10}-${new Date()
+                max={`${new Date().getFullYear() + 1}-${new Date()
                   .getMonth()
                   .toString()
                   .padStart(2, "0")}-${new Date()
                   .getDate()
                   .toString()
                   .padStart(2, "0")}`}
-                min={`${new Date().getFullYear() - 70}-${new Date()
+                min={`${new Date().getFullYear() - 0}-${new Date()
                   .getMonth()
                   .toString()
                   .padStart(2, "0")}-${new Date()
@@ -193,14 +208,14 @@ function Conteudo() {
                 placeholder="DD/MM/YYYY"
                 value={reserva.Data_Devolucao}
                 onChange={manipularMudanca}
-                max={`${new Date().getFullYear() - 10}-${new Date()
+                max={`${new Date().getFullYear() + 1}-${new Date()
                   .getMonth()
                   .toString()
                   .padStart(2, "0")}-${new Date()
                   .getDate()
                   .toString()
                   .padStart(2, "0")}`}
-                min={`${new Date().getFullYear() - 70}-${new Date()
+                min={`${new Date().getFullYear() - 0}-${new Date()
                   .getMonth()
                   .toString()
                   .padStart(2, "0")}-${new Date()
@@ -237,7 +252,12 @@ function Conteudo() {
             </div>
           </form>
         </div>
-        <TabelaReserva />
+        <TabelaReserva 
+        atualizarResevar ={atualizarResevar} 
+        setReservas = {setReservas}
+        reservas = {reservas}
+        ></TabelaReserva>
+
       </div>
     </>
   );

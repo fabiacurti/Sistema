@@ -19,7 +19,6 @@ class ReservaController{
 
     async filtrar (req,res){
         const filtro =req.body;
-        console.log(filtro)
         try {
             const result =await reserva.filtrar(filtro)
             return res.status(200).json(result);

@@ -1,5 +1,4 @@
-import "./reservaConteudo.css";
-import "./reservaSuport.css";
+
 import Conteudo from './Conteudo.jsx';
 
 

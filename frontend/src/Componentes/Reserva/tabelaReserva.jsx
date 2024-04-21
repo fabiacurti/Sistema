@@ -1,26 +1,37 @@
 import "./reservaConteudo.css";
-import "./reservaSuport.css";
+/*import "./reservaSuport.css";*/
 import FormFiltro from './FormFiltro.jsx'
 import React, { useEffect, useState } from "react";
 
 
-function TabelaReserva(){
-    const [reserva, setReserva] =useState([])
+function TabelaReserva({atualizarResevar, setReservas, reservas}){
    
 
     
 
     useEffect(()=>{
-
-        fetch('http://localhost:3001/reservas',{ method: "GET" })
+        atualizarResevar()
+        /*fetch('http://localhost:3001/reservas',{ method: "GET" })
         .then((resposta)=>{
             return resposta.json()
-        }).then(data=>setReserva(data)).catch(error=>console.log('Erro ao encontrar as reservas' + error))
-    },[reserva]);
+        }).then(data=>setReserva(data)).catch(error=>console.log('Erro ao encontrar as reservas' + error))*/
+    },[atualizarResevar]);
 
-    
+    /*async function atualizarResevar(){
+     try{
+        const resultado = await fetch('http://localhost:3001/reservas',{ method: "GET" })
+        const data = await resultado.json()
+        setReserva(data)
+     }catch(error){
+
+        console.error('Erro a consultar a reserva ' + error)
+     }
+        
+    } */
+
     const handleUpdateFiltro = async (resevasFiltradas) => {
-        setReserva(resevasFiltradas)
+        setReservas(resevasFiltradas)
+        console.log(resevasFiltradas)
     };
 
     const handleDelete = async (id_Res) => {
@@ -30,7 +41,7 @@ function TabelaReserva(){
             });
             if (response.status === 200) {
                 // Remover a reserva excluída da lista
-                setReserva(reserva.filter(item => item.id_Res !== id_Res));
+                setReservas(reservas.filter(item => item.id_Res !== id_Res));
                 alert("Reserva cancelada com sucesso!");
             } else {
                 alert("Erro ao cancelar a reserva.");
@@ -59,15 +70,15 @@ function TabelaReserva(){
                     </tr>
                 </thead>
                     <tbody>
-                        {reserva.map((reserv) => (
+                        {reservas.map((reserv) => (
                             <tr key={reserv.id_Res} >
                                 <th scope="row">{reserv.Nome}</th>
                                 <td>{reserv.nomeLivro}</td>
                                 <td>
-                                {`${new Date(reserv.Data_Reserva).getDate().toString().padStart(2, "0")}/${new Date(reserv.Data_Reserva).getMonth().toString().padStart(2, "0")}/${new Date(reserv.Data_Reserva).getFullYear()}`}
+                                {`${new Date(reserv.Data_Reserva).getDate().toString().padStart(2, "0")}/${(new Date(reserv.Data_Reserva).getMonth() +1).toString().padStart(2, "0")}/${new Date(reserv.Data_Reserva).getFullYear()}`}
                                 </td>
                                 <td>
-                                {`${new Date(reserv.Data_Devolução).getDate().toString().padStart(2, "0")}/${new Date(reserv.Data_Devolução).getMonth().toString().padStart(2, "0")}/${new Date(reserv.Data_Devolução).getFullYear()}`}
+                                {`${new Date(reserv.Data_Devolução).getDate().toString().padStart(2, "0")}/${(new Date(reserv.Data_Devolução).getMonth() +1).toString().padStart(2, "0")}/${new Date(reserv.Data_Devolução).getFullYear()}`}
                                 </td>
                                 <td>{reserv.TipoPessoa}</td>
                                 <td>{reserv.Status_Reserva}</td>
@@ -76,7 +87,7 @@ function TabelaReserva(){
                                         className="btn btn-danger "
                                         id="excluir"
                                         type="button"
-                                        onClick={() => handleDelete(reserv.id_Res)}                                    >
+                                        onClick={() => handleDelete(reserv.id_Res)}    >
                                         <i className="bi bi-trash3"></i> Cancelar Reserva
                                     </button>
                                 </td>

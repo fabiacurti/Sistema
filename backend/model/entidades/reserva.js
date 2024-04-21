@@ -50,7 +50,7 @@ class Reserva {
                 sql=`select * from reserva where Nome like '%${nomeLivro}%'`
             }*/
             const reserva =await banco.ExecutaComando(sql,tipoPessoa);
-            console.log(reserva)
+
             return reserva
     }
 

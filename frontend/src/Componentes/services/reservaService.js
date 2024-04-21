@@ -14,7 +14,7 @@ class ReservaService{
                 body:JSON.stringify(filtroData)
             });
             if(!response.ok){
-                throw new Error('Erro ao filtrar Aluno ou Professor')
+                throw new Error('Erro ao filtrar Livros reservados')
             }
             return response.json()
         } catch (error) {
