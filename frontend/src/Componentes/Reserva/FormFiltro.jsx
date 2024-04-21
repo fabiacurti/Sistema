@@ -1,6 +1,6 @@
 import ReservaService from "../services/reservaService.js";
 import './reservaConteudo.css'
-import './reservaSuport.css'
+/*import './reservaSuport.css'*/
 import { useState } from 'react';
 import InputMask from 'react-input-mask';
 

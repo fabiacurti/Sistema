@@ -1,7 +1,7 @@
 import "./reservaConteudo.css";
 /*import "./reservaSuport.css";*/
 import FormFiltro from './FormFiltro.jsx'
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react"; //useState
 
 
 function TabelaReserva({atualizarResevar, setReservas, reservas}){
