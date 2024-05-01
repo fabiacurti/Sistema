@@ -16,7 +16,7 @@ class AlunoProfessor {
         this.Nome = Nome,
         this.cpf = cpf,
         this.dNascimento = dNascimento,
-        this.Turma = Turma
+        this.Turma = Turma,
         this.email = email,
         this.cidade = cidade,
         this.rua = rua,

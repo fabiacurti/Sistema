@@ -68,7 +68,7 @@ function Conteudo() {
     const carregaAlunoProfessor = async () => {
         try {
             const dados = await alunoprofessorService.getAllAlunoProfessor();
-            console.log(dados);
+            
             setAlunoProfessores(dados);
         } catch (error) {
             console.error("Erro ao carregar Aluno ou Professor:", error);
@@ -517,7 +517,7 @@ function Conteudo() {
                         />
                         <div className="invalid-feedback">Por favor, informe o número!</div>
                     </div>
-                    <div className="form-group2 col-md-4 p1">
+                    <div className="form-group6 col-md-4 p1">
                         <label htmlFor="cep" className="form-label">
                             CEP:
                         </label>
