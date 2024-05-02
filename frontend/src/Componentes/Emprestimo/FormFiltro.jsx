@@ -5,7 +5,7 @@ import './Emprestimo.css';
 const emprestimoService = new EmprestimoService();
 
 function FormFiltro({ onUpdate }) {
-    const [filtroData, setFiltroData] = useState({IDLivro: '' });
+    const [filtroData, setFiltroData] = useState({ID_Livro: '' });
 
     const handleInputChange = async (event) => {
         const { name, value } = event.target;
@@ -13,10 +13,12 @@ function FormFiltro({ onUpdate }) {
     };
 
     const handleSubmit = async (event) => {
+        console.log(event)
         event.preventDefault();
         try {
             const emprestimosFiltrados = await emprestimoService.filtrar(filtroData);
             onUpdate(emprestimosFiltrados);
+            console.log(emprestimosFiltrados)
         } catch (error) {
             console.log("Erro ao filtrar emprestimos:");
         }
@@ -28,12 +30,12 @@ function FormFiltro({ onUpdate }) {
                 <div className="d-flex flex-wrap input-group mb-2">
                     <div className="mb-3">
                         <div className="input-group">
-                            <label className="input-group-text custom-label-height">IDLivro:</label>
+                            <label className="input-group-text custom-label-height">ID_Livro:</label>
                             <input
                                 type="text"
-                                name="IDLivro"
+                                name="ID_Livro"
                                 id="inputNome"
-                                value={filtroData.IDLivro}
+                                value={filtroData.ID_Livro}
                                 onChange={handleInputChange}
                                 className="form-control"
                             />

@@ -25,7 +25,7 @@ function TabelaEmprestimo({ atualizar }) {
 
     useEffect(() => {
         carregaEmprestimos();
-    }, [atualizar]);
+    }, []);
 
 
     const handleDelete = async (ID) => {
@@ -63,7 +63,8 @@ function TabelaEmprestimo({ atualizar }) {
     const handleUpDateFiltro = async (emprestimosFiltrados) => {
         setEmprestimos(emprestimosFiltrados)
     }
-
+    
+    //console.log(emprestimos)
     return (
         <>
             <FormEmprestimo selectedEmprestimo={selectedEmprestimo} onUpdate={handleUpdate}></FormEmprestimo>
@@ -75,22 +76,28 @@ function TabelaEmprestimo({ atualizar }) {
                         <tr>
                             <th scope="col ">ID</th>
                             <th scope="col">ID Livro</th>
+                            <th scope="col">Livro</th>
                             <th scope="col">ID Usuario</th>
+                            <th scope="col">Nome</th>
                             <th scope="col">Data Emprestimo</th>
                             <th scope="col">Data Devolução</th>
                             <th scope="col">Ações</th>
 
+
                         </tr>
+
                     </thead>
                     <tbody>
                         {
                             emprestimos.map((emprestimo => (
                                 <tr>
                                     <th scope="row ">{emprestimo.ID}</th>
-                                    <td >{emprestimo.IDLivro}</td>
-                                    <td>{emprestimo.IDUsuario}</td>
-                                    <td>{`${new Date(emprestimo.dEmprestimo).getDate().toString().padStart(2, "0")}/${new Date(emprestimo.dEmprestimo).getMonth().toString().padStart(2, "0")}/${new Date(emprestimo.dEmprestimo).getFullYear()}`}</td>
-                                    <td>{`${new Date(emprestimo.dDevolucao).getDate().toString().padStart(2, "0")}/${new Date(emprestimo.dDevolucao).getMonth().toString().padStart(2, "0")}/${new Date(emprestimo.dDevolucao).getFullYear()}`}</td>
+                                    <td >{emprestimo.livro.editora.id}</td>
+                                    <td >{emprestimo.livro.nomeLivro}</td>
+                                    <td>{emprestimo.alunoprofessor.id}</td>
+                                    <td >{emprestimo.alunoprofessor.Nome}</td>
+                                    <td>{(emprestimo.dEmprestimo.slice(8,10).concat(emprestimo.dEmprestimo.slice(4,8)).concat(emprestimo.dEmprestimo.slice(0,4))).replaceAll('-', '/')}</td>
+                                    <td>{(emprestimo.dDevolucao.slice(8,10).concat(emprestimo.dDevolucao.slice(4,8)).concat(emprestimo.dDevolucao.slice(0,4))).replaceAll('-', '/')}</td>
                                     <td>
                                         <button type='button' onClick={() => handleDelete(emprestimo.ID)} className="btn btn-danger">EXCLUIR</button>
                                         <button type='button' onClick={() => handleEdit(emprestimo)} className="btn btn-primary">EDITAR</button>

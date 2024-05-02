@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import EmprestimoService from '../services/emprestimoService.js';
+import InputMask from "react-input-mask";
 
 const emprestimoService = new EmprestimoService()
 
@@ -7,12 +8,7 @@ const emprestimoService = new EmprestimoService()
 function FormEmprestimo({ selectedEmprestimo, onUpdate, setSelectedEmprestimo }) {
 
     const formatDate = (date) => {
-        return `${new Date(date).getFullYear()}-${(new Date(date).getMonth())
-            .toString()
-            .padStart(2, "0")}-${new Date(date)
-                .getDate()
-                .toString()
-                .padStart(2, "0")}`;
+        return `${new Date(date).getFullYear()}-${(new Date(date).getMonth()+1).toString().padStart(2, "0")}-${new Date(date).getDate().toString().padStart(2, "0")}`;
     };
 
     const [isEditMode, setIsEditMode] = useState(false);
@@ -34,9 +30,9 @@ function FormEmprestimo({ selectedEmprestimo, onUpdate, setSelectedEmprestimo })
 
     const [alerta, setAlerta] = useState('')
     const [emprestimoData, setEmprestimoData] = useState({
-        IDLivro: "",
-        IDUsuario: "",
-        dEmprestimo: "",
+        ID_Livro: "",
+        ID_AlunoProf: "",
+        dEmprestimo: `${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, "0")}-${new Date().getDate().toString().padStart(2, "0")}`,
         dDevolucao: "",
     });
 
@@ -52,8 +48,8 @@ function FormEmprestimo({ selectedEmprestimo, onUpdate, setSelectedEmprestimo })
             if (selectedEmprestimo == null) {
                 await emprestimoService.createEmprestimo(emprestimoData);
                 setAlerta("Emprestimo cadastrado com sucesso!");
-                setIDLivro('');
-                setIDUsuario('');
+                setID_Livro('');
+                setID_AlunoProf('');
                 setdEmprestimo('');
                 setdDevolucao('');
             } else {
@@ -63,8 +59,8 @@ function FormEmprestimo({ selectedEmprestimo, onUpdate, setSelectedEmprestimo })
 
                 onUpdate();
                 setEmprestimoData({
-                    IDLivro: "",
-                    IDUsuario: "",
+                    ID_Livro: "",
+                    ID_AlunoProf: "",
                     dEmprestimo: "",
                     dDevolucao: "",
                 });
@@ -81,13 +77,13 @@ function FormEmprestimo({ selectedEmprestimo, onUpdate, setSelectedEmprestimo })
     };
 
 
-    const [IDLivro, setIDLivro] = useState('');
-    const [IDUsuario, setIDUsuario] = useState('');
+    const [ID_Livro, setID_Livro] = useState('');
+    const [ID_AlunoProf, setID_AlunoProf] = useState('');
     const [dEmprestimo, setdEmprestimo] = useState('');
     const [dDevolucao, setdDevolucao] = useState('');
     const isFormValid =
-        ((IDLivro.length >= 3 &&
-            IDUsuario.length >= 3 &&
+        ((ID_Livro.length != null &&
+            ID_AlunoProf.length >= 3 &&
             dEmprestimo != null &&
             dDevolucao != null) || isEditMode)
 
@@ -95,8 +91,6 @@ function FormEmprestimo({ selectedEmprestimo, onUpdate, setSelectedEmprestimo })
         const regexSomenteNumero = /^[0-9]+$/;
         return regexSomenteNumero.test(valor) || valor === ""
     }
-
-
 
     return (
         <>
@@ -112,13 +106,13 @@ function FormEmprestimo({ selectedEmprestimo, onUpdate, setSelectedEmprestimo })
                                 ID do Livro:
                             </label>
                             <input
-                                value={IDLivro}
+                                value={ID_Livro}
                                 type="text"
                                 className={`form-control`}
-                                name="IDLivro"
+                                name="ID_Livro"
                                 placeholder="Digite o ID do livro"
                                 onChange={(e) => {
-                                    setIDLivro(prev => relebeSoNumero(e.target.value) ? e.target.value : prev);
+                                    setID_Livro(prev => relebeSoNumero(e.target.value) ? e.target.value : prev);
                                     handleInputChange(e);
                                 }}
                                 required
@@ -127,48 +121,28 @@ function FormEmprestimo({ selectedEmprestimo, onUpdate, setSelectedEmprestimo })
                                 Por Favor, digite o ID!
                             </div>
                         </div>
-
-
                         <div className={`form-group col-md-5`}>
                             <label>
                                 ID do Usuario:
                             </label>
-                            <input
-                                value={IDUsuario}
+                            <InputMask
+                                mask="999.999.999-99"
                                 type="text"
+                                maskPlaceholder={null}
                                 className={`form-control`}
-                                name="IDUsuario"
-                                placeholder="Digite o ID do livro"
+                                id="ID_AlunoProf"
+                                name="ID_AlunoProf"
+                                value={ID_AlunoProf}
                                 onChange={(e) => {
-                                    setIDUsuario(e.target.value);
+                                    setID_AlunoProf(e.target.value);
                                     handleInputChange(e);
                                 }}
+                                placeholder="Digite o ID do livro"
                                 required
+                            
                             />
                             <div className="invalid-feedback">
                                 Por Favor, digite o ID!
-                            </div>
-                        </div>
-
-                        <div className={`form-group col-md-5`}>
-                            <label>
-                                Data do Emprestimo:
-                            </label>
-                            <input
-                                value={emprestimoData.dEmprestimo}
-                                type="date"
-                                className={`form-control`}
-                                name="dEmprestimo"
-                                onChange={(e) => {
-                                    setdEmprestimo(e.target.value);
-                                    handleInputChange(e);
-                                }}
-                                min={`${new Date().getFullYear()}-${new Date().getMonth().toString().padStart(2, "0")}-${new Date().getDate().toString().padStart(2, "0")}`}
-                                required
-
-                            />
-                            <div className="invalid-feedback">
-                                Por favor, informe a data do emprestimo!
                             </div>
                         </div>
 
@@ -185,7 +159,7 @@ function FormEmprestimo({ selectedEmprestimo, onUpdate, setSelectedEmprestimo })
                                     setdDevolucao(e.target.value);
                                     handleInputChange(e);
                                 }}
-                                min={`${new Date().getFullYear()}-${new Date().getMonth().toString().padStart(2, "0")}-${new Date().getDate().toString().padStart(2, "0")}`}
+                                min={`${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, "0")}-${(new Date().getDate() + 1).toString().padStart(2, "0")}`}
                                 required
 
                             />

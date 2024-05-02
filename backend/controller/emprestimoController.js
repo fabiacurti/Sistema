@@ -78,7 +78,7 @@ class EmprestimoController{
             const result = await emprestimo.filtrar(filtro);
             return res.status(200).json(result);
         } catch (error) {
-            console.error("Erro ao filtrar emprestimoes:", error);
+            console.error("Erro ao filtrar emprestimos:", error);
             return res.status(500).json({ error: "Erro interno no servidor" });
         }
     }
