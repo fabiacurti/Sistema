@@ -26,11 +26,13 @@ function FormFiltro({ onUpdate }) {
     return (
         <div className="row">
             <form onSubmit={handleSubmit} className="mb-3">
-                <h3>Filtrar Emprestimo</h3>
+                <div className="text-center">
+                    <h3>Filtrar Emprestimo</h3>
+                </div>
                 <div className="d-flex flex-wrap input-group mb-2">
                     <div className="mb-3">
                         <div className="input-group">
-                            <label className="input-group-text custom-label-height">ID_Livro:</label>
+                            <label className="input-group-text custom-label-height">ID Livro:</label>
                             <input
                                 type="text"
                                 name="ID_Livro"
@@ -42,8 +44,8 @@ function FormFiltro({ onUpdate }) {
                         </div>
                     </div>
                     <div className="ms-auto">
-                        <button type="submit" className="btn btn-primary">
-                            Filtrar
+                        <button type="submit" className="btn btn-success" ><i class="bi bi-search"></i>{"  "}
+                            
                         </button>
                     </div>
                 </div>

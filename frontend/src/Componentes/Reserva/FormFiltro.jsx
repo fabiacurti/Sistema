@@ -25,7 +25,10 @@ function FormFiltro({ onUpdate }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className={`col-md-5 rounded`}>
+      <div className="text-center">
+        <h3>Filtrar Reserva</h3>
+      </div>
+      <div className={`col-md-5 `}>
         <div className="input-group rounded">
           <label htmlFor="nomeLivro" className="input-group-text custom-label-height">
             Nome do Livro:
@@ -40,11 +43,7 @@ function FormFiltro({ onUpdate }) {
             onChange={handleInputChange}
           />
 
-          <div className="invalid-feedback">
-            {
-              "Por Favor, digite o Nome! Digite pelo menos 4 letras, apenas letras são permitidas."
-            }
-          </div>
+          
         </div>
       </div>
       {/*<div className="Posicao col-md-4 ">
