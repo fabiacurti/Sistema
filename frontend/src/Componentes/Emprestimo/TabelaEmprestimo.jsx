@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import EmprestimoService from '../services/emprestimoService.js';
 import FormEmprestimo from './FormEmprestimo.jsx';
 import FormFiltro from './FormFiltro.jsx';
+import './EmprestimoCont.css'
 
 
 const emprestimoService = new EmprestimoService()
@@ -68,58 +69,59 @@ function TabelaEmprestimo({ atualizar }) {
     return (
         <>
             <FormEmprestimo selectedEmprestimo={selectedEmprestimo} onUpdate={handleUpdate}></FormEmprestimo>
-            <div className='conteudo-extra'>
+            <div className='janelaEmprest'>
                 <FormFiltro onUpdate={handleUpDateFiltro}></FormFiltro>
+                <div className='tabelaEmprest'>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col ">ID</th>
+                                <th scope="col">ID Livro</th>
+                                <th scope="col">Livro</th>
+                                <th scope="col">ID Usuario</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Data Emprestimo</th>
+                                <th scope="col">Data Devolução</th>
+                                <th scope="col">Ações</th>
 
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col ">ID</th>
-                            <th scope="col">ID Livro</th>
-                            <th scope="col">Livro</th>
-                            <th scope="col">ID Usuario</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Data Emprestimo</th>
-                            <th scope="col">Data Devolução</th>
-                            <th scope="col">Ações</th>
 
+                            </tr>
 
-                        </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                emprestimos.map((emprestimo => (
+                                    <tr>
+                                        <th scope="row ">{emprestimo.ID}</th>
+                                        <td >{emprestimo.livro.editora.id}</td>
+                                        <td >{emprestimo.livro.nomeLivro}</td>
+                                        <td>{emprestimo.alunoprofessor.id}</td>
+                                        <td >{emprestimo.alunoprofessor.Nome}</td>
+                                        <td>{(emprestimo.dEmprestimo.slice(8,10).concat(emprestimo.dEmprestimo.slice(4,8)).concat(emprestimo.dEmprestimo.slice(0,4))).replaceAll('-', '/')}</td>
+                                        <td>{(emprestimo.dDevolucao.slice(8,10).concat(emprestimo.dDevolucao.slice(4,8)).concat(emprestimo.dDevolucao.slice(0,4))).replaceAll('-', '/')}</td>
+                                        <td>
+                                            <button type='button' onClick={() => handleDelete(emprestimo.ID)} className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                        </td>
 
-                    </thead>
-                    <tbody>
-                        {
-                            emprestimos.map((emprestimo => (
-                                <tr>
-                                    <th scope="row ">{emprestimo.ID}</th>
-                                    <td >{emprestimo.livro.editora.id}</td>
-                                    <td >{emprestimo.livro.nomeLivro}</td>
-                                    <td>{emprestimo.alunoprofessor.id}</td>
-                                    <td >{emprestimo.alunoprofessor.Nome}</td>
-                                    <td>{(emprestimo.dEmprestimo.slice(8,10).concat(emprestimo.dEmprestimo.slice(4,8)).concat(emprestimo.dEmprestimo.slice(0,4))).replaceAll('-', '/')}</td>
-                                    <td>{(emprestimo.dDevolucao.slice(8,10).concat(emprestimo.dDevolucao.slice(4,8)).concat(emprestimo.dDevolucao.slice(0,4))).replaceAll('-', '/')}</td>
-                                    <td>
-                                        <button type='button' onClick={() => handleDelete(emprestimo.ID)} className="btn btn-danger">EXCLUIR</button>
-                                        <button type='button' onClick={() => handleEdit(emprestimo)} className="btn btn-primary">EDITAR</button>
-                                    </td>
+                                    </tr>
+                                )))
+                            }
+                        </tbody>
 
-                                </tr>
-                            )))
-                        }
-                    </tbody>
-
-                </table>
-                {showConfirmation && (
-                    <div className="confirmation">
-                        <p>Confirma a exclusão do emprestimo?</p>
-                        <button className="btn btn-danger" onClick={confirmDelete}>
-                            Sim
-                        </button>
-                        <button className="btn btn-primary" onClick={cancelDelete}>
-                            Não
-                        </button>
-                    </div>
-                )}
+                    </table>
+                    {showConfirmation && (
+                        <div className="confirmation">
+                            <p>Confirma a exclusão do emprestimo?</p>
+                            <button className="btn btn-danger" onClick={confirmDelete}>
+                                Sim
+                            </button>
+                            <button className="btn btn-primary" onClick={cancelDelete}>
+                                Não
+                            </button>
+                        </div>
+                    )}
+                </div> 
+                                   
             </div>
         </>
     );
