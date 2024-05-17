@@ -67,55 +67,57 @@ function TabelaTipoLivro({ atualizar }) {
     return (
         <>
             <FormTipoLivro selectedTipoLivro={selectedTipoLivro} onUpdate={handleUpdate}></FormTipoLivro>
-            <div className='conteudo-extra'>
+            <div className='janelaTip'>
                 <FormFiltro onUpdate={handleUpDateFiltro}></FormFiltro>
+                <div className='tabelaTip'>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Faixa Etaria</th>
+                                <th scope="col">Nivel Leitura</th>
+                                <th scope="col">Formato</th>
+                                <th scope="col">Ações</th>
 
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Faixa Etaria</th>
-                            <th scope="col">Nivel Leitura</th>
-                            <th scope="col">Formato</th>
-                            <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                tipoLivros.map((tipoLivro => (
+                                    <tr>
+                                        <th scope="row ">{tipoLivro.ID}</th>
+                                        <td >{tipoLivro.nome}</td>
+                                        <td>{tipoLivro.faixaEtaria}</td>
+                                        <td>{tipoLivro.nivelLeitura}</td>
+                                        <td>{tipoLivro.formato}</td>
+                                        <td>
+                                            <button type='button' onClick={() => handleEdit(tipoLivro)} className="btn btn-primary"><i className="bi bi-pencil-square"></i></button>
+                                            <button type='button' onClick={() => handleDelete(tipoLivro.ID)} className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                        </td>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            tipoLivros.map((tipoLivro => (
-                                <tr>
-                                    <th scope="row ">{tipoLivro.ID}</th>
-                                    <td >{tipoLivro.nome}</td>
-                                    <td>{tipoLivro.faixaEtaria}</td>
-                                    <td>{tipoLivro.nivelLeitura}</td>
-                                    <td>{tipoLivro.formato}</td>
-                                    <td>
-                                        <button type='button' onClick={() => handleDelete(tipoLivro.ID)} className="btn btn-danger">EXCLUIR</button>
-                                        <button type='button' onClick={() => handleEdit(tipoLivro)} className="btn btn-primary">EDITAR</button>
-                                    </td>
+                                    </tr>
+                                )))
+                            }
+                        </tbody>
 
-                                </tr>
-                            )))
-                        }
-                    </tbody>
-
-                </table>
-                {showConfirmation && (
-                    <div className="confirmation">
-                        <p>Confirme a exclusão do tipo do livro?</p>
-                        <button className="btn btn-danger" onClick={confirmDelete}>
-                            Sim
-                        </button>
-                        <button className="btn btn-primary" onClick={cancelDelete}>
-                            Não
-                        </button>
-                    </div>
-                )}
+                    </table>
+                    {showConfirmation && (
+                        <div className="confirmation">
+                            <p>Confirme a exclusão do tipo do livro?</p>
+                            <button className="btn btn-danger" onClick={confirmDelete}>
+                                Sim
+                            </button>
+                            <button className="btn btn-primary" onClick={cancelDelete}>
+                                Não
+                            </button>
+                        </div>
+                    )}
+                </div>    
             </div>
         </>
     );
 }
-
+// excluir <i className="bi bi-trash3"></i>
+//Editar <i className="bi bi-pencil-square"></i>
 export default TabelaTipoLivro;

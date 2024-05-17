@@ -64,13 +64,24 @@ class cadLivroController{
     }
 
     async delete (req,res){
-        const cod = req.params.cod;
+        const cod = req.params.cod; //params
         try {
             await cadLivro.delete(cod)
             res.status(200).json({message:'registro deletado'})
         } catch (error) {
             console.log('erro ao deletar', error)
             res.status(500).json({error:'erro ao deletar'})
+        }
+    }
+
+    async filtrar(req, res) {
+        const filtro = req.body;
+        try {
+            const result = await cadLivro.filtrar(filtro);
+            return res.status(200).json(result);
+        } catch (error) {
+            console.error("Erro ao filtrar autores:", error);
+            return res.status(500).json({ error: "Erro interno no servidor" });
         }
     }
 

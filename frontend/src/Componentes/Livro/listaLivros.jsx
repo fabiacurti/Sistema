@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import LivroService from "../services/livroService";
 import FormLivro from "./formLivro";
 import FormFiltro from "./formFiltro";
+import "./Livro.css"
 
 const livroservice = new LivroService();
 
@@ -58,7 +59,7 @@ function ListaLivros() {
   return (
     <div>
       <FormLivro selectedLivro={selectedLivro} onUpdate={handleUpdate} />
-      <div className="formulario fundo">
+      <div className="janelaLivro">
         <FormFiltro onUpdate={handleUpdateFiltro} />
         {showConfirmation && (
           <div className="confirmation">
@@ -71,47 +72,50 @@ function ListaLivros() {
             </button>
           </div>
         )}
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Código</th>
-              <th scope="col">Nome Livro</th>
-              <th scope="col">Páginas</th>
-              <th scope="col">Editora</th>
-              <th scope="col">Gênero</th>
-              <th scope="col">Data de Publicação</th>
-              <th scope="col">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {livros.map((cadlivro) => (
-              <tr key={cadlivro.id}>
-                <th scope="row">{cadlivro.cod}</th>
-                <td>{cadlivro.nomeLivro}</td>
-                <td>{cadlivro.numeroPagina}</td>
-                <td>{cadlivro.editora.nome}</td>
-                <td>{cadlivro.genero.descricao}</td>
-                <td>{new Date(cadlivro.dataPublicacao).toLocaleDateString()}</td>
-                <td>
-                  <button
-                    type="button"
-                    onClick={() => handleDelete(cadlivro.id)}
-                    className="btn btn-danger"
-                  >
-                    Excluir
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleEdit(cadlivro)}
-                    className="btn btn-primary"
-                  >
-                    Editar
-                  </button>
-                </td>
+        <div className="tabelaLivro">
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">Código</th>
+                <th scope="col">Nome Livro</th>
+                <th scope="col">Páginas</th>
+                <th scope="col">Editora</th>
+                <th scope="col">Gênero</th>
+                <th scope="col">Data de Publicação</th>
+                <th scope="col">Ações</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {livros.map((cadlivro) => (
+                <tr key={cadlivro.id}>
+                  <th scope="row">{cadlivro.cod}</th>
+                  <td>{cadlivro.nomeLivro}</td>
+                  <td>{cadlivro.numeroPagina}</td>
+                  <td>{cadlivro.editora}</td>
+                  <td>{cadlivro.genero}</td>
+                  <td>{new Date(cadlivro.dataPublicacao).toLocaleDateString()}</td>
+                  <td>
+                    
+                    <button
+                      type="button"
+                      onClick={() => handleEdit(cadlivro)}
+                      className="btn btn-primary"
+                    >
+                    <i className="bi bi-pencil-square"></i>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(cadlivro.id)}
+                      className="btn btn-danger"
+                    >
+                      <i className="bi bi-trash3"></i>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

@@ -27,12 +27,18 @@ function FormFiltro({ onUpdate }) {
     return ( 
 
         <form onSubmit={handleSubmit}>
-
-        <div className="form-group col-md-5">
-            <label htmlFor="Nome" className="form-label">Filtrar por Nome:</label>
-            <input type="text" className="form-control" id="Nome" name="Nome" value={filtroData.Nome} onChange={handleInputChange} placeholder="Digite o Nome" />
-          </div>
-          <button className="btn btn-primary" id="btnFiltrar" type="submit">Filtrar</button>
+        <div className='criarEspaco'>  
+            <div className="form-group col-md-5">
+                <div className="input-group">
+                    <label htmlFor="Nome" className="input-group-text custom-label-height">Filtrar por Nome:</label>
+                    <input type="text" className="form-control" id="Nome" name="Nome" value={filtroData.Nome} onChange={handleInputChange} placeholder="Digite o Nome" />
+                </div>
+                <div className="input-group movBootamEdit">
+                    <button className="btn btn-success" id="btnFiltrar" type="submit"><i class="bi bi-search"></i></button>
+                </div>
+                
+            </div>
+        </div>    
 
         </form>
      );

@@ -1,10 +1,36 @@
-.cabecalho {
-  width: 100%;
-  margin: 10% auto;
+.ConteinerLivro {
+  width: 80%;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 18%;
+  margin-right: 79%;
+}
+
+.cabecalhosLivro {
+  width: 80%;
+  height: 100px;
+  margin-top: 40px;
+  margin-left: 10%;
+  margin-right: 80%;
+  margin-bottom: 40px;
   text-align: center;
-  margin-left: 14.5vw;
   font-size: 2rem;
-  background-color: rgb(33, 36, 41);
+  background: linear-gradient(rgb(33, 36, 41), rgb(33, 36, 41));
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.cabecalho {
+  width: 80%;
+  height: 100px;
+  margin-top: 40px;
+  margin-left: 10%;
+  margin-right: 80%;
+  margin-bottom: 40px;
+  text-align: center;
+  font-size: 2rem;
+  background: linear-gradient(rgb(33, 36, 41), rgb(33, 36, 41));
   padding: 10px;
   border-radius: 10px;
 }

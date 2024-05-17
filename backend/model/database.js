@@ -1,19 +1,55 @@
 const mysql = require('mysql2/promise');
 
 class Database {
-    constructor() {
-        this.pool = mysql.createPool({
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: 'maxsoft'
+    #dbHost
+    #dbUser
+    #dbPass
+    #dbDatabase
+    #dbPool
+    static #constructorEnabled = false
+    static #instance 
+    static get instance(){
+        
+        if (!this.#instance){
+            this.#constructorEnabled = true
+            this.#instance = new this()
+            this.#constructorEnabled = false  
+        }
+            
+            //    this.#instance = new this(privatConstructor)
+          
+        return this.#instance
+    } 
+    constructor(
+
+        //key,
+        dbHost = process.env.DB_HOST,
+        dbUser = process.env.DB_USER,
+        dbPass = process.env.DB_PASSWORD,
+        dbDatabase = process.env.DB_DATABASE,
+    ) {
+        /*if(key !== privatConstructor){
+            throw new Error('Use Database.instance para criar uma instácia')
+        }*/
+        if (! Database.#constructorEnabled){
+            throw new Error('Use Database.instance para criar uma instácia')
+        }
+        this.#dbHost = dbHost,
+        this.#dbUser = dbUser,
+        this.#dbPass = dbPass,
+        this.#dbDatabase = dbDatabase,
+        this.#dbPool = mysql.createPool({
+            host: this.#dbHost,
+            user: this.#dbUser,
+            password: this.#dbPass,
+            database: this.#dbDatabase
         });
     }
 
     async ExecutaComando(sql, params = []) {
         let connection;
         try {
-            connection = await this.pool.getConnection();
+            connection = await this.#dbPool.getConnection();
             const [rows] = await connection.query(sql, params);
             return rows;
         } catch (error) {
@@ -29,7 +65,7 @@ class Database {
     async ExecutaComandoNonQuery(sql, params = []) {
         let connection;
         try {
-            connection = await this.pool.getConnection();
+            connection = await this.#dbPool.getConnection();
             const [results] = await connection.query(sql, params);
             return results.affectedRows;
         } catch (error) {
@@ -41,6 +77,14 @@ class Database {
             }
         }
     }
+    static 
+    
+
 }
 
-module.exports = Database;
+const banco = Database.instance
+
+
+module.exports = banco; 
+
+//module.exports = Database;

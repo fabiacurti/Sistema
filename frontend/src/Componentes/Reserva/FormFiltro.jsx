@@ -26,7 +26,6 @@ function FormFiltro({ onUpdate }) {
   return (
     <form onSubmit={handleSubmit}>
       <div className="text-center">
-        <h3>Filtrar Reserva</h3>
       </div>
       <div className={`col-md-5 `}>
         <div className="input-group rounded">

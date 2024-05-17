@@ -1,6 +1,6 @@
-const Database = require("../database");
+const banco = require("../database");//Database
 
-const banco = new Database()
+//const banco = new Database()
 class cadLivro {
    nomeLivro;
    cod;
@@ -22,21 +22,16 @@ class cadLivro {
    async getALL() {
       const query = `
          SELECT
-            cadlivro.id,
             cadlivro.nomeLivro,
+            cadlivro.id,
             cadlivro.cod,
             cadlivro.numeroPagina,
-            editoras.id as editora_id,
-            editoras.nome as editora,
-            generos.id AS genero_id,
-            generos.descricao AS genero,
+            cadlivro.editora,
+            cadlivro.genero,
             cadlivro.dataPublicacao
          FROM
             cadlivro
-         INNER JOIN
-            generos ON cadlivro.genero = generos.descricao
-         INNER JOIN
-            editoras ON cadlivro.editora = editoras.nome;
+         
       `;
    
       const livros = await banco.ExecutaComando(query);
@@ -46,14 +41,8 @@ class cadLivro {
          nomeLivro: livro.nomeLivro,
          cod: livro.cod,
          numeroPagina: livro.numeroPagina,
-         editora: {
-            cod: livro.editora_cod,
-            nome: livro.editora 
-         },
-         genero: {
-            cod: livro.genero_cod,
-            descricao: livro.genero
-         },
+         editora: livro.editora,
+         genero: livro.genero,
          dataPublicacao: livro.dataPublicacao
       }));
    
@@ -108,7 +97,16 @@ class cadLivro {
       return livrosFormatados;
    }
 
-
+   async filtrar ({nomeLivro, genero}){
+        
+      var sql=`select * from cadlivro where nomeLivro like '%${nomeLivro}%' and genero = ?   `
+         if(genero=="Todos"){
+              sql=`select * from cadlivro where nomeLivro like '%${nomeLivro}%'`
+          }
+          const cadlivro =await banco.ExecutaComando(sql,genero);
+          
+          return cadlivro
+  }
 
    async delete(cod) {
       await banco.ExecutaComandoNonQuery('delete from cadlivro where cod=?', [cod])

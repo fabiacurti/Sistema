@@ -12,15 +12,15 @@ function Autor() {
     return (
         <>
             <div className="container centralizacao">
-                <div className="row">
-                    <div className="col-lg-6 col-md-8 col-sm-10 mx-auto">
-                        <div className="flex-container-cabecalho">
-                            <div className="cabecalho" style={{ }}>Autor
+                <div className="row position">
+                    
+                        <div className="flex-container-cabecalho position1">
+                            <div className="cabecalhosAutor position2">Autor
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            
             <div >
                 <TabelaAutor></TabelaAutor>
             </div>

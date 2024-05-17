@@ -32,7 +32,7 @@ app.use('/tipoLivro',tipoLivroRoutes)
 
 
 app.listen(port,()=>{
-    console.log(`Rodando na porta ${port}`)
+    console.log(`Rodando na porta ${port}\n`)
 })
 
 

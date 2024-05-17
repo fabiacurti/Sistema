@@ -27,7 +27,6 @@ function FormFiltro({ onUpdate }) {
         <div className="row">
             <form onSubmit={handleSubmit} className="mb-3">
                 <div className="text-center">
-                    <h3>Filtrar Emprestimo</h3>
                 </div>
                 <div className="d-flex flex-wrap input-group mb-2">
                     <div className="mb-3">

@@ -67,59 +67,61 @@ function TabelaAutor({ atualizar }) {
     return (
         <>
             <FormAutor selectedAutor={selectedAutor} onUpdate={handleUpdate}></FormAutor>
-            <div className='conteudo-extra'>
+            <div className="janelaAutor">
                 <FormFiltro onUpdate={handleUpDateFiltro}></FormFiltro>
+                <div className="tabelaAutor">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th scope="col ">ID</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Sobrenome</th>
+                                <th scope="col">Data Nascimento</th>
+                                <th scope="col">Cidade Nascimento</th>
+                                <th scope="col">Genero</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Qnt Obras</th>
+                                <th scope="col">Ações</th>
 
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col ">ID</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Sobrenome</th>
-                            <th scope="col">Data Nascimento</th>
-                            <th scope="col">Cidade Nascimento</th>
-                            <th scope="col">Genero</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Qnt Obras</th>
-                            <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                autores.map((autor => (
+                                    <tr>
+                                        <th scope="row ">{autor.ID}</th>
+                                        <td >{autor.Nome}</td>
+                                        <td>{autor.sobrenome}</td>
+                                        <td>{`${new Date(autor.dNascimento).getDate().toString().padStart(2, "0")}/${new Date(autor.dNascimento).getMonth().toString().padStart(2, "0")}/${new Date(autor.dNascimento).getFullYear()}`}
+                                        </td>
+                                        <td>{autor.cidadeNascimento}</td>
+                                        <td>{autor.genero}</td>
+                                        <td>{autor.email}</td>
+                                        <td>{autor.qntObras}</td>
+                                        <td>
+                                            <button type='button' onClick={() => handleDelete(autor.ID)} className="btn btn-danger"><i className="bi bi-trash3"></i></button>
+                                            <button type='button' onClick={() => handleEdit(autor)} className="btn btn-primary"><i className="bi bi-pencil-square"></i></button>
+                                        </td>
+                                        
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            autores.map((autor => (
-                                <tr>
-                                    <th scope="row ">{autor.ID}</th>
-                                    <td >{autor.Nome}</td>
-                                    <td>{autor.sobrenome}</td>
-                                    <td>{`${new Date(autor.dNascimento).getDate().toString().padStart(2, "0")}/${new Date(autor.dNascimento).getMonth().toString().padStart(2, "0")}/${new Date(autor.dNascimento).getFullYear()}`}
-                                    </td>
-                                    <td>{autor.cidadeNascimento}</td>
-                                    <td>{autor.genero}</td>
-                                    <td>{autor.email}</td>
-                                    <td>{autor.qntObras}</td>
-                                    <td>
-                                        <button type='button' onClick={() => handleDelete(autor.ID)} className="btn btn-danger">EXCLUIR</button>
-                                        <button type='button' onClick={() => handleEdit(autor)} className="btn btn-primary">EDITAR</button>
-                                    </td>
+                                    </tr>
+                                )))
+                            }
+                        </tbody>
 
-                                </tr>
-                            )))
-                        }
-                    </tbody>
-
-                </table>
-                {showConfirmation && (
-                    <div className="confirmation">
-                        <p>Confirme a exclusão do autor?</p>
-                        <button className="btn btn-danger" onClick={confirmDelete}>
-                            Sim
-                        </button>
-                        <button className="btn btn-primary" onClick={cancelDelete}>
-                            Não
-                        </button>
-                    </div>
-                )}
+                    </table>
+                    {showConfirmation && (
+                        <div className="confirmation">
+                            <p>Confirme a exclusão do autor?</p>
+                            <button className="btn btn-danger" onClick={confirmDelete}>
+                                Sim
+                            </button>
+                            <button className="btn btn-primary" onClick={cancelDelete}>
+                                Não
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
         </>
     );

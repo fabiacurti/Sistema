@@ -266,16 +266,9 @@ const handleUpdate = async ()=> {
         
           <FormFiltro onUpdate={handleUpdateFiltro}></FormFiltro>
       
-          <div id="tabela"> 
-            <div id="espacoTabela"></div>
-
+          <div className="tabelaEditoras"> 
             
 
-
-
-            
-            
-              
             <table className="table">
                         <thead>
                             <tr>
@@ -306,7 +299,6 @@ const handleUpdate = async ()=> {
                                             >
                                                 <i className="bi bi-pencil-square"></i>
                                             </button>
-
                                     <button
                                                 className="btn btn-danger "
                                                 id="excluir"

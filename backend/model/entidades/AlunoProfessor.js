@@ -1,6 +1,7 @@
-const Database = require("../database");
+const banco = require("../database");
 
-const banco= new Database()
+
+
 class AlunoProfessor {
     Nome;
     cpf;

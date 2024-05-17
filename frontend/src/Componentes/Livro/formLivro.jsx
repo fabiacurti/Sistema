@@ -133,16 +133,16 @@ function FormLivro({ selectedLivro, onUpdate }) {
 
   return (
     <div>
-      <div className="container centralizacao">
-        <div className="row">
-          <div className="col-lg-5 col-md-10 col-sm-10 mx-auto">
-            <div>
-              <div className="cabecalho" style={{ color: "#ddd" }}>
+      <div className="ConteinerLivro">
+        
+          
+           
+              <div className="cabecalhosLivro" style={{ color: "#ddd" }}>
                 Cadastro de Livros
               </div>
-            </div>
-          </div>
-        </div>
+            
+          
+        
       </div>
       <div className="formulario fundo">
         <form onSubmit={handleSubmit} className="row g-3 needs-validation">
@@ -231,9 +231,13 @@ function FormLivro({ selectedLivro, onUpdate }) {
           </div>
 
           <div className="form-group col-md-12">
-            <button type="submit" className="btn btn-outline-success">
-              Cadastrar
-            </button>
+            <div class="row justify-content-center">
+              <div class="col-auto">
+                <button type="submit" className="btn btn-outline-success">
+                Cadastrar
+                </button>
+              </div>
+            </div>
           </div>
         </form>
       </div>

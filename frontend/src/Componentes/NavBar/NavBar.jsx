@@ -24,18 +24,18 @@ function NavBar() {
                     </li>
                     <li>
                     <Link href="/" className="nav-link text-white">
-                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Generos"><i class="bi bi-repeat"></i>    Generos</NavLink>
+                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Generos"><i class="bi bi-journals"></i>    Generos</NavLink>
                         
                     </Link>
                     </li>
                     <li>
                     <Link href="/" className="nav-link text-white">
-                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Livros"><i class="bi bi-journal-text"></i>   Livro</NavLink>
+                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Livros"><i class="bi bi-book-half"></i>   Livro</NavLink>
                     </Link>
                     </li>
                     <li>
                     <Link href="/" className="nav-link text-white">
-                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Editoras"><i class="bi bi-book"></i>   Editoras</NavLink>
+                    <NavLink className="nav-link activate bi me-2 text-white" width="16" height="16" to="/Editoras"><i class="bi bi-bookmarks-fill"></i>   Editoras</NavLink>
                     </Link>
                     </li>
                     <li>

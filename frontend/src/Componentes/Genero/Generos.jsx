@@ -136,8 +136,8 @@ function Generos() {
           )}
         </div>
 
-        <div className="conteudo-extra">
-          <div id="tabela">
+        <div className="janelaGenero">
+          <div className="tabelaGenero">
             <div id="espacoTabela"></div>
             {generos.length > 0 ? (
               <table className="table">
@@ -175,20 +175,20 @@ function Generos() {
                         ) : (
                           <>
                             <button
-                              className="btn btn-outline-primary"
+                              className="btn btn-primary"
                               type="button"
                               onClick={() =>
                                 handleIniciarEdicao(item.id, item.descricao)
                               }
                             >
-                              <i className="bi bi-pencil-square"></i> Editar
+                              <i className="bi bi-pencil-square"></i>
                             </button>
                             <button
-                              className="btn btn-outline-danger"
+                              className="btn btn-danger"
                               type="button"
                               onClick={() => handleExcluir(item.id)}
                             >
-                              <i className="bi bi-trash3"></i> Excluir
+                              <i className="bi bi-trash3"></i> 
                             </button>
                           </>
                         )}

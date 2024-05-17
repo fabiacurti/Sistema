@@ -155,7 +155,7 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
                                 value={sobrenome || autorData.sobrenome}
                                 type="text"
                                 className={`form-control`}
-                                name="Sobrenome"
+                                name="sobrenome"
                                 placeholder="Digite o sobrenome"
                                 onChange={(e) => {
                                     setSobrenome(prev => receberSoLetra(e.target.value) ? e.target.value : prev);
@@ -283,6 +283,7 @@ function FormAutor({ selectedAutor, onUpdate, setSelectedAutor }) {
                                 type="submit"
                                 disabled={!isFormValid}
                             >
+                                <i class="bi bi-pencil-square"></i>
                                 {isEditMode ? 'Atualizar' : 'Cadastrar'}
                             </button>
                         </div>

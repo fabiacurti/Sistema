@@ -1,6 +1,6 @@
-const Database = require("../database");
+const banco = require("../database");//Database
 
-const banco = new Database();
+//const banco = new Database();
 
 class Emprestimo {
     constructor(ID, ID_Livro, ID_AlunoProf, dEmprestimo, dDevolucao) {
@@ -18,7 +18,7 @@ class Emprestimo {
                 emprestimo.ID_Livro,
                 cadlivro.nomeLivro,
                 emprestimo.ID_AlunoProf,
-                alunoprofessor.Nome as nomeUsuario,
+                alunoprofessor.Nome,
                 emprestimo.dEmprestimo,
                 emprestimo.dDevolucao,
                 cadlivro.id,

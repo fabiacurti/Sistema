@@ -11,15 +11,11 @@ function TipoLivro() {
 
     return (
         <>
-            <div className="container centralizacao">
-                <div className="row">
-                    <div className="col-lg-6 col-md-8 col-sm-10 mx-auto">
-                        <div className="flex-container-cabecalho">
-                            <div className="cabecalho" style={{ }}>Tipos Livros
-                            </div>
-                        </div>
-                    </div>
+            <div className="ConteinerTipLivro">
+                
+                <div className="cabecalhosTipLivro" style={{ }}>Tipos Livros
                 </div>
+                        
             </div>
             <div >
                 <TabelaTipoLivro></TabelaTipoLivro>

@@ -65,7 +65,6 @@ function TabelaEmprestimo({ atualizar }) {
         setEmprestimos(emprestimosFiltrados)
     }
     
-    //console.log(emprestimos)
     return (
         <>
             <FormEmprestimo selectedEmprestimo={selectedEmprestimo} onUpdate={handleUpdate}></FormEmprestimo>
@@ -89,14 +88,16 @@ function TabelaEmprestimo({ atualizar }) {
 
                         </thead>
                         <tbody>
-                            {
+                            {   
                                 emprestimos.map((emprestimo => (
+                                    
                                     <tr>
+                                        
                                         <th scope="row ">{emprestimo.ID}</th>
                                         <td >{emprestimo.livro.editora.id}</td>
                                         <td >{emprestimo.livro.nomeLivro}</td>
                                         <td>{emprestimo.alunoprofessor.id}</td>
-                                        <td >{emprestimo.alunoprofessor.Nome}</td>
+                                        <td>{emprestimo.alunoprofessor.Nome}</td>
                                         <td>{(emprestimo.dEmprestimo.slice(8,10).concat(emprestimo.dEmprestimo.slice(4,8)).concat(emprestimo.dEmprestimo.slice(0,4))).replaceAll('-', '/')}</td>
                                         <td>{(emprestimo.dDevolucao.slice(8,10).concat(emprestimo.dDevolucao.slice(4,8)).concat(emprestimo.dDevolucao.slice(0,4))).replaceAll('-', '/')}</td>
                                         <td>
@@ -106,10 +107,13 @@ function TabelaEmprestimo({ atualizar }) {
                                     </tr>
                                 )))
                             }
+                            
                         </tbody>
 
                     </table>
-                    {showConfirmation && (
+                    
+                </div> 
+                {showConfirmation && (
                         <div className="confirmation">
                             <p>Confirma a exclusão do emprestimo?</p>
                             <button className="btn btn-danger" onClick={confirmDelete}>
@@ -120,7 +124,6 @@ function TabelaEmprestimo({ atualizar }) {
                             </button>
                         </div>
                     )}
-                </div> 
                                    
             </div>
         </>

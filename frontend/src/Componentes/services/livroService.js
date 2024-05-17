@@ -40,25 +40,7 @@ class LivroService{
         }
     }
 
-    async buscar(filtroData){
-        try {
-            const response = await fetch(`${API_BASE_URL}/cadlivro/buscar`,{
-                method:"POST",
-                headers:{
-                    'content-type': 'application/json'
-                },
-                body:JSON.stringify(filtroData)
-
-            })
-
-            if(!response.ok){
-                throw new Error('erro ao buscar')
-            }
-            return await response.json()
-        } catch (error){
-            throw error;
-        }
-    }
+    
 
     async updateLivro(id,livroData){
         try {
@@ -115,6 +97,26 @@ class LivroService{
 
         }
 
+    }
+
+    async filtrar(filtroData) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/cadlivro/filtrar`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(filtroData)
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Erro ao filtrar autor! Status: ${response.status}, Mensagem: ${response.statusText}`);
+            }
+    
+            return response.json();
+        } catch (error) {
+            throw error;
+        }
     }
     
 

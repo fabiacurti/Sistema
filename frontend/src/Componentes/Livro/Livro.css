@@ -1,0 +1,59 @@
+.tabelaLivro {
+    width: 100%;
+    height: 400px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(33, 36, 41);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    max-height: 600px;
+    overflow-y: auto;
+  }
+  
+  
+  
+  
+  .janelaLivro{
+    width: 65%;
+    height: 570px;
+    margin-top: 20px;
+    margin-left: 25%;
+    margin-right: 60%;
+    background-color: rgb(33, 36, 41);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    max-height: 600px;
+    
+  }
+
+  .movBootam{
+    width: 20%;
+    margin-top: -38px;
+    margin-left: 130%;
+  }
+
+  .ConteinerLivro {
+    width: 80%;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 18%;
+    margin-right: 79%;
+  }
+  
+  .cabecalhosLivro {
+    width: 80%;
+    height: 100px;
+    margin-top: 40px;
+    margin-left: 10%;
+    margin-right: 80%;
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 2rem;
+    background: linear-gradient(rgb(33, 36, 41), rgb(33, 36, 41));
+    padding: 10px;
+    border-radius: 10px;
+  }

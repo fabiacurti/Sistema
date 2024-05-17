@@ -1,3 +1,17 @@
+.cabecalhosAutor {
+  width: 100%;
+  height: 80px;
+  margin-top: 40px;
+  margin-left: 70%;
+  margin-right: 30%;
+  margin-bottom: 40px;
+  text-align: center;
+  font-size: 2rem;
+  background: linear-gradient(rgb(33, 36, 41), rgb(33, 36, 41));
+  padding: 10px;
+  border-radius: 10px;
+}
+
 .tabela_Autor {
     width: 100%;
     height: 400px;
@@ -66,4 +80,62 @@
 .custom-label-height {
   height: 38.0px; 
 
+}
+.tabelaAutor {
+  width: 100%;
+  height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(33, 36, 41);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.tableAutor {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.janelaAutor{
+  width: 65%;
+  height: 600px;
+  margin-top: 20px;
+  margin-left: 25%;
+  margin-right: 60%;
+  background-color: rgb(33, 36, 41);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  max-height: 600px;
+  
+}
+.position{
+  width: 135%;
+  height: 180px;
+  
+  margin-right: 56%;
+  margin-left: 58%;
+  
+
+}
+.position1{
+  width: 100%;
+  height: 80px;
+  
+  margin-right: 50%;
+  margin-left: 0%;
+}
+
+.position2{
+  width: 100%;
+  height: 80px;
+  
+  margin-right: 10%;
+  margin-left: 10%;
 }

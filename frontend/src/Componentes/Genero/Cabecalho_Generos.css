@@ -4,7 +4,6 @@
   text-align: center;
   margin-left: 14.5vw;
   font-size: 2rem;
-  background: linear-gradient(rgba(8, 8, 8, 0.7), rgba(8, 8, 8, 0));
   padding: 10px;
   border-radius: 10px;
 }
@@ -20,12 +19,29 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 60%;
+  height: 160px;
   margin: auto;
+  margin-right: 69%;
+  margin-left: 27%;
 }
 .row{
   width: 100%;
 }
-.flex-container-cabecalho{
-  width: 100%;
+
+
+.position1Gen{
+  width: 249%;
+  height: 119px;
+  margin-top: -80px;
+  margin-right: 72%;
+  margin-left: -70%;
+}
+
+.position2Gen{
+  width: 180%;
+  height: 80px;
+  margin-top: 40px;
+  margin-right: 5%;
+  margin-left: 10%;
 }

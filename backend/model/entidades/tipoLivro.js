@@ -1,6 +1,6 @@
-const Database = require("../database");
+const banco = require("../database");
 
-const banco = new Database()
+//const banco = new Database()
 
 class TipoLivro {
     ID;
