@@ -69,6 +69,17 @@ function TabelaTipoLivro({ atualizar }) {
             <FormTipoLivro selectedTipoLivro={selectedTipoLivro} onUpdate={handleUpdate}></FormTipoLivro>
             <div className='janelaTip'>
                 <FormFiltro onUpdate={handleUpDateFiltro}></FormFiltro>
+                    {showConfirmation && (
+                        <div className="confirmation">
+                            <p>Confirme a exclusão do tipo do livro?</p>
+                            <button className="btn btn-danger" onClick={confirmDelete}>
+                                Sim
+                            </button>
+                            <button className="btn btn-primary" onClick={cancelDelete}>
+                                Não
+                            </button>
+                        </div>
+                    )}
                 <div className='tabelaTip'>
                     <table className="table">
                         <thead>
@@ -102,17 +113,7 @@ function TabelaTipoLivro({ atualizar }) {
                         </tbody>
 
                     </table>
-                    {showConfirmation && (
-                        <div className="confirmation">
-                            <p>Confirme a exclusão do tipo do livro?</p>
-                            <button className="btn btn-danger" onClick={confirmDelete}>
-                                Sim
-                            </button>
-                            <button className="btn btn-primary" onClick={cancelDelete}>
-                                Não
-                            </button>
-                        </div>
-                    )}
+                    
                 </div>    
             </div>
         </>

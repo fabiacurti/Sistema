@@ -69,6 +69,19 @@ function TabelaAutor({ atualizar }) {
             <FormAutor selectedAutor={selectedAutor} onUpdate={handleUpdate}></FormAutor>
             <div className="janelaAutor">
                 <FormFiltro onUpdate={handleUpDateFiltro}></FormFiltro>
+                
+                    {showConfirmation && (
+                            <div className="confirmation">
+                                <p>Confirme a exclusão do autor?</p>
+                                <button className="btn btn-danger" onClick={confirmDelete}>
+                                    Sim
+                                </button>
+                                <button className="btn btn-primary" onClick={cancelDelete}>
+                                    Não
+                                </button>
+                            </div>
+                        )}
+                
                 <div className="tabelaAutor">
                     <table className="table">
                         <thead>
@@ -110,17 +123,7 @@ function TabelaAutor({ atualizar }) {
                         </tbody>
 
                     </table>
-                    {showConfirmation && (
-                        <div className="confirmation">
-                            <p>Confirme a exclusão do autor?</p>
-                            <button className="btn btn-danger" onClick={confirmDelete}>
-                                Sim
-                            </button>
-                            <button className="btn btn-primary" onClick={cancelDelete}>
-                                Não
-                            </button>
-                        </div>
-                    )}
+                    
                 </div>
             </div>
         </>
