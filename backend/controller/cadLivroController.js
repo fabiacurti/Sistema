@@ -64,9 +64,9 @@ class cadLivroController{
     }
 
     async delete (req,res){
-        const cod = req.params.cod; //params
+        const id = req.params.id; //params
         try {
-            await cadLivro.delete(cod)
+            await cadLivro.delete(id)
             res.status(200).json({message:'registro deletado'})
         } catch (error) {
             console.log('erro ao deletar', error)

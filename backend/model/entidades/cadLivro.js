@@ -108,8 +108,8 @@ class cadLivro {
           return cadlivro
   }
 
-   async delete(cod) {
-      await banco.ExecutaComandoNonQuery('delete from cadlivro where cod=?', [cod])
+   async delete(id) {
+      await banco.ExecutaComandoNonQuery('delete from cadlivro where id=?', [id])
 
    }
 }

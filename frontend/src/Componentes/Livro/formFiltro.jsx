@@ -12,7 +12,7 @@ function FormFiltro({ onUpdate }) {
     const { name, value } = event.target;
     setFiltroData({ ...filtroData, [name]: value });
   };
-  console.log(filtroData)
+ 
 
   const handleSubmit = async (event) => {
     event.preventDefault();

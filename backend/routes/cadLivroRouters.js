@@ -5,7 +5,7 @@ const cadLivroController = new CadLivroController();
 
 router.get('/', cadLivroController.getALL)
 router.get('/:cod', cadLivroController.getById)
-router.delete('/:cod', cadLivroController.delete)
+router.delete('/:id', cadLivroController.delete)
 router.post('/', cadLivroController.create);
 router.put('/:cod', cadLivroController.update);
 router.post('/filtrar',cadLivroController.filtrar)

@@ -32,6 +32,7 @@ function ListaLivros() {
 
   const confirmDelete = async () => {
     if (idToDelete) {
+      console.log(idToDelete)
       await livroservice.deleteLivro(idToDelete);
       await carregaLivros(); // Update the list of books after deletion
       setIdToDelete(null);
@@ -88,7 +89,7 @@ function ListaLivros() {
             <tbody>
               {livros.map((cadlivro) => (
                 <tr key={cadlivro.id}>
-                  <th scope="row">{cadlivro.cod}</th>
+                  <th scope="row">{cadlivro.id}</th>
                   <td>{cadlivro.nomeLivro}</td>
                   <td>{cadlivro.numeroPagina}</td>
                   <td>{cadlivro.editora}</td>
