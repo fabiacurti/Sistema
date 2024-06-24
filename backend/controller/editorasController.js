@@ -1,12 +1,13 @@
 const Editoras = require("../model/entidades/editoras");
-
+const banco = require("../config/database.js");
 const editorasInstancia = new Editoras(); 
 
 class EditorasController {
     async getById(req, res) {
         const id = req.params.id;
         try {
-            const result = await editorasInstancia.getById(id);
+            const connection = await banco.getPool()
+            const result = await editorasInstancia.getById(connection,id);
             
             if (result) {
                 return res.status(200).json(result);
@@ -23,7 +24,8 @@ class EditorasController {
     async filtrar (req,res){
         const filtro =req.body;
         try {
-            const result =await editorasInstancia.filtrar(filtro)
+            const connection = await banco.getPool()
+            const result =await editorasInstancia.filtrar(connection,filtro)
             return res.status(200).json(result);
         } catch (error) {
 
@@ -32,7 +34,8 @@ class EditorasController {
 
     async getAll(req,res){
         try{ 
-            const result = await editorasInstancia.getAll()
+            const connection = await banco.getPool()
+            const result = await editorasInstancia.getAll(connection)
             return res.status(200).json(result)
         }catch (error){
             console.log('Erro ao buscar editora:'+error)
@@ -45,7 +48,8 @@ class EditorasController {
     async create(req,res){
         const editorData = req.body;
         try{
-            await editorasInstancia.create(editorData);
+            const connection = await banco.getPool()
+            await editorasInstancia.create(connection,editorData);
             res.status(201).json({messege:'Editora regristrada com sucesso!'})
 
         }catch (error){
@@ -59,7 +63,8 @@ class EditorasController {
         const editorData = req.body;
         const id = req.params.id
         try{
-            await editorasInstancia.update(id,editorData);
+            const connection = await banco.getPool()
+            await editorasInstancia.update(connection,id,editorData);
             res.status(201).json({messege:'Editora atualizada com sucesso!'})
 
         }catch (error){
@@ -73,7 +78,8 @@ class EditorasController {
 
         const id = req.params.id;
         try{
-            await editorasInstancia.delete(id);
+            const connection = await banco.getPool()
+            await editorasInstancia.delete(connection,id);
             res.status(200).json({message:'Registro deletado com sucesso'})
         } catch (error) {
             console.log('Erro ao deletar editora', error)

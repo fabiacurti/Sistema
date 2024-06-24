@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import LivroService from "../services/livroService";
+import LivroService from "../services/livroService.js";
 import FormLivro from "./formLivro";
 import FormFiltro from "./formFiltro";
 import "./Livro.css"
 
 const livroservice = new LivroService();
 
-function ListaLivros() {
+function ListaLivrosL() {
   const [livros, setLivros] = useState([]);
   const [selectedLivro, setSelectedLivro] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -122,4 +122,4 @@ function ListaLivros() {
   );
 }
 
-export default ListaLivros;
+export default ListaLivrosL;

@@ -1,115 +1,42 @@
-const banco = require("../database");//Database
-
+const banco = require("../../config/database");//Database
+const cadLivroDAO = require("../../Persistencia/cadLivroDAO.js")
 //const banco = new Database()
 class cadLivro {
-   nomeLivro;
-   cod;
-   id;
-   numeroPagina;
-   editora;
-   genero;
-   dataPublicacao;
-   constructor(nomeLivro, cod, id,numeroPagina, editora, genero, dataPublicacao) {
-      this.nomeLivro = nomeLivro,
-         this.cod = cod,
-         this.id = id,
-         this.numeroPagina = numeroPagina,
-         this.editora = editora,
-         this.genero = genero,
-         this.dataPublicacao = dataPublicacao
-   }
-
-   async getALL() {
-      const query = `
-         SELECT
-            cadlivro.nomeLivro,
-            cadlivro.id,
-            cadlivro.cod,
-            cadlivro.numeroPagina,
-            cadlivro.editora,
-            cadlivro.genero,
-            cadlivro.dataPublicacao
-         FROM
-            cadlivro
-         
-      `;
    
-      const livros = await banco.ExecutaComando(query);
-   
-      const livrosFormatados = livros.map(livro => ({
-         id:livro.id,
-         nomeLivro: livro.nomeLivro,
-         cod: livro.cod,
-         numeroPagina: livro.numeroPagina,
-         editora: livro.editora,
-         genero: livro.genero,
-         dataPublicacao: livro.dataPublicacao
-      }));
-   
-      return livrosFormatados;
+   async getALL(connection) {
+      
+      const cadlivroDAO = new cadLivroDAO;
+      const livros = await cadlivroDAO.getALLDAO(connection);
+      return livros
+      
    }
 
-   async create(dadosLivro) {
-      await banco.ExecutaComandoNonQuery('insert into cadlivro set ?', dadosLivro)
+   async create(connection,dadosLivro) {
+      const cadlivroDAO = new cadLivroDAO;
+      await cadlivroDAO.createDAO(connection,dadosLivro);
    }
 
-   async update(cod, dadosLivro) {
-      await banco.ExecutaComando('update cadlivro set ? where cod=?', [dadosLivro, cod])
+   async update(connection,cod, dadosLivro) {
+      const cadlivroDAO = new cadLivroDAO;
+      await cadlivroDAO.updateDAO(connection,cod, dadosLivro)
    }
 
-   async getById(cod) {
-      const query = `
-          SELECT
-              cadlivro.nomeLivro,
-              cadlivro.cod,
-              cadlivro.numeroPagina,
-              editoras.id as editora_id,
-              editoras.nome AS editora,
-              generos.id AS genero_id,
-              generos.descricao AS genero,
-              cadlivro.dataPublicacao
-          FROM
-              cadlivro
-          INNER JOIN
-              generos ON cadlivro.genero = generos.descricao
-          INNER JOIN
-              editoras ON cadlivro.editora = editoras.nome
-          WHERE
-              cadlivro.cod
-      `;
-      const result = await banco.ExecutaComando(query, [cod]);
-      const livro = result[0]
-      const livrosFormatados = {
-         nomeLivro: livro.nomeLivro,
-         cod: livro.cod,
-         numeroPagina: livro.numeroPagina,
-         editora: {
-            cod: livro.editora_cod,
-            nome: livro.editora 
-         }, 
-         genero: {
-            cod: livro.genero_cod,
-            descricao: livro.genero
-         },
-         dataPublicacao: livro.dataPublicacao
-      };
-   
-      return livrosFormatados;
+   async getById(connection,cod) {
+      const cadlivroDAO = new cadLivroDAO;
+      const result = await cadlivroDAO.getByIdDAO(connection,cod);
+      
+      return result;
    }
 
-   async filtrar ({nomeLivro, genero}){
-        
-      var sql=`select * from cadlivro where nomeLivro like '%${nomeLivro}%' and genero = ?   `
-         if(genero=="Todos"){
-              sql=`select * from cadlivro where nomeLivro like '%${nomeLivro}%'`
-          }
-          const cadlivro =await banco.ExecutaComando(sql,genero);
-          
-          return cadlivro
+   async filtrar (connection,filtro){
+      const cadlivroDAO = new cadLivroDAO;
+      const cadlivro =await cadlivroDAO.filtrarDAO(connection,filtro);    
+      return cadlivro
   }
 
-   async delete(id) {
-      await banco.ExecutaComandoNonQuery('delete from cadlivro where id=?', [id])
+   async delete(connection,id) {
+      const cadlivroDAO = new cadLivroDAO;
+      await cadlivroDAO.deleteDAO(connection,id)
 
    }
 }

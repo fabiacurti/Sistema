@@ -1,5 +1,5 @@
 const Autor = require("../model/entidades/autor");
-
+const banco = require("../config/database.js");
 const autor = new Autor
 
 class AutorController{
@@ -7,7 +7,8 @@ class AutorController{
 
     async getAll(req,res){
         try{ 
-            const result = await autor.getAll()
+            const connection = await banco.getPool()
+            const result = await autor.getAll(connection)
             return res.status(200).json(result)
         }catch (error){
             console.log('Erro ao buscar autor:'+error)
@@ -21,7 +22,8 @@ class AutorController{
     async getById(req,res){
         const ID = req.params.ID
         try{ 
-            const result = await autor.getById(ID)
+            const connection = await banco.getPool()
+            const result = await autor.getById(connection,ID)
             if(result){
                 return res.status(200).json(result)
             }else{
@@ -38,7 +40,8 @@ class AutorController{
     async delete(req,res){
         const ID = req.params.ID
         try{
-            await autor.delete(ID)
+            const connection = await banco.getPool()
+            await autor.delete(connection,ID)
             res.status(200).json({messege:'Autor deletado com sucesso!'})
         }catch(error){
             console.log('Erro ao deletar o autor', error)
@@ -50,7 +53,8 @@ class AutorController{
     async create(req,res){
         const autorData = req.body;
         try{
-            await autor.create(autorData);
+            const connection = await banco.getPool()
+            await autor.create(connection,autorData);
             res.status(201).json({messege:'Autor regristrado com sucesso!'})
 
         }catch{
@@ -63,7 +67,8 @@ class AutorController{
         const autorData = req.body;
         const ID = req.params.ID
         try{
-            await autor.update(ID,autorData);
+            const connection = await banco.getPool()
+            await autor.update(connection,ID,autorData);
             res.status(201).json({messege:'Autor atualizado com sucesso!'})
 
         }catch{
@@ -75,7 +80,8 @@ class AutorController{
     async filtrar(req, res) {
         const filtro = req.body;
         try {
-            const result = await autor.filtrar(filtro);
+            const connection = await banco.getPool()
+            const result = await autor.filtrar(connection,filtro);
             return res.status(200).json(result);
         } catch (error) {
             console.error("Erro ao filtrar autores:", error);

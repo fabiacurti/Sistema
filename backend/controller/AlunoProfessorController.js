@@ -1,13 +1,16 @@
 const AlunoProfessor = require("../model/entidades/AlunoProfessor.js");
-
-
+const banco = require("../config/database.js");
 const alunoprofessor =new AlunoProfessor();
 
 class AlunoProfessorController{
     async getAll(req,res){
-       try {
-            const result = await alunoprofessor.getAll()
-            return res.status(200).json(result)
+        
+       try { 
+            //console.log(banco)
+            const connection = await banco.getPool()
+            console.log(connection.query)
+            const result = await alunoprofessor.getAll(connection);
+            return res.status(200).json(result);
        } catch (error) {
         console.log('Erro ao buscar Alunos & Professores:'+error)
         res.status(500).json({error:'Erro ao buscar aluno e professores'})
@@ -19,8 +22,10 @@ class AlunoProfessorController{
 
     async filtrar (req,res){
         const filtro =req.body;
+        
         try {
-            const result =await alunoprofessor.filtrar(filtro)
+            const connection = await banco.getPool()
+            const result =await alunoprofessor.filtrar(connection,filtro);
             return res.status(200).json(result);
         } catch (error) {
             console.log(error)
@@ -29,8 +34,10 @@ class AlunoProfessorController{
 
     async create(req,res){
         const alunoprofessorData =req.body;
+        
         try {
-            await alunoprofessor.create(alunoprofessorData);
+            const connection = await banco.getPool()
+            await alunoprofessor.create(connection,alunoprofessorData);
             res.status(201).json({message:'Registro cadastrado com sucesso'})
         } catch (error) {
             console.log('Erro ao cadastrar Alunos & Professores:'+error)
@@ -41,8 +48,10 @@ class AlunoProfessorController{
     async update(req,res){
         const alunoprofessorData =req.body;
         const cpf =req.params.cpf;
+        
         try {
-            await alunoprofessor.update(cpf,alunoprofessorData);
+            const connection = await banco.getPool()
+            await alunoprofessor.update(connection,cpf,alunoprofessorData);
             res.status(201).json({message:'Registro cadastrado com sucesso'})
         } catch (error) {
             console.log('Erro ao atualizar Alunos & Professores:'+error)
@@ -52,8 +61,10 @@ class AlunoProfessorController{
 
     async delete(req, res){
         const cpf = req.params.cpf;
+        
         try {
-            await alunoprofessor.delete(cpf);
+            const connection = await banco.getPool()
+            await alunoprofessor.delete(connection,cpf);
             res.status(200).json({message:'Registro deletado com sucesso'})
         } catch (error) {
             console.log('Erro ao deletar aluno e professor', error)

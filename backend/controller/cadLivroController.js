@@ -1,12 +1,13 @@
 const CadLivro = require("../model/entidades/cadLivro.js");
-
+const banco = require("../config/database.js");
 const cadLivro = new CadLivro()
 
 class cadLivroController{
     async getALL(req,res){
 
         try{
-            const result = await cadLivro.getALL()
+            const connection = await banco.getPool()
+            const result = await cadLivro.getALL(connection)
             return res.status(200).json(result)
         }catch (error){
             console.log('erro de busca:'+error);
@@ -21,7 +22,8 @@ class cadLivroController{
     async getById(req,res){
         const cod =req.params.cod;
         try{
-            const result = await cadLivro.getById(cod)
+            const connection = await banco.getPool()
+            const result = await cadLivro.getById(connection,cod)
             if(result){
                 return res.status(200).json(result)
             }else{
@@ -39,7 +41,8 @@ class cadLivroController{
         const livroData =req.body;
 
         try{
-            await cadLivro.create(livroData);
+            const connection = await banco.getPool()
+            await cadLivro.create(connection,livroData);
             res.status(201).json({message:'registro com successo'})
         } catch (error) {
             console.log('erro ao inserir:'+error);
@@ -54,7 +57,8 @@ class cadLivroController{
         const livroData =req.body;
 
         try{
-            await cadLivro.update(cod,livroData);
+            const connection = await banco.getPool()
+            await cadLivro.update(connection,cod,livroData);
             res.status(201).json({message:'registro com successo'})
         } catch (error) {
             console.log('erro ao atualizar:'+error);
@@ -66,7 +70,8 @@ class cadLivroController{
     async delete (req,res){
         const id = req.params.id; //params
         try {
-            await cadLivro.delete(id)
+            const connection = await banco.getPool()
+            await cadLivro.delete(connection,id)
             res.status(200).json({message:'registro deletado'})
         } catch (error) {
             console.log('erro ao deletar', error)
@@ -77,7 +82,8 @@ class cadLivroController{
     async filtrar(req, res) {
         const filtro = req.body;
         try {
-            const result = await cadLivro.filtrar(filtro);
+            const connection = await banco.getPool()
+            const result = await cadLivro.filtrar(connection,filtro);
             return res.status(200).json(result);
         } catch (error) {
             console.error("Erro ao filtrar autores:", error);

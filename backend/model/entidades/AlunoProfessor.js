@@ -1,59 +1,36 @@
-const banco = require("../database");
-
-
+//const banco = require("../../config/database");
+const AlunoProfDAO =  require("../../Persistencia/alunoProfessorDAO.js")
 
 class AlunoProfessor {
-    Nome;
-    cpf;
-    dNascimento;
-    email;
-    cidade;
-    rua;
-    telefone;
-    cep;
-    tipoPessoa;
-
-    constructor(Nome, cpf, dNascimento, Turma, email, cidade, rua, Telefone, Numero, cep, tipoPessoa) {
-        this.Nome = Nome,
-        this.cpf = cpf,
-        this.dNascimento = dNascimento,
-        this.Turma = Turma,
-        this.email = email,
-        this.cidade = cidade,
-        this.rua = rua,
-        this.Telefone = Telefone,
-        this.Numero = Numero,
-        this.cep = cep,
-        this.tipoPessoa = tipoPessoa
-    }
-
     
-    async getAll(){
-        const alunoprofessors = await banco.ExecutaComando('select * from alunoprofessor');
+    async getAll(connection){
+        const alunoProfDAO = new AlunoProfDAO()
+        const alunoprofessors = await alunoProfDAO.getAllDAO(connection);
+       //const alunoprofessors = await banco.ExecutaComando('select * from alunoprofessor');
         return alunoprofessors;
     }
 
-    async filtrar ({Nome, TipoPessoa}){
-        
-        var sql=`select * from alunoprofessor where Nome like '%${Nome}%' and TipoPessoa =?`
-           if(TipoPessoa=="Todos"){
-                sql=`select * from alunoprofessor where Nome like '%${Nome}%'`
-            }
-            const alunoprofessors =await banco.ExecutaComando(sql,TipoPessoa);
-            
+    async filtrar (connection,filtro){
+            const alunoProfDAO = new AlunoProfDAO()
+            const alunoprofessors =await alunoProfDAO.filtrarDAO(connection,filtro);
             return alunoprofessors
     }
 
-    async create(dadosAlunoProfessor){
-        await banco.ExecutaComandoNonQuery('insert into alunoprofessor set ?',dadosAlunoProfessor)
+    async create(connection,dadosAlunoProfessor){
+        const alunoProfDAO = new AlunoProfDAO()
+        await alunoProfDAO.createDAO(connection,dadosAlunoProfessor)
+
+        //await banco.ExecutaComandoNonQuery('insert into alunoprofessor set ?',dadosAlunoProfessor)
     }
 
-    async update(cpf,dadosAlunoProfessor){
-        await banco.ExecutaComando('update alunoprofessor set ? where cpf= ?',[dadosAlunoProfessor,cpf])
+    async update(connection,cpf,dadosAlunoProfessor){
+        const alunoProfDAO = new AlunoProfDAO()
+        await alunoProfDAO.updateDAO(connection,cpf,dadosAlunoProfessor)
     }
 
-    async delete (cpf){
-        await banco.ExecutaComandoNonQuery('delete from alunoprofessor where cpf=?',[cpf])
+    async delete (connection,cpf){
+        const alunoProfDAO = new AlunoProfDAO()
+        await alunoProfDAO.deleteDAO(connection,cpf)
     }
 
 }

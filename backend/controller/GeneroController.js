@@ -1,11 +1,13 @@
 const Genero = require("../model/entidades/genero");
+const banco = require("../config/database.js");
 const genero = new Genero;
 
 class GeneroController {
 
     async obterTodos(req, res) {
         try {
-            const result = await genero.obterTodos();
+            const connection = await banco.getPool()
+            const result = await genero.obterTodos(connection);
             return res.status(200).json(result);
         } catch (error) {
             console.error('Erro ao buscar gêneros:', error);
@@ -16,8 +18,9 @@ class GeneroController {
     async create(req, res) {
         const generoData = req.body;
         try {
+            const connection = await banco.getPool()
             console.log('Dados recebidos:', generoData);
-            await genero.create(generoData);
+            await genero.create(connection,generoData);
             res.status(201).json({ success: true, message: 'Gênero cadastrado com sucesso.' });
         } catch (error) {
             console.error('Erro ao cadastrar gênero:', error.message);
@@ -29,7 +32,8 @@ class GeneroController {
     async delete(req, res) {
         const ID = req.params.ID
         try {
-            await genero.delete(ID)
+            const connection = await banco.getPool()
+            await genero.delete(connection,ID)
             res.status(200).json({ messege: 'Genero deletado com sucesso!' })
         } catch (error) {
             console.log('Erro ao deletar o genero', error)
@@ -41,7 +45,8 @@ class GeneroController {
         const generoData = req.body;
         const ID = req.params.ID
         try {
-            await genero.update(ID, generoData);
+            const connection = await banco.getPool()
+            await genero.update(connection,ID, generoData);
             res.status(201).json({ message: 'Genero atualizado com sucesso!' })
         } catch (error) {
             console.log('Erro ao atualizar o Genero', error)

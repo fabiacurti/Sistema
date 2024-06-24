@@ -1,58 +1,40 @@
-const banco = require("../database");//Database
-
+//const banco = require("../../config/database.js");//Database
+const AutorDAO=require("../../Persistencia/autorDAO.js")
 //const banco = new Database()
 
 class Autor {
-    ID;
-    nome;
-    sobrenome;
-    dNascimento;
-    cidadeNascimento;
-    genero;
-    email;
-    qntObras
 
-    constructor(ID, nome, sobrenome, dNascimento, cidadeNascimento, genero, email, qntObras) {
-        this.ID = ID,
-        this.nome = nome
-        this.sobrenome = sobrenome
-        this.dNascimento = dNascimento
-        this.cidadeNascimento = cidadeNascimento
-        this.genero = genero
-        this.email = email
-        this.qntObras = qntObras
-    }
-
-    async getAll() {
-        const autores = await banco.ExecutaComando('select * from autor')
+    async getAll(connection) {
+        const autorDAO = new AutorDAO
+        const autores = await autorDAO.getAllDAO(connection)
         return autores
     }
 
-    async getById(ID) {
-        const result = await banco.ExecutaComando('select * from autor WHERE ID = ?', [ID])
-        const autor = result[0];
-        return autor
+    async getById(connection,ID) {
+        const autorDAO = new AutorDAO
+        const autores = await autorDAO.getByIdDAO(connection,[ID])
+        return autores
     }
 
-    async delete(ID) {
-        await banco.ExecutaComandoNonQuery('delete from autor where id=?', [ID])
+    async delete(connection,ID) {
+        const autorDAO = new AutorDAO
+        await autorDAO.deleteDAO(connection,[ID])
     }
 
 
-    async create(dadosAutor) {
-        await banco.ExecutaComandoNonQuery('insert into autor set ?', dadosAutor)
+    async create(connection,dadosAutor) {
+        const autorDAO = new AutorDAO
+        await autorDAO.createDAO(connection, dadosAutor)
     }
 
-    async update(ID, dadosAutor) {
-        await banco.ExecutaComando('update autor set ? where id=?', [dadosAutor, ID])
+    async update(connection,ID, dadosAutor) {
+        const autorDAO = new AutorDAO
+        await autorDAO.updateDAO(connection, [dadosAutor, ID])
     }
 
-    async filtrar({ Nome, genero }) {
-        var sql = `select * FROM autor where Nome like '%${Nome}%' and genero=?`
-        if (genero == "Todos") {
-            sql = `select * FROM autor where Nome like '%${Nome}%'`
-        }
-        const autores = await banco.ExecutaComando(sql, genero)
+    async filtrar(connection,filtro) {
+        const autorDAO = new AutorDAO
+        const autores = await autorDAO.filtrarDAO(connection,filtro)
         return autores
 
     }

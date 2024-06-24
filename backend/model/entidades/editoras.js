@@ -1,47 +1,39 @@
-const banco = require("../database");//Database
+const EditroaDAO = require("../../Persistencia/editorasDAO.js");//Database
 
 //const banco = new Database();
 
 class Editoras {
-    id;
-    status;
-    descricao;
-
-    constructor(id, status, descricao) {
-        this.id = id;
-        this.status = status;
-        this.descricao = descricao;
-    }
-
-    async getAll() {
-        const editoras = await banco.ExecutaComando('select * from editoras');
+    
+    async getAll(connection) {
+        const editroaDAO = new EditroaDAO;
+        const editoras = await editroaDAO.getAllDAO(connection);
         return editoras;
     }
 
-    async getById(id){
-        const result = await banco.ExecutaComando('SELECT * FROM editoras WHERE id = ?',[id])
-        const editoras = result[0];
-        return editoras;
+    async getById(connection,id){
+        const editroaDAO = new EditroaDAO;
+        const result = await editroaDAO.getByIdDAO(connection,id);
+        return result;
     }
 
-    async create(dadoseditora) {
-        await banco.ExecutaComandoNonQuery('insert into editoras set ?', dadoseditora)
+    async create(connection,editorData) {
+        const editroaDAO = new EditroaDAO;
+        await editroaDAO.createDAO(connection,editorData)
     }
 
-    async update(id, dadoseditora) {
-        await banco.ExecutaComando('update editoras set ? where id=?', [dadoseditora, id])
+    async update(connection,id,editorData) {
+        const editroaDAO = new EditroaDAO;
+        await editroaDAO.updateDAO(connection,id,editorData);
     }
 
-    async delete(id) { 
-        await banco.ExecutaComandoNonQuery('delete from editoras where id=?', [id])
+    async delete(connection,id) { 
+        const editroaDAO = new EditroaDAO;
+        await editroaDAO.deleteDAO(connection,id)
     }
 
-    async filtrar ({Nome}){
-        var sql=`select * from editoras where Nome like '%${Nome}%' `
-            if(Nome==""){
-                sql=`select * from editoras where Nome like '%${Nome}%'`
-            }
-            const editora =await banco.ExecutaComando(sql);
+    async filtrar (connection,filtro){
+            const editroaDAO = new EditroaDAO;
+            const editora =await editroaDAO.filtrarDAO(connection,filtro);
             return editora
     }
 

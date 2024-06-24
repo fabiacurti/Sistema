@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
 import LivroService from "../services/livroService";
-import GeneroService from '../services/GeneroService';
-import EditoraService from '../services/EditoraService.js';
+import GeneroService from "../services/GeneroService";
+import EditoraService from "../services/EditoraService.js";
 
 const livroService = new LivroService();
 const editoraService = new EditoraService();
 
 function FormLivro({ selectedLivro, onUpdate }) {
-  const [generos, setGeneros] = useState([{
-    codigo: 0,
-    descricao: " Nenhum genero encontrado"
-  }])
-  const [editoras, setEditora] = useState([{
-    codigo: 0,
-    Nome: " Nenhuma editora encontrada"
-  }]);
+  const [generos, setGeneros] = useState([
+    {
+      codigo: 0,
+      descricao: " Nenhum genero encontrado",
+    },
+  ]);
+  const [editoras, setEditora] = useState([
+    {
+      codigo: 0,
+      Nome: " Nenhuma editora encontrada",
+    },
+  ]);
   const [livroData, setLivroData] = useState({
     nomeLivro: "",
     cod: "",
@@ -24,15 +28,14 @@ function FormLivro({ selectedLivro, onUpdate }) {
     dataPublicacao: "",
   });
 
-
   useEffect(() => {
     const fetchGeneros = async () => {
       try {
-        const response = await fetch('http://localhost:3001/genero');
+        const response = await fetch("http://localhost:3001/genero");
         const data = await response.json();
         setGeneros(data);
       } catch (error) {
-        console.error('Erro ao obter gêneros:', error);
+        console.error("Erro ao obter gêneros:", error);
       }
     };
 
@@ -41,24 +44,20 @@ function FormLivro({ selectedLivro, onUpdate }) {
   const carregaEditoras = async () => {
     try {
       const dados = await editoraService.getAllEditora();
-      setEditora(dados)
+      setEditora(dados);
     } catch (error) {
-      console.error('erro ao carregar livros', error)
+      console.error("erro ao carregar livros", error);
     }
-  }
+  };
   useEffect(() => {
-    carregaEditoras()
-
+    carregaEditoras();
   }, []);
-
-
 
   useEffect(() => {
     if (selectedLivro != null) {
       setLivroData(selectedLivro);
     }
-  }, [selectedLivro])
-    ;
+  }, [selectedLivro]);
 
   const [errors, setErrors] = useState({});
 
@@ -66,35 +65,30 @@ function FormLivro({ selectedLivro, onUpdate }) {
     const { name, value } = event.target;
     setLivroData({ ...livroData, [name]: value });
 
-    setErrors({ ...errors, [name]: '' });
+    setErrors({ ...errors, [name]: "" });
   };
 
   const validateForm = () => {
     let valid = true;
     const newErrors = {};
 
-
     if (livroData.nomeLivro.trim().length < 3) {
-      newErrors.nomeLivro = 'O Nome do Livro deve ter no mínimo 3 caracteres';
+      newErrors.nomeLivro = "O Nome do Livro deve ter no mínimo 3 caracteres";
       valid = false;
     }
-
 
     if (!/^\d+$/.test(livroData.numeroPagina)) {
-      newErrors.numeroPagina = 'Número de Páginas deve conter apenas números';
+      newErrors.numeroPagina = "Número de Páginas deve conter apenas números";
       valid = false;
     }
-
-
 
     if (!livroData.genero) {
-      newErrors.genero = 'Selecione o Gênero';
+      newErrors.genero = "Selecione o Gênero";
       valid = false;
     }
 
-
     if (!livroData.dataPublicacao) {
-      newErrors.dataPublicacao = 'Data de Publicação é obrigatória';
+      newErrors.dataPublicacao = "Data de Publicação é obrigatória";
       valid = false;
     }
 
@@ -134,19 +128,12 @@ function FormLivro({ selectedLivro, onUpdate }) {
   return (
     <div>
       <div className="ConteinerLivro">
-        
-          
-           
-              <div className="cabecalhosLivro" style={{ color: "#ddd" }}>
-                Cadastro de Livros
-              </div>
-            
-          
-        
+        <div className="cabecalhosLivro" style={{ color: "#ddd" }}>
+          Cadastro de Livros
+        </div>
       </div>
       <div className="formulario fundo">
         <form onSubmit={handleSubmit} className="row g-3 needs-validation">
-
           <div className="form-group col-md-5">
             <label>Código do Livro:</label>
             <input
@@ -168,9 +155,10 @@ function FormLivro({ selectedLivro, onUpdate }) {
               value={livroData.nomeLivro}
               onChange={handleInputChange}
             />
-            {errors.nomeLivro && <p style={{ color: "red" }}>{errors.nomeLivro}</p>}
+            {errors.nomeLivro && (
+              <p style={{ color: "red" }}>{errors.nomeLivro}</p>
+            )}
           </div>
-
 
           <div className="form-group col-md-5">
             <label>Número de Páginas:</label>
@@ -181,7 +169,9 @@ function FormLivro({ selectedLivro, onUpdate }) {
               value={livroData.numeroPagina}
               onChange={handleInputChange}
             />
-            {errors.numeroPagina && <p style={{ color: "red" }}>{errors.numeroPagina}</p>}
+            {errors.numeroPagina && (
+              <p style={{ color: "red" }}>{errors.numeroPagina}</p>
+            )}
           </div>
 
           <div className="form-group col-md-5">
@@ -194,8 +184,10 @@ function FormLivro({ selectedLivro, onUpdate }) {
               onChange={handleInputChange}
             >
               <option value="">Selecione uma Editora</option>
-              {editoras.map(editora => (
-                <option key={editora.codigo} value={editora.codigo}>{editora.Nome}</option>
+              {editoras.map((editora) => (
+                <option key={editora.codigo} value={editora.codigo}>
+                  {editora.Nome}
+                </option>
               ))}
             </select>
           </div>
@@ -210,8 +202,10 @@ function FormLivro({ selectedLivro, onUpdate }) {
               onChange={handleInputChange}
             >
               <option value="">Selecione um Genero</option>
-              {generos.map(genero => (
-                <option key={genero.codigo} value={genero.descricao}>{genero.descricao}</option>
+              {generos.map((genero) => (
+                <option key={genero.codigo} value={genero.descricao}>
+                  {genero.descricao}
+                </option>
               ))}
             </select>
             {errors.genero && <p style={{ color: "red" }}>{errors.genero}</p>}
@@ -225,16 +219,24 @@ function FormLivro({ selectedLivro, onUpdate }) {
               className="form-control"
               value={livroData.dataPublicacao}
               onChange={handleInputChange}
-              max={`${new Date().getFullYear()}-${new Date().getMonth().toString().padStart(2, "0")}-${new Date().getDate().toString().padStart(2, "0")}`}
+              max={`${new Date().getFullYear()}-${new Date()
+                .getMonth()
+                .toString()
+                .padStart(2, "0")}-${new Date()
+                .getDate()
+                .toString()
+                .padStart(2, "0")}`}
             />
-            {errors.dataPublicacao && <p style={{ color: "red" }}>{errors.dataPublicacao}</p>}
+            {errors.dataPublicacao && (
+              <p style={{ color: "red" }}>{errors.dataPublicacao}</p>
+            )}
           </div>
 
           <div className="form-group col-md-12">
             <div class="row justify-content-center">
               <div class="col-auto">
                 <button type="submit" className="btn btn-outline-success">
-                Cadastrar
+                  Cadastrar
                 </button>
               </div>
             </div>

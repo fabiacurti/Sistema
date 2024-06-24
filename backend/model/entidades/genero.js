@@ -1,59 +1,31 @@
-const banco = require('../database');
+const GeneroDAO = require('../../Persistencia/generoDAO.js');
 
 //const banco = new Database()
 
 class Genero {
-    constructor(id, codigo, descricao, isAtivo) {
-        this.id = id;
-        this.codigo = codigo;
-        this.descricao = descricao;
-        this.isAtivo = isAtivo;
-    }
-
-    async obterTodos() {
-        const generos = await banco.ExecutaComando('select * from generos')
+    
+    async obterTodos(connection) {
+        const generoDAO = new GeneroDAO;
+        const generos = await generoDAO.obterTodosDAO(connection)
         return generos;
     }
 
-    async create(generoData) {
-        const parametros = [generoData.codigo, generoData.descricao, generoData.isAtivo];
-        const query = 'INSERT INTO generos (codigo, descricao, isAtivo) VALUES (?, ?, ?)';
-    
-        try {
-            const resultado = await banco.ExecutaComando(query, parametros);
-            return resultado;
-        } catch (error) {
-            console.error('Erro ao cadastrar gênero:', error);
-            throw new Error('Erro ao cadastrar gênero no banco de dados.');
-        }
-    }
-    
-    
-
-
-    async delete(ID) {
-        await banco.ExecutaComandoNonQuery('delete from generos where id=?', [ID])
-    }
-
-    async update(ID, dadosGenero) {
-        if (!dadosGenero.descricao) {
-          throw new Error('A propriedade "descricao" é obrigatória para atualizar o gênero.');
+    async create(connection,generoData) {
+      const generoDAO = new GeneroDAO;
+      const resultado = await generoDAO.createDAO(connection,generoData);
+      return resultado;
         }
     
-        const campos = Object.keys(dadosGenero).map((campo) => `${campo} = ?`).join(', ');
-        const valores = Object.values(dadosGenero);
-    
+      
+    async delete(connection,ID) {
+        const generoDAO = new GeneroDAO;
+        await generoDAO.deleteDAO(connection,ID)
+    }
+
+    async update(connection,ID, dadosGenero) {
+        const generoDAO = new GeneroDAO;
+        await generoDAO.updateDAO(connection,ID, dadosGenero);
         
-        valores.push(ID);
-    
-        const query = `UPDATE generos SET ${campos} WHERE id=?`;
-    
-        try {
-          await banco.ExecutaComando(query, valores);
-        } catch (error) {
-          console.error('Erro ao executar o comando SQL de atualização:', error);
-          throw new Error('Erro ao atualizar gênero no banco de dados.');
-        }
       }
     
 

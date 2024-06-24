@@ -1,12 +1,13 @@
 const Reserva = require("../model/entidades/reserva.js");
-
+const banco = require("../config/database.js");
 
 const reserva =new Reserva();
 
 class ReservaController{
     async getAllByIDProf(req,res){
        try {
-            const result = await reserva.getAllByIDProf()
+            const connection = await banco.getPool()
+            const result = await reserva.getAllByIDProf(connection)
             return res.status(200).json(result)
        } catch (error) {
         console.log('Erro ao buscar Reservas:'+error)
@@ -14,13 +15,14 @@ class ReservaController{
 
        }
         
-        return reserva.getAll()
+        return reserva.getAllByIDProf()
     }
 
     async filtrar (req,res){
         const filtro =req.body;
         try {
-            const result =await reserva.filtrar(filtro)
+            const connection = await banco.getPool()
+            const result =await reserva.filtrar(connection,filtro)
             return res.status(200).json(result);
         } catch (error) {
             console.log(error)
@@ -30,7 +32,8 @@ class ReservaController{
     async create(req,res){
         const reservaData =req.body;
         try {
-            await reserva.create(reservaData);
+            const connection = await banco.getPool()
+            await reserva.create(connection,reservaData);
             res.status(200).json({message:'Registro cadastrado com sucesso'})
             
         } catch (error) {
@@ -47,7 +50,8 @@ class ReservaController{
         const reservaData =req.body;
         const id_Res =req.params.id_Res;
         try {
-            await reserva.update(id_Res,reservaData);
+            const connection = await banco.getPool()
+            await reserva.update(connection,reservaData ,id_Res);
             res.status(201).json({message:'Registro cadastrado com sucesso'})
         } catch (error) {
             console.log('Erro ao atualizar Alunos & Professores:'+error)
@@ -58,7 +62,8 @@ class ReservaController{
     async delete(req, res){
         const id_Res = req.params;
         try {
-            await reserva.delete(id_Res.id);
+            const connection = await banco.getPool()
+            await reserva.delete(connection,id_Res.id);
             res.status(200).json({message:'Registro deletado com sucesso'})
         } catch (error) {
             console.log('Erro ao deletar reservar', error)

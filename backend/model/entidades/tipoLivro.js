@@ -1,53 +1,40 @@
-const banco = require("../database");
+const tipoLivroDAO = require("../../Persistencia/tipoLivroDAO.js");
 
 //const banco = new Database()
 
 class TipoLivro {
-    ID;
-    nome;
-    faixaEtaria;
-    nivelLeitura;
-    formato
 
-    constructor(ID, nome, faixaEtaria, nivelLeitura, formato) {
-        this.ID = ID,
-        this.nome = nome
-        this.faixaEtaria = faixaEtaria
-        this.nivelLeitura = nivelLeitura
-        this.formato = formato
-        
-    }
-
-    async getAll() {
-        const tipoLivros = await banco.ExecutaComando('select * from tipoLivro')
+    async getAll(connection) {
+        const tipolivroDAO = new tipoLivroDAO
+        const tipoLivros = await tipolivroDAO.getAllDAO(connection)
         return tipoLivros
     }
 
-    async getById(ID) {
-        const result = await banco.ExecutaComando('select * from tipoLivro WHERE ID = ?', [ID])
-        const tipoLivro = result[0];
+    async getById(connection,ID) {
+        const tipolivroDAO = new tipoLivroDAO
+        const tipoLivro = await tipolivroDAO.getByIdDAO(connection,ID)
         return tipoLivro
     }
 
-    async delete(ID) {
-        await banco.ExecutaComandoNonQuery('delete from tipoLivro where id=?', [ID])
+    async delete(connection,ID) {
+        const tipolivroDAO = new tipoLivroDAO
+        await tipolivroDAO.deleteDAO(connection,ID)
     }
 
 
-    async create(dadosTipoLivro) {
-        await banco.ExecutaComandoNonQuery('insert into tipoLivro set ?', dadosTipoLivro)
+    async create(connection,dadosTipoLivro) {
+        const tipolivroDAO = new tipoLivroDAO
+        await tipolivroDAO.createDAO(connection,dadosTipoLivro)
     }
 
-    async update(ID, dadosTipoLivro) {
-        await banco.ExecutaComando('update tipoLivro set ? where id=?', [dadosTipoLivro, ID])
+    async update(connection,dadosTipoLivro, ID) {
+        const tipolivroDAO = new tipoLivroDAO
+        await tipolivroDAO.updateDAO(connection,dadosTipoLivro, ID)
     }
 
-    async filtrar({ Nome, faixaEtaria }) {
-        var sql = `SELECT * FROM tipoLivro WHERE Nome like '%${Nome}%' AND faixaEtaria = ?`
-        if (faixaEtaria == "Todos") {
-            sql = `select * FROM tipoLivro where Nome like '%${Nome}%'`
-        }
-        const tipoLivros = await banco.ExecutaComando(sql, faixaEtaria)
+    async filtrar(connection,filtro) {
+        const tipolivroDAO = new tipoLivroDAO
+        const tipoLivros = await tipolivroDAO.filtrarDAO(connection,filtro)
         return tipoLivros
 
     }

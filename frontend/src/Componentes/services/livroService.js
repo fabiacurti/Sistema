@@ -7,7 +7,6 @@ class LivroService{
     async getAllLivros(){
         try {
             const response = await fetch(`${API_BASE_URL}/cadlivro`)
-
             if(!response.ok){
                 throw new Error('erro de busca')
             }
